@@ -1,0 +1,5 @@
+! testComment
+/*
+Test multiline comment
+*/
+INT FUNCTION TestFunction //test comment
