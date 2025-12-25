@@ -1,5 +1,33 @@
-! testComment
-/*
-Test multiline comment
-*/
-INT FUNCTION TestFunction //test comment
+// GLOBAL STRING ManifestOfBoats = MapOpen();
+
+/// <summary>
+/// Adds a boat to the boat manifest
+/// </summary>
+/// <param name="BoatID">Boat ID number</param>
+/// <param name="BoatName">Name of boat</param>
+/// <returns>0 for success, otherwise error code (either -1 for incorrect ID number, or MapValueSet error code)</returns>
+PRIVATE INT FUNCTION AddBoatToManifest(INT BoatID, STRING BoatName = "My default boat name ")
+    /*
+    NOTE: There may be some underlying flaw here, I wrote this at 2AM
+    */
+    INT incrementValue;
+    STRING val1, val2;
+
+    INT counter = incrementValue;
+    counter = "a" + 2;
+    Counter = (2 + incrementValue)/3;
+    IF counter > 0 THEN
+        incrementValue = 1;
+        IF checkIfBoatIsCoastGuards(BoatID) THEN
+            val1 =  MapValueSet(ManifestOfBoats, IntToStr(BoatID), BoatName); // All Coast Guard boat ID’s already exist in manifest, but update the name
+            RETURN val1;
+        ELSE
+            IF MapKeyExists(ManifestOfBoats, BoatID) THEN
+                RETURN -1;      // Couldn’t add boat, ID already exists
+            ELSE
+                RETURN MapValueSet(ManifestOfBoats, IntToStr(BoatID), BoatName);
+            END
+
+        END
+    END
+END
