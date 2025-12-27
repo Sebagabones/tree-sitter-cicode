@@ -30,4 +30,25 @@ PRIVATE INT FUNCTION AddBoatToManifest(INT BoatID, STRING BoatName = "My default
 
         END
     END
+
+    SELECT CASE BoatID
+        CASE 0 TO 9             // BoatID’s cannot be single digits
+            RETURN -1;
+        CASE 11,12              // These are reserved by the Coast Guard
+            IF checkIfBoatIsCoastGuards(BoatID) THEN
+                StringVar=IntVar:3.2;
+                RETURN MapValueSet(ManifestOfBoats, IntToStr(BoatID), BoatName); // All Coast Guard boat ID’s already exist in manifest, but update the name
+            ELSE
+                StringVar=IntVar:#0-###.##EU;
+                RETURN -1;
+            END
+        CASE 1 TO 4, 7 TO 9, 11, 13, IS > MaxNumber
+
+        CASE ELSE
+            IF MapKeyExists(ManifestOfBoats + 1, BoatID) THEN
+                RETURN -1;      // Couldn’t add boat, ID already exists
+            ELSE
+                RETURN MapValueSet(ManifestOfBoats, IntToStr(BoatID), BoatName);
+            END
+    END SELECT
 END

@@ -1,5 +1,23 @@
 [
   {
+    "type": "statement_or_expression",
+    "named": true,
+    "subtypes": [
+      {
+        "type": "if_statement",
+        "named": true
+      },
+      {
+        "type": "select_case_statement",
+        "named": true
+      },
+      {
+        "type": "variable_assignment",
+        "named": true
+      }
+    ]
+  },
+  {
     "type": "a_function",
     "named": true,
     "fields": {},
@@ -55,6 +73,79 @@
     "fields": {}
   },
   {
+    "type": "case_expression",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "expression_atom",
+          "named": true
+        },
+        {
+          "type": "select_case_conditional_statement",
+          "named": true
+        },
+        {
+          "type": "to_statement",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "case_statement",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "case_expression",
+          "named": true
+        },
+        {
+          "type": "return_statment",
+          "named": true
+        },
+        {
+          "type": "statement_or_expression",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "conditional_atom",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "conditional_atom",
+          "named": true
+        },
+        {
+          "type": "conditional_statement",
+          "named": true
+        },
+        {
+          "type": "function_call",
+          "named": true
+        },
+        {
+          "type": "variable_name",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "conditional_statement",
     "named": true,
     "fields": {},
@@ -63,11 +154,11 @@
       "required": true,
       "types": [
         {
-          "type": "conditional_statement",
+          "type": "conditional_atom",
           "named": true
         },
         {
-          "type": "expression_atom",
+          "type": "conditional_statement",
           "named": true
         },
         {
@@ -155,22 +246,51 @@
     }
   },
   {
-    "type": "expression_variable_assignments",
+    "type": "format_specifier",
     "named": true,
     "fields": {},
     "children": {
-      "multiple": false,
-      "required": true,
+      "multiple": true,
+      "required": false,
       "types": [
         {
-          "type": "expression",
+          "type": "format_specifier_decimal_notation",
+          "named": true
+        },
+        {
+          "type": "format_specifier_engineering_units",
+          "named": true
+        },
+        {
+          "type": "format_specifier_exponential_notation",
+          "named": true
+        },
+        {
+          "type": "format_specifier_hash",
+          "named": true
+        },
+        {
+          "type": "format_specifier_justification",
+          "named": true
+        },
+        {
+          "type": "format_specifier_padding",
+          "named": true
+        },
+        {
+          "type": "format_specifier_shortform_notation",
           "named": true
         }
       ]
     }
   },
   {
-    "type": "function_call",
+    "type": "format_specifier_justification",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "format_specifier_shortform_notation",
     "named": true,
     "fields": {},
     "children": {
@@ -178,9 +298,48 @@
       "required": true,
       "types": [
         {
-          "type": "expression",
+          "type": "format_specifier_decimal_notation",
           "named": true
         },
+        {
+          "type": "format_specifier_engineering_units",
+          "named": true
+        },
+        {
+          "type": "format_specifier_exponential_notation",
+          "named": true
+        },
+        {
+          "type": "format_specifier_shortform_number",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "format_specifier_shortform_number",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "function_call",
+    "named": true,
+    "fields": {
+      "functionParameter": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "expression",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
         {
           "type": "function_name",
           "named": true
@@ -334,6 +493,11 @@
     "fields": {}
   },
   {
+    "type": "number",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "operators_used_in_conditionals",
     "named": true,
     "fields": {},
@@ -397,6 +561,59 @@
     }
   },
   {
+    "type": "select_case_conditional_statement",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "conditional_statement",
+          "named": true
+        },
+        {
+          "type": "operators_used_in_conditionals",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "select_case_statement",
+    "named": true,
+    "fields": {
+      "Case": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "case_statement",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "conditional_statement",
+          "named": true
+        },
+        {
+          "type": "return_statment",
+          "named": true
+        },
+        {
+          "type": "statement_or_expression",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "source_file",
     "named": true,
     "root": true,
@@ -413,28 +630,24 @@
     }
   },
   {
-    "type": "statement_or_expression",
+    "type": "string",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "to_statement",
     "named": true,
     "fields": {},
     "children": {
-      "multiple": false,
+      "multiple": true,
       "required": true,
       "types": [
         {
-          "type": "if_statement",
-          "named": true
-        },
-        {
-          "type": "variable_assignment",
+          "type": "expression_atom",
           "named": true
         }
       ]
     }
-  },
-  {
-    "type": "string",
-    "named": true,
-    "fields": {}
   },
   {
     "type": "variable_assignment",
@@ -445,7 +658,11 @@
       "required": true,
       "types": [
         {
-          "type": "expression_variable_assignments",
+          "type": "expression",
+          "named": true
+        },
+        {
+          "type": "format_specifier",
           "named": true
         },
         {
@@ -533,6 +750,10 @@
     "named": false
   },
   {
+    "type": ":",
+    "named": false
+  },
+  {
     "type": ";",
     "named": false
   },
@@ -581,11 +802,23 @@
     "named": false
   },
   {
+    "type": "CASE",
+    "named": false
+  },
+  {
+    "type": "CASE ELSE",
+    "named": false
+  },
+  {
     "type": "ELSE",
     "named": false
   },
   {
     "type": "END",
+    "named": false
+  },
+  {
+    "type": "END SELECT",
     "named": false
   },
   {
@@ -598,6 +831,10 @@
   },
   {
     "type": "INT",
+    "named": false
+  },
+  {
+    "type": "IS",
     "named": false
   },
   {
@@ -641,6 +878,10 @@
     "named": false
   },
   {
+    "type": "SELECT CASE",
+    "named": false
+  },
+  {
     "type": "STRING",
     "named": false
   },
@@ -653,6 +894,10 @@
     "named": false
   },
   {
+    "type": "TO",
+    "named": false
+  },
+  {
     "type": "VOID",
     "named": false
   },
@@ -662,7 +907,23 @@
     "extra": true
   },
   {
-    "type": "number",
+    "type": "format_specifier_decimal_notation",
+    "named": true
+  },
+  {
+    "type": "format_specifier_engineering_units",
+    "named": true
+  },
+  {
+    "type": "format_specifier_exponential_notation",
+    "named": true
+  },
+  {
+    "type": "format_specifier_hash",
+    "named": true
+  },
+  {
+    "type": "format_specifier_padding",
     "named": true
   },
   {

@@ -9,14 +9,13 @@
 
 module.exports = grammar({
     name: "cicode",
+    // TODO: Look into injection for the comments https://www.jonashietala.se/blog/2024/03/19/lets_create_a_tree-sitter_grammar/#Language-injection - it may be better to just do simple version ourselves that lets us define the type as docstirng, buuut we could probs do that anyway, idk
 
-    extras: ($) => [
-        "\r",
-        "\n",
-        $._whitespace,
-        $.comment,
-        // TODO: add comment in here
+    extras: ($) => ["\r", "\n", $._whitespace, $.comment],
+    conflicts: ($) => [
+        [$.format_specifier_shortform_notation, $.format_specifier],
     ],
+    supertypes: ($) => [$.statement_or_expression],
     rules: {
         // TODO: add the actual grammar rules
         source_file: ($) => repeat($._definition),
@@ -155,7 +154,6 @@ module.exports = grammar({
         expression: ($) =>
             choice(
                 $.expression_atom,
-
                 prec.left(
                     1,
                     seq(
@@ -166,39 +164,91 @@ module.exports = grammar({
                 ),
             ),
 
-        expression_variable_assignments: ($) => choice($.expression),
-
         statement_or_expression: ($) =>
-            choice($.variable_assignment, $.if_statement),
+            choice(
+                $.variable_assignment,
+                field("IfStatement", $.if_statement),
+                field("SelectCase", $.select_case_statement),
+            ),
 
         variable_assignment: ($) =>
             seq(
                 $.variable_name,
                 "=",
-                choice($.expression_variable_assignments),
+                $.expression,
+                optional($.format_specifier),
                 ";",
+            ),
+
+        format_specifier_hash: ($) => "#",
+        format_specifier_padding: ($) => "0",
+        format_specifier_justification: ($) => "-",
+        format_specifier_decimal_notation: ($) => ".",
+        format_specifier_engineering_units: ($) => /[A-Za-z]+/,
+        format_specifier_exponential_notation: ($) => "S",
+
+        format_specifier: ($) =>
+            seq(
+                ":",
+                choice(
+                    $.format_specifier_shortform_notation,
+                    repeat(
+                        choice(
+                            $.format_specifier_hash,
+                            $.format_specifier_padding,
+                            $.format_specifier_justification,
+                            $.format_specifier_decimal_notation,
+                            $.format_specifier_engineering_units,
+                            $.format_specifier_exponential_notation,
+                        ),
+                    ),
+                ),
+            ),
+        format_specifier_shortform_number: ($) => /[0-9]+/,
+
+        format_specifier_shortform_notation: ($) =>
+            seq(
+                repeat1(
+                    choice(
+                        $.format_specifier_shortform_number,
+                        $.format_specifier_engineering_units,
+                        $.format_specifier_exponential_notation,
+                    ),
+                ),
+                optional(
+                    seq(
+                        $.format_specifier_decimal_notation,
+                        repeat(
+                            choice(
+                                $.format_specifier_shortform_number,
+                                $.format_specifier_engineering_units,
+                                $.format_specifier_exponential_notation,
+                            ),
+                        ),
+                    ),
+                ),
             ),
 
         function_call: ($) =>
             seq(
                 $.function_name,
                 "(",
-                optional($.expression),
-                optional(repeat(seq(",", $.expression))),
+                optional(field("functionParameter", $.expression)),
+                repeat(seq(",", field("functionParameter", $.expression))),
                 ")",
             ),
-        //
+
         conditional_atom: ($) =>
             choice(
                 $.variable_name,
                 seq("(", $.conditional_statement, ")"),
-                prec.right(2, seq("NOT", $.conditional_atom)), // unary minus
+                prec.right(2, seq("NOT", $.conditional_atom)), // unary NOT
                 $.function_call,
             ),
 
         conditional_statement: ($) =>
             choice(
-                $.expression_atom,
+                $.conditional_atom,
 
                 prec.left(
                     1,
@@ -226,6 +276,47 @@ module.exports = grammar({
                 ),
                 "END",
             ),
+
+        to_statement: ($) => seq($.expression_atom, "TO", $.expression_atom),
+
+        case_expression: ($) =>
+            choice(
+                $.expression_atom,
+                $.to_statement,
+                $.select_case_conditional_statement,
+            ),
+
+        select_case_conditional_statement: ($) =>
+            seq(
+                "IS",
+                $.operators_used_in_conditionals,
+                $.conditional_statement,
+            ),
+        select_case_statement: ($) =>
+            seq(
+                "SELECT CASE",
+                $.conditional_statement,
+                repeat(seq(field("Case", $.case_statement))),
+                optional(
+                    seq(
+                        "CASE ELSE",
+                        optional($.statement_or_expression),
+                        optional($.return_statment),
+                    ),
+                ),
+                "END SELECT",
+            ),
         return_statment: ($) => seq("RETURN", choice($.expression), ";"),
+
+        case_statement: ($) =>
+            seq(
+                "CASE",
+
+                seq($.case_expression, repeat(seq(",", $.case_expression))),
+                seq(
+                    repeat($.statement_or_expression),
+                    optional($.return_statment),
+                ),
+            ),
     },
 });
