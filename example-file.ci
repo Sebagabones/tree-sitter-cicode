@@ -1,4 +1,47 @@
-// GLOBAL STRING ManifestOfBoats = MapOpen();
+GLOBAL STRING ManifestOfBoats = MapOpen();
+REAL Array[10];
+STRING ArrayA[5]="This","is","a","String","Array";
+INT ArrayA[4][3][2]=1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24;
+! old style
+/// <summary>
+/// Adds a boat to the boat manifest
+/// </summary>
+/// <param name="BoatID">Boat ID number</param>
+/// <param name="BoatName">Name of boat</param>
+/// <returns>0 for success, otherwise error code (either -1 for incorrect ID number, or MapValueSet error code)</returns>
+
+
+! new style
+/**
+<function name="AddBoatToManifest">
+<summary>
+Adds a boat to the boat manifest
+</summary>
+<params>
+<param name="BoatID">Boat ID number</param>
+<param name="BoatName">Name of boat</param>
+</params>
+<returns>
+0 for success, otherwise error code (either -1 for incorrect ID number, or MapValueSet error code)
+</returns>
+</function>
+**/
+
+
+
+/**
+<function name="AddBoatToManifest">
+ <summary>
+  TODO summary
+ </summary>
+
+ <params>
+  <param name="BoatID">TODO</param>
+  <param name="BoatName">TODO</param>
+ </params>
+ <returns>TODO</returns>
+</function>
+**/
 
 /// <summary>
 /// Adds a boat to the boat manifest
@@ -6,6 +49,17 @@
 /// <param name="BoatID">Boat ID number</param>
 /// <param name="BoatName">Name of boat</param>
 /// <returns>0 for success, otherwise error code (either -1 for incorrect ID number, or MapValueSet error code)</returns>
+
+
+
+/// <function name="AddBoatToManifest">
+/// <summary>
+/// TODO summary
+/// </summary>
+/// <param name="BoatID">TODO</param>
+/// <param name="BoatName">TODO</param>
+/// <returns>TODO</returns>
+/// </function>
 PRIVATE INT FUNCTION AddBoatToManifest(INT BoatID, STRING BoatName = "My default boat name ")
     /*
     NOTE: There may be some underlying flaw here, I wrote this at 2AM
@@ -14,6 +68,7 @@ PRIVATE INT FUNCTION AddBoatToManifest(INT BoatID, STRING BoatName = "My default
     STRING val1, val2;
 
     INT counter = incrementValue;
+
     counter = "a" + 2;
     Counter = (2 + incrementValue)/3;
     IF counter > 0 THEN

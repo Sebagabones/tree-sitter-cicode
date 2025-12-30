@@ -11,13 +11,22 @@ module.exports = grammar({
     name: "cicode",
     // TODO: Look into injection for the comments https://www.jonashietala.se/blog/2024/03/19/lets_create_a_tree-sitter_grammar/#Language-injection - it may be better to just do simple version ourselves that lets us define the type as docstirng, buuut we could probs do that anyway, idk
 
+    word: ($) => $.identifier,
     extras: ($) => ["\r", "\n", $._whitespace, $.comment],
     conflicts: ($) => [
         [$.format_specifier_shortform_notation, $.format_specifier],
+        [$.array_scope, $.variable_scope],
     ],
-    supertypes: ($) => [$.statement_or_expression],
+    supertypes: ($) => [
+        $.statement,
+        $.expression_atom,
+        $.conditional_atom,
+        $.operators_used_in_statements,
+        $.operators_used_in_conditionals,
+        $.expression_,
+    ],
+
     rules: {
-        // TODO: add the actual grammar rules
         source_file: ($) => repeat($._definition),
 
         _whitespace: ($) => /\s/,
@@ -40,24 +49,27 @@ module.exports = grammar({
                     seq("/*", /[^*]*\*+([^/*][^*]*\*+)*/, "/"),
                 ),
             ),
-
+        xml_docstring: ($) => // I was considering writing a standarised
+            seq(),
         _definition: ($) =>
             choice(
                 $.a_function,
-                // TODO: other kinds of definitions - global ect
+                $.variable_declaration,
+                $.array_declaration, // cannot be inside of function body - at least, i dont think a module declaration inside of a function would work? idk, should test it sometime
             ),
 
         a_function: ($) =>
             seq(
                 $.function_definition,
                 optional(repeat($.variable_declaration)),
-                optional(repeat($.statement_or_expression)),
+                optional(repeat($.statement)),
                 optional($.return_statment),
                 "END",
             ),
+
         function_scope: ($) => choice("PUBLIC", "PRIVATE"),
 
-        _type: ($) =>
+        type: ($) =>
             choice(
                 "INT",
                 "STRING",
@@ -67,30 +79,38 @@ module.exports = grammar({
                 "BOOL",
                 "OBJECT",
                 "LONG", // IDK, their docs dont mention it iirc, but their examples do
+                "VOID", // Only valid for functions, but eh
             ),
-
-        parameter_name: ($) => /[0-9A-Za-z-_]+/,
-        /*
-          I don’t think cicode has any rules about what a variable name can be, except for, and I quote:
-          "The first 32 characters of a variable name needs to be unique." - https://docs.aveva.com/bundle/plant-scada/page/1130531.html
-          That is not going to be implemented here.
-        */
 
         number: ($) => /[0-9]+/,
 
-        string: ($) => seq('"', repeat(choice(/[^\^"]/, /\^./)), '"'),
+        string_contents: ($) => repeat1(choice(/[^\^"]/, /\^./)),
 
-        parameter_type: ($) => $._type,
+        _quotation_mark: ($) => '"',
 
-        default_value: ($) => seq("=", choice($.number, $.string)),
+        string: ($) =>
+            seq(
+                $._quotation_mark,
+                optional($.string_contents),
+                $._quotation_mark,
+            ),
+
+        _default_value_equals_sign: ($) => "=",
+
+        default_value: ($) =>
+            seq($._default_value_equals_sign, choice($.number, $.string)),
 
         assign_to_value: ($) =>
-            seq("=", choice($.number, $.string, $.variable_name)),
+            seq("=", $.expression_, optional($.format_specifier)),
 
         function_parameter: ($) =>
             seq(
-                field("type", $.parameter_type),
-                field("name", $.parameter_name),
+                field("parameter_type", $.type),
+                field("parameter_name", $.identifier) /*
+          I don’t think cicode has any rules about what a variable name can be, except for, and I quote:
+          "The first 32 characters of a variable name needs to be unique." - https://docs.aveva.com/bundle/plant-scada/page/1130531.html
+          That is not going to be implemented here.
+        */,
                 optional(field("defaultval", $.default_value)),
             ),
         // Note that you cannot use default values infront of normal values, at some point I should fix that but eh
@@ -101,82 +121,109 @@ module.exports = grammar({
                 optional(repeat(seq(",", $.function_parameter))),
             ),
 
-        function_types: ($) =>
-            choice(
-                $._type,
-                "VOID",
-                // Functions *should* only use types of _type, but you can have no return type, or kinda a VOID type
-            ),
-
-        function_name: ($) => /[0-9A-Za-z]+/,
+        identifier: ($) => /[0-9A-Za-z]+/,
 
         function_definition: ($) =>
             seq(
                 field("scope", optional($.function_scope)),
-                field("returnType", optional($.function_types)),
+                field("return_type", optional($.type)),
                 "FUNCTION",
-                field("name", $.function_name),
+                field("function_name", $.identifier),
                 "(",
                 field("parameters", optional($.function_parameters)),
                 ")",
                 "\n",
             ),
-
-        variable_type: ($) => $._type,
-
-        variable_name: ($) => /[0-9A-Za-z]+/,
-
-        variable_declaration: ($) =>
+        global_variable_scope: ($) => "GLOBAL",
+        module_variable_scope: ($) => "MODULE",
+        local_variable_scope: ($) => "LOCAL",
+        variable_scope: ($) =>
+            choice(
+                $.global_variable_scope,
+                $.module_variable_scope,
+                $.local_variable_scope,
+            ),
+        variable_declaration: (
+            $, // I guess technically this is a statement, and should go inside of that, however, in cicode you need to declare all of your variables first, so keeping it here
+        ) =>
             seq(
-                field("varType", $.variable_type),
-                $.variable_name,
+                optional(field("variable_scope", $.variable_scope)),
+                field("variable_type", $.type),
+                field("variable", $.identifier),
                 optional($.assign_to_value),
                 optional(
                     repeat(
-                        seq(",", $.variable_name, optional($.assign_to_value)),
+                        seq(
+                            ",",
+                            field("variable", $.identifier),
+                            optional($.assign_to_value),
+                        ),
                     ),
                 ),
                 ";",
             ),
+        array_scope: (
+            $, // can’t have local scope arrays
+        ) => choice($.global_variable_scope, $.module_variable_scope),
 
-        variable_declarations: ($) => $.variable_declaration,
+        array_initial_values: ($) =>
+            seq(
+                "=",
+                $.expression_,
+                optional($.format_specifier),
+                repeat(seq(",", $.expression_, optional($.format_specifier))),
+            ),
+        array_brackets_index: ($) =>
+            repeat1(seq("[", field("array_dimension_size", $.number), "]")),
+        array_declaration: ($) =>
+            seq(
+                optional(field("array_scope", $.array_scope)),
+                field("array_type", $.type),
+                field("array", $.identifier),
+                field("array_dimensions", $.array_brackets_index),
+                optional(field("array_initial_values", $.array_initial_values)),
+                ";",
+            ),
+
+        expression_in_brackets: ($) => seq("(", $.expression_, ")"),
+
+        unary_minus_expression_atom: ($) =>
+            prec.right(2, seq("-", $.expression_atom)), // unary minus
 
         expression_atom: ($) =>
             choice(
-                $.variable_name,
+                $.identifier,
                 $.string,
                 $.number,
-                seq("(", $.expression, ")"),
-                prec.right(2, seq("-", $.expression_atom)), // unary minus
+                $.expression_in_brackets,
+                $.unary_minus_expression_atom,
                 $.function_call,
             ),
 
         expression: ($) =>
-            choice(
-                $.expression_atom,
-                prec.left(
-                    1,
-                    seq(
-                        $.expression,
-                        $.operators_used_in_statements,
-                        $.expression,
-                    ),
+            prec.left(
+                1,
+                seq(
+                    $.expression_,
+                    $.operators_used_in_statements,
+                    $.expression_,
                 ),
             ),
 
-        statement_or_expression: ($) =>
+        expression_: ($) => choice($.expression_atom, $.expression),
+
+        statement: ($) =>
             choice(
                 $.variable_assignment,
-                field("IfStatement", $.if_statement),
-                field("SelectCase", $.select_case_statement),
+                field("if_statement", $.if_statement),
+                field("select_case", $.select_case_statement),
             ),
 
         variable_assignment: ($) =>
             seq(
-                $.variable_name,
-                "=",
-                $.expression,
-                optional($.format_specifier),
+                field("variable", $.identifier),
+                optional(field("array_dimensions", $.array_brackets_index)),
+                $.assign_to_value,
                 ";",
             ),
 
@@ -231,31 +278,35 @@ module.exports = grammar({
 
         function_call: ($) =>
             seq(
-                $.function_name,
+                field("function_name", $.identifier),
                 "(",
-                optional(field("functionParameter", $.expression)),
-                repeat(seq(",", field("functionParameter", $.expression))),
+                optional(field("function_parameter", $.expression_)),
+                repeat(seq(",", field("function_parameter", $.expression_))),
                 ")",
             ),
 
+        conditional_expression_in_brackets: ($) =>
+            seq("(", $.conditional_expression, ")"),
+        unary_not_conditional_atom: ($) =>
+            prec.right(2, seq("NOT", $.conditional_atom)), // unary NOT
+
         conditional_atom: ($) =>
             choice(
-                $.variable_name,
-                seq("(", $.conditional_statement, ")"),
-                prec.right(2, seq("NOT", $.conditional_atom)), // unary NOT
+                $.identifier,
+                $.conditional_expression_in_brackets,
+                $.unary_not_conditional_atom,
                 $.function_call,
             ),
 
-        conditional_statement: ($) =>
+        conditional_expression: ($) =>
             choice(
                 $.conditional_atom,
-
                 prec.left(
                     1,
                     seq(
-                        $.conditional_statement,
+                        $.conditional_expression,
                         $.operators_used_in_conditionals,
-                        $.conditional_statement,
+                        $.conditional_expression,
                     ),
                 ),
             ),
@@ -263,14 +314,14 @@ module.exports = grammar({
         if_statement: ($) =>
             seq(
                 "IF",
-                $.conditional_statement,
+                $.conditional_expression,
                 "THEN",
-                optional(repeat($.statement_or_expression)),
+                optional(repeat($.statement)),
                 optional($.return_statment),
                 optional(
                     seq(
                         "ELSE",
-                        optional($.statement_or_expression),
+                        optional($.statement),
                         optional($.return_statment),
                     ),
                 ),
@@ -283,40 +334,36 @@ module.exports = grammar({
             choice(
                 $.expression_atom,
                 $.to_statement,
-                $.select_case_conditional_statement,
+                $.select_case_conditional_expression,
             ),
 
-        select_case_conditional_statement: ($) =>
+        select_case_conditional_expression: ($) =>
             seq(
                 "IS",
                 $.operators_used_in_conditionals,
-                $.conditional_statement,
+                $.conditional_expression,
             ),
         select_case_statement: ($) =>
             seq(
                 "SELECT CASE",
-                $.conditional_statement,
-                repeat(seq(field("Case", $.case_statement))),
-                optional(
-                    seq(
-                        "CASE ELSE",
-                        optional($.statement_or_expression),
-                        optional($.return_statment),
-                    ),
-                ),
+                $.conditional_expression,
+                repeat(seq(field("case", $.case_statement))),
+                optional(field("case_else", $.case_else_statement)),
                 "END SELECT",
             ),
-        return_statment: ($) => seq("RETURN", choice($.expression), ";"),
+        return_statment: ($) => seq("RETURN", choice($.expression_), ";"),
 
         case_statement: ($) =>
             seq(
                 "CASE",
-
                 seq($.case_expression, repeat(seq(",", $.case_expression))),
-                seq(
-                    repeat($.statement_or_expression),
-                    optional($.return_statment),
-                ),
+                seq(repeat($.statement), optional($.return_statment)),
+            ),
+        case_else_statement: ($) =>
+            seq(
+                "CASE ELSE",
+                optional($.statement),
+                optional($.return_statment),
             ),
     },
 });
