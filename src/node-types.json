@@ -124,6 +124,10 @@
           "named": true
         },
         {
+          "type": "function_end",
+          "named": true
+        },
+        {
           "type": "return_statment",
           "named": true
         },
@@ -133,6 +137,10 @@
         },
         {
           "type": "variable_declaration",
+          "named": true
+        },
+        {
+          "type": "xml_function_docstring",
           "named": true
         }
       ]
@@ -395,6 +403,123 @@
     }
   },
   {
+    "type": "doxygen_param_xml_close_opening_tag_name",
+    "named": true,
+    "fields": {
+      "parameter_name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "quotation_mark",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "doxygen_param_xml_tag",
+    "named": true,
+    "fields": {
+      "param_contents": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "doxygen_param_content",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "doxygen_param_xml_close_opening_tag",
+          "named": true
+        },
+        {
+          "type": "doxygen_param_xml_close_opening_tag_name",
+          "named": true
+        },
+        {
+          "type": "doxygen_param_xml_close_tag",
+          "named": true
+        },
+        {
+          "type": "doxygen_param_xml_open_tag",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "doxygen_returns_xml_tag",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "doxygen_returns_content",
+          "named": true
+        },
+        {
+          "type": "doxygen_returns_xml_close_tag",
+          "named": true
+        },
+        {
+          "type": "doxygen_returns_xml_open_tag",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "doxygen_summary_xml_tag",
+    "named": true,
+    "fields": {
+      "summary_contents": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "doxygen_summary_content",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "doxygen_summary_xml_close_tag",
+          "named": true
+        },
+        {
+          "type": "doxygen_summary_xml_open_tag",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "expression",
     "named": true,
     "fields": {},
@@ -575,6 +700,11 @@
         ]
       }
     }
+  },
+  {
+    "type": "function_end",
+    "named": true,
+    "fields": {}
   },
   {
     "type": "function_parameter",
@@ -774,9 +904,13 @@
     "named": true,
     "fields": {},
     "children": {
-      "multiple": false,
-      "required": false,
+      "multiple": true,
+      "required": true,
       "types": [
+        {
+          "type": "quotation_mark",
+          "named": true
+        },
         {
           "type": "string_contents",
           "named": true
@@ -814,15 +948,24 @@
     "named": true,
     "fields": {},
     "children": {
-      "multiple": false,
+      "multiple": true,
       "required": true,
       "types": [
         {
           "type": "expression_atom",
           "named": true
+        },
+        {
+          "type": "unary_minus_negation_symbol",
+          "named": true
         }
       ]
     }
+  },
+  {
+    "type": "unary_minus_negation_symbol",
+    "named": true,
+    "fields": {}
   },
   {
     "type": "unary_not_conditional_atom",
@@ -945,13 +1088,62 @@
     }
   },
   {
+    "type": "xml_docstring_contents",
+    "named": true,
+    "fields": {
+      "returns_contents": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "doxygen_returns_xml_tag",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "doxygen_param_xml_tag",
+          "named": true
+        },
+        {
+          "type": "doxygen_summary_xml_tag",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "xml_function_docstring",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "delimited_comment_doxygen_xml_closing",
+          "named": true
+        },
+        {
+          "type": "delimited_comment_doxygen_xml_opening",
+          "named": true
+        },
+        {
+          "type": "xml_docstring_contents",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "\n",
     "named": false,
     "extra": true
-  },
-  {
-    "type": "\"",
-    "named": false
   },
   {
     "type": "(",
@@ -1147,6 +1339,54 @@
     "extra": true
   },
   {
+    "type": "delimited_comment_doxygen_xml_closing",
+    "named": true
+  },
+  {
+    "type": "delimited_comment_doxygen_xml_opening",
+    "named": true
+  },
+  {
+    "type": "doxygen_param_content",
+    "named": true
+  },
+  {
+    "type": "doxygen_param_xml_close_opening_tag",
+    "named": true
+  },
+  {
+    "type": "doxygen_param_xml_close_tag",
+    "named": true
+  },
+  {
+    "type": "doxygen_param_xml_open_tag",
+    "named": true
+  },
+  {
+    "type": "doxygen_returns_content",
+    "named": true
+  },
+  {
+    "type": "doxygen_returns_xml_close_tag",
+    "named": true
+  },
+  {
+    "type": "doxygen_returns_xml_open_tag",
+    "named": true
+  },
+  {
+    "type": "doxygen_summary_content",
+    "named": true
+  },
+  {
+    "type": "doxygen_summary_xml_close_tag",
+    "named": true
+  },
+  {
+    "type": "doxygen_summary_xml_open_tag",
+    "named": true
+  },
+  {
     "type": "format_specifier_decimal_notation",
     "named": true
   },
@@ -1180,6 +1420,10 @@
   },
   {
     "type": "module_variable_scope",
+    "named": true
+  },
+  {
+    "type": "quotation_mark",
     "named": true
   }
 ]

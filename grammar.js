@@ -10,7 +10,11 @@
 module.exports = grammar({
     name: "cicode",
     // TODO: Look into injection for the comments https://www.jonashietala.se/blog/2024/03/19/lets_create_a_tree-sitter_grammar/#Language-injection - it may be better to just do simple version ourselves that lets us define the type as docstirng, buuut we could probs do that anyway, idk
-
+    externals: ($) => [
+        $.doxygen_summary_content,
+        $.doxygen_param_content,
+        $.doxygen_returns_content,
+    ],
     word: ($) => $.identifier,
     extras: ($) => ["\r", "\n", $._whitespace, $.comment],
     conflicts: ($) => [
@@ -46,11 +50,11 @@ module.exports = grammar({
                 choice(
                     seq("//", /.*/),
                     seq("!", /.*/),
-                    seq("/*", /[^*]*\*+([^/*][^*]*\*+)*/, "/"),
+                    token(seq(/(\/\*[^\*])/, /[^*]*\*+([^/*][^*]*\*+)*/, "/")), // this is janky as HELL
+                    "/**/", // this is even more janky
                 ),
             ),
-        xml_docstring: ($) => // I was considering writing a standarised
-            seq(),
+
         _definition: ($) =>
             choice(
                 $.a_function,
@@ -58,13 +62,16 @@ module.exports = grammar({
                 $.array_declaration, // cannot be inside of function body - at least, i dont think a module declaration inside of a function would work? idk, should test it sometime
             ),
 
+        function_end: ($) => "END",
+
         a_function: ($) =>
             seq(
+                optional($.xml_function_docstring),
                 $.function_definition,
                 optional(repeat($.variable_declaration)),
                 optional(repeat($.statement)),
                 optional($.return_statment),
-                "END",
+                $.function_end,
             ),
 
         function_scope: ($) => choice("PUBLIC", "PRIVATE"),
@@ -86,13 +93,13 @@ module.exports = grammar({
 
         string_contents: ($) => repeat1(choice(/[^\^"]/, /\^./)),
 
-        _quotation_mark: ($) => '"',
+        quotation_mark: ($) => '"',
 
         string: ($) =>
             seq(
-                $._quotation_mark,
+                $.quotation_mark,
                 optional($.string_contents),
-                $._quotation_mark,
+                $.quotation_mark,
             ),
 
         _default_value_equals_sign: ($) => "=",
@@ -186,9 +193,12 @@ module.exports = grammar({
             ),
 
         expression_in_brackets: ($) => seq("(", $.expression_, ")"),
-
+        unary_minus_negation_symbol: ($) => "-",
         unary_minus_expression_atom: ($) =>
-            prec.right(2, seq("-", $.expression_atom)), // unary minus
+            prec.right(
+                2,
+                seq($.unary_minus_negation_symbol, $.expression_atom),
+            ), // unary minus
 
         expression_atom: ($) =>
             choice(
@@ -365,5 +375,75 @@ module.exports = grammar({
                 optional($.statement),
                 optional($.return_statment),
             ),
+
+        /*********************************************************
+         *              Doxygen XML Docstrings                   *
+         *                                                       *
+         *********************************************************/
+
+        delimited_comment_doxygen_xml_opening: ($) => "/**",
+
+        delimited_comment_doxygen_xml_closing: ($) => "**/",
+
+        // xml_docstring_contents: ($) => repeat1(seq(/[^\n]*/, "\n")),
+        xml_docstring_contents: ($) =>
+            repeat1(
+                choice(
+                    $.doxygen_summary_xml_tag,
+                    $.doxygen_param_xml_tag,
+                    field("returns_contents", $.doxygen_returns_xml_tag),
+                ),
+            ),
+
+        xml_function_docstring: ($) =>
+            seq(
+                $.delimited_comment_doxygen_xml_opening,
+                optional($.xml_docstring_contents),
+                $.delimited_comment_doxygen_xml_closing,
+            ),
+
+        /******************************************************
+         *               Doxygen XML Commands                 *
+         ******************************************************/
+
+        // <summary>
+        doxygen_summary_xml_tag: ($) =>
+            seq(
+                $.doxygen_summary_xml_open_tag,
+                field("summary_contents", $.doxygen_summary_content),
+                $.doxygen_summary_xml_close_tag,
+            ),
+        doxygen_summary_xml_open_tag: ($) => token(seq("<summary>")),
+        doxygen_summary_xml_close_tag: ($) => token(seq("</summary>")),
+
+        // <param name="paramName">
+        doxygen_param_xml_tag: ($) =>
+            seq(
+                $.doxygen_param_xml_open_tag,
+                optional($.doxygen_param_xml_close_opening_tag_name),
+                $.doxygen_param_xml_close_opening_tag,
+                field("param_contents", $.doxygen_param_content),
+                $.doxygen_param_xml_close_tag,
+            ),
+        doxygen_param_xml_open_tag: ($) => token(seq("<param")),
+        doxygen_param_xml_close_tag: ($) => token(seq("</param>")),
+        doxygen_param_xml_close_opening_tag: ($) => token(seq(">")),
+        doxygen_param_xml_close_opening_tag_name: ($) =>
+            seq(
+                token(seq("name", "=")),
+                $.quotation_mark,
+                field("parameter_name", $.identifier),
+                $.quotation_mark,
+            ),
+
+        // <returns>
+        doxygen_returns_xml_tag: ($) =>
+            seq(
+                $.doxygen_returns_xml_open_tag,
+                $.doxygen_returns_content,
+                $.doxygen_returns_xml_close_tag,
+            ),
+        doxygen_returns_xml_open_tag: ($) => token(seq("<returns>")),
+        doxygen_returns_xml_close_tag: ($) => token(seq("</returns>")),
     },
 });
