@@ -12,35 +12,28 @@
 
 
 ! new style
+
 /**
-<function name="AddBoatToManifest">
+
 <summary>
 Adds a boat to the boat manifest
 </summary>
-<params>
 <param name="BoatID">Boat ID number</param>
 <param name="BoatName">Name of boat</param>
-</params>
 <returns>
 0 for success, otherwise error code (either -1 for incorrect ID number, or MapValueSet error code)
 </returns>
-</function>
 **/
 
 
 
 /**
-<function name="AddBoatToManifest">
  <summary>
   TODO summary
  </summary>
-
- <params>
-  <param name="BoatID">TODO</param>
+ <param name="BoatID">TODO</param>
   <param name="BoatName">TODO</param>
- </params>
  <returns>TODO</returns>
-</function>
 **/
 
 /// <summary>

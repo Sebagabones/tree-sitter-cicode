@@ -20,6 +20,7 @@ module.exports = grammar({
     conflicts: ($) => [
         [$.format_specifier_shortform_notation, $.format_specifier],
         [$.array_scope, $.variable_scope],
+        [$.xml_non_function_docstring, $.xml_function_docstring],
     ],
     supertypes: ($) => [
         $.statement,
@@ -58,11 +59,12 @@ module.exports = grammar({
         _definition: ($) =>
             choice(
                 $.a_function,
+                $.xml_non_function_docstring,
                 $.variable_declaration,
                 $.array_declaration, // cannot be inside of function body - at least, i dont think a module declaration inside of a function would work? idk, should test it sometime
             ),
 
-        function_end: ($) => "END",
+        function_end: ($) => token(seq("END")),
 
         a_function: ($) =>
             seq(
@@ -93,22 +95,32 @@ module.exports = grammar({
 
         string_contents: ($) => repeat1(choice(/[^\^"]/, /\^./)),
 
-        quotation_mark: ($) => '"',
+        punctuation_quotation_mark: ($) => token('"'),
+        punctuation_semicolon: ($) => token(seq(";", optional(""))), // somehow having the optional whitespace speeds up the parser?
+        punctuation_comma: ($) => token(","),
+        punctuation_bracket_open: ($) => token("("),
+        punctuation_bracket_close: ($) => token(")"),
+        punctuation_equals_sign: ($) => token(seq("=", optional(""))),
 
         string: ($) =>
             seq(
-                $.quotation_mark,
+                $.punctuation_quotation_mark,
                 optional($.string_contents),
-                $.quotation_mark,
+                $.punctuation_quotation_mark,
             ),
 
-        _default_value_equals_sign: ($) => "=",
-
         default_value: ($) =>
-            seq($._default_value_equals_sign, choice($.number, $.string)),
+            seq(
+                field("default_value_equals_sign", $.punctuation_equals_sign),
+                choice($.number, $.string),
+            ),
 
         assign_to_value: ($) =>
-            seq("=", $.expression_, optional($.format_specifier)),
+            seq(
+                field("assign_to_value_equals_sign", $.punctuation_equals_sign),
+                $.expression_,
+                optional($.format_specifier),
+            ),
 
         function_parameter: ($) =>
             seq(
@@ -125,20 +137,28 @@ module.exports = grammar({
         function_parameters: ($) =>
             seq(
                 $.function_parameter,
-                optional(repeat(seq(",", $.function_parameter))),
+                optional(
+                    repeat(seq($.punctuation_comma, $.function_parameter)),
+                ),
             ),
 
         identifier: ($) => /[0-9A-Za-z]+/,
-
+        function_keyword: ($) => token("FUNCTION"),
         function_definition: ($) =>
             seq(
                 field("scope", optional($.function_scope)),
                 field("return_type", optional($.type)),
-                "FUNCTION",
+                $.function_keyword,
                 field("function_name", $.identifier),
-                "(",
+                field(
+                    "function_definition_bracket_open",
+                    $.punctuation_bracket_open,
+                ),
                 field("parameters", optional($.function_parameters)),
-                ")",
+                field(
+                    "function_definition_bracket_close",
+                    $.punctuation_bracket_close,
+                ),
                 "\n",
             ),
         global_variable_scope: ($) => "GLOBAL",
@@ -161,7 +181,7 @@ module.exports = grammar({
                 optional(
                     repeat(
                         seq(
-                            ",",
+                            $.punctuation_comma,
                             field("variable", $.identifier),
                             optional($.assign_to_value),
                         ),
@@ -175,10 +195,19 @@ module.exports = grammar({
 
         array_initial_values: ($) =>
             seq(
-                "=",
+                field(
+                    "array_initial_values_equals_sign",
+                    $.punctuation_equals_sign,
+                ),
                 $.expression_,
                 optional($.format_specifier),
-                repeat(seq(",", $.expression_, optional($.format_specifier))),
+                repeat(
+                    seq(
+                        $.punctuation_comma,
+                        $.expression_,
+                        optional($.format_specifier),
+                    ),
+                ),
             ),
         array_brackets_index: ($) =>
             repeat1(seq("[", field("array_dimension_size", $.number), "]")),
@@ -189,10 +218,15 @@ module.exports = grammar({
                 field("array", $.identifier),
                 field("array_dimensions", $.array_brackets_index),
                 optional(field("array_initial_values", $.array_initial_values)),
-                ";",
+                $.punctuation_semicolon,
             ),
 
-        expression_in_brackets: ($) => seq("(", $.expression_, ")"),
+        expression_in_brackets: ($) =>
+            seq(
+                field("expression_open_brackets", $.punctuation_bracket_open),
+                $.expression_,
+                field("expression_close_brackets", $.punctuation_bracket_close),
+            ),
         unary_minus_negation_symbol: ($) => "-",
         unary_minus_expression_atom: ($) =>
             prec.right(
@@ -234,7 +268,7 @@ module.exports = grammar({
                 field("variable", $.identifier),
                 optional(field("array_dimensions", $.array_brackets_index)),
                 $.assign_to_value,
-                ";",
+                $.punctuation_semicolon,
             ),
 
         format_specifier_hash: ($) => "#",
@@ -289,14 +323,32 @@ module.exports = grammar({
         function_call: ($) =>
             seq(
                 field("function_name", $.identifier),
-                "(",
+                field("function_call_bracket_open", $.punctuation_bracket_open),
                 optional(field("function_parameter", $.expression_)),
-                repeat(seq(",", field("function_parameter", $.expression_))),
-                ")",
+                repeat(
+                    seq(
+                        $.punctuation_comma,
+                        field("function_parameter", $.expression_),
+                    ),
+                ),
+                field(
+                    "function_call_bracket_close",
+                    $.punctuation_bracket_close,
+                ),
             ),
 
         conditional_expression_in_brackets: ($) =>
-            seq("(", $.conditional_expression, ")"),
+            seq(
+                field(
+                    "conditional_expression_open_brackets",
+                    $.punctuation_bracket_open,
+                ),
+                $.conditional_expression,
+                field(
+                    "conditional_expression_close_brackets",
+                    $.punctuation_bracket_close,
+                ),
+            ),
         unary_not_conditional_atom: ($) =>
             prec.right(2, seq("NOT", $.conditional_atom)), // unary NOT
 
@@ -320,25 +372,34 @@ module.exports = grammar({
                     ),
                 ),
             ),
+        if_statement_if_keyword: ($) => token("IF"),
+        if_statement_then_keyword: ($) => token("THEN"),
+        if_statement_else_keyword: ($) => token("ELSE"),
+        if_statement_end_keyword: ($) => token(seq("END")), // idk for some reason this was needed to get END as a token and not as string
 
         if_statement: ($) =>
             seq(
-                "IF",
+                $.if_statement_if_keyword,
                 $.conditional_expression,
-                "THEN",
+                $.if_statement_then_keyword,
                 optional(repeat($.statement)),
                 optional($.return_statment),
                 optional(
                     seq(
-                        "ELSE",
+                        $.if_statement_else_keyword,
                         optional($.statement),
                         optional($.return_statment),
                     ),
                 ),
-                "END",
+                $.if_statement_end_keyword,
             ),
-
-        to_statement: ($) => seq($.expression_atom, "TO", $.expression_atom),
+        to_statement_to_keyword: ($) => token("TO"),
+        to_statement: ($) =>
+            seq(
+                $.expression_atom,
+                $.to_statement_to_keyword,
+                $.expression_atom,
+            ),
 
         case_expression: ($) =>
             choice(
@@ -347,31 +408,46 @@ module.exports = grammar({
                 $.select_case_conditional_expression,
             ),
 
+        select_case_is_keyword: ($) => token("IS"),
         select_case_conditional_expression: ($) =>
             seq(
-                "IS",
+                $.select_case_is_keyword,
                 $.operators_used_in_conditionals,
                 $.conditional_expression,
             ),
+
+        select_case_select_case_keyword: ($) => token("SELECT CASE"),
+        select_case_end_select_keyword: ($) => token("END SELECT"),
         select_case_statement: ($) =>
             seq(
-                "SELECT CASE",
+                $.select_case_select_case_keyword,
                 $.conditional_expression,
                 repeat(seq(field("case", $.case_statement))),
                 optional(field("case_else", $.case_else_statement)),
-                "END SELECT",
+                $.select_case_end_select_keyword,
             ),
-        return_statment: ($) => seq("RETURN", choice($.expression_), ";"),
 
+        return_keyword: ($) => token("RETURN"),
+        return_statment: ($) =>
+            seq(
+                $.return_keyword,
+                choice($.expression_),
+                $.punctuation_semicolon,
+            ),
+        case_statement_case_keyword: ($) => "CASE",
         case_statement: ($) =>
             seq(
-                "CASE",
-                seq($.case_expression, repeat(seq(",", $.case_expression))),
+                $.case_statement_case_keyword,
+                seq(
+                    $.case_expression,
+                    repeat(seq($.punctuation_comma, $.case_expression)),
+                ),
                 seq(repeat($.statement), optional($.return_statment)),
             ),
+        case_statement_case_else_keyword: ($) => "CASE ELSE",
         case_else_statement: ($) =>
             seq(
-                "CASE ELSE",
+                $.case_statement_case_else_keyword,
                 optional($.statement),
                 optional($.return_statment),
             ),
@@ -385,7 +461,6 @@ module.exports = grammar({
 
         delimited_comment_doxygen_xml_closing: ($) => "**/",
 
-        // xml_docstring_contents: ($) => repeat1(seq(/[^\n]*/, "\n")),
         xml_docstring_contents: ($) =>
             repeat1(
                 choice(
@@ -394,6 +469,12 @@ module.exports = grammar({
                     field("returns_contents", $.doxygen_returns_xml_tag),
                 ),
             ),
+        xml_non_function_docstring: ($) =>
+            seq(
+                $.delimited_comment_doxygen_xml_opening,
+                optional($.xml_docstring_contents),
+                $.delimited_comment_doxygen_xml_closing,
+            ),
 
         xml_function_docstring: ($) =>
             seq(
@@ -401,7 +482,16 @@ module.exports = grammar({
                 optional($.xml_docstring_contents),
                 $.delimited_comment_doxygen_xml_closing,
             ),
+        doxygen_xml_name_attribute_name_keyword: ($) => "name",
 
+        doxygen_xml_name_attribute: ($) =>
+            seq(
+                $.doxygen_xml_name_attribute_name_keyword,
+                $.punctuation_equals_sign,
+                $.punctuation_quotation_mark,
+                field("parameter_name", $.identifier),
+                $.punctuation_quotation_mark,
+            ),
         /******************************************************
          *               Doxygen XML Commands                 *
          ******************************************************/
@@ -413,28 +503,21 @@ module.exports = grammar({
                 field("summary_contents", $.doxygen_summary_content),
                 $.doxygen_summary_xml_close_tag,
             ),
-        doxygen_summary_xml_open_tag: ($) => token(seq("<summary>")),
-        doxygen_summary_xml_close_tag: ($) => token(seq("</summary>")),
+        doxygen_summary_xml_open_tag: ($) => token("<summary>"),
+        doxygen_summary_xml_close_tag: ($) => token("</summary>"),
 
         // <param name="paramName">
         doxygen_param_xml_tag: ($) =>
             seq(
                 $.doxygen_param_xml_open_tag,
-                optional($.doxygen_param_xml_close_opening_tag_name),
+                optional($.doxygen_xml_name_attribute),
                 $.doxygen_param_xml_close_opening_tag,
                 field("param_contents", $.doxygen_param_content),
                 $.doxygen_param_xml_close_tag,
             ),
-        doxygen_param_xml_open_tag: ($) => token(seq("<param")),
-        doxygen_param_xml_close_tag: ($) => token(seq("</param>")),
-        doxygen_param_xml_close_opening_tag: ($) => token(seq(">")),
-        doxygen_param_xml_close_opening_tag_name: ($) =>
-            seq(
-                token(seq("name", "=")),
-                $.quotation_mark,
-                field("parameter_name", $.identifier),
-                $.quotation_mark,
-            ),
+        doxygen_param_xml_open_tag: ($) => token("<param"),
+        doxygen_param_xml_close_tag: ($) => token("</param>"),
+        doxygen_param_xml_close_opening_tag: ($) => token(">"),
 
         // <returns>
         doxygen_returns_xml_tag: ($) =>
@@ -443,7 +526,7 @@ module.exports = grammar({
                 $.doxygen_returns_content,
                 $.doxygen_returns_xml_close_tag,
             ),
-        doxygen_returns_xml_open_tag: ($) => token(seq("<returns>")),
-        doxygen_returns_xml_close_tag: ($) => token(seq("</returns>")),
+        doxygen_returns_xml_open_tag: ($) => token("<returns>"),
+        doxygen_returns_xml_close_tag: ($) => token("</returns>"),
     },
 });
