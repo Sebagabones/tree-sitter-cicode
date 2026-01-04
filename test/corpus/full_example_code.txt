@@ -168,7 +168,7 @@ END
               (identifier))
             (relational_operators)
             (conditional_expression
-              (identifier)))
+              (number)))
           (if_statement_then_keyword)
           (variable_assignment
             (identifier)

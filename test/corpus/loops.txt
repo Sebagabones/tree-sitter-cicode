@@ -1,0 +1,587 @@
+===================
+Simple While Loop
+===================
+FUNCTION SimpleWhile()
+    INT Counter;
+    WHILE Counter < 10 DO
+        Counter = Counter + 1;
+    END
+END
+
+---
+    (source_file
+      (a_function
+        (function_definition
+          (function_keyword)
+          (identifier)
+          (punctuation_bracket_open)
+          (punctuation_bracket_close))
+        (variable_declaration
+          (type)
+          (identifier))
+        (while_loop
+          (while_loop_while_keyword)
+          (conditional_expression
+            (conditional_expression
+              (identifier))
+            (relational_operators)
+            (conditional_expression
+              (number)))
+          (while_loop_do_keyword)
+          (variable_assignment
+            (identifier)
+            (assign_to_value
+              (punctuation_equals_sign)
+              (expression
+                (identifier)
+                (mathematical_operators)
+                (number)))
+            (punctuation_semicolon))
+          (while_loop_end_keyword))
+        (function_end)))
+
+
+===================
+While With Function Call Condition
+===================
+FUNCTION WhileFunctionCall()
+    INT Counter;
+    WHILE DevNext(hDev) DO
+        Counter = Counter + 1;
+    END
+END
+
+---
+
+    (source_file
+      (a_function
+        (function_definition
+          (function_keyword)
+          (identifier)
+          (punctuation_bracket_open)
+          (punctuation_bracket_close))
+        (variable_declaration
+          (type)
+          (identifier))
+        (while_loop
+          (while_loop_while_keyword)
+          (conditional_expression
+            (function_call
+              (identifier)
+              (punctuation_bracket_open)
+              (identifier)
+              (punctuation_bracket_close)))
+          (while_loop_do_keyword)
+          (variable_assignment
+            (identifier)
+            (assign_to_value
+              (punctuation_equals_sign)
+              (expression
+                (identifier)
+                (mathematical_operators)
+                (number)))
+            (punctuation_semicolon))
+          (while_loop_end_keyword))
+        (function_end)))
+
+
+===================
+While With Complex Expression
+===================
+FUNCTION WhileComplex()
+    INT Counter;
+    WHILE (Counter < 10) AND (Counter <> 5) DO
+        Counter = Counter + 1;
+    END
+END
+
+---
+  (source_file
+      (a_function
+        (function_definition
+          (function_keyword)
+          (identifier)
+          (punctuation_bracket_open)
+          (punctuation_bracket_close))
+        (variable_declaration
+          (type)
+          (identifier))
+        (while_loop
+          (while_loop_while_keyword)
+          (conditional_expression
+            (conditional_expression
+              (conditional_expression_in_brackets
+                (punctuation_bracket_open)
+                (conditional_expression
+                  (conditional_expression
+                    (identifier))
+                  (relational_operators)
+                  (conditional_expression
+                    (number)))
+                (punctuation_bracket_close)))
+            (logical_operators)
+            (conditional_expression
+              (conditional_expression_in_brackets
+                (punctuation_bracket_open)
+                (conditional_expression
+                  (conditional_expression
+                    (identifier))
+                  (relational_operators)
+                  (conditional_expression
+                    (number)))
+                (punctuation_bracket_close))))
+          (while_loop_do_keyword)
+          (variable_assignment
+            (identifier)
+            (assign_to_value
+              (punctuation_equals_sign)
+              (expression
+                (identifier)
+                (mathematical_operators)
+                (number)))
+            (punctuation_semicolon))
+          (while_loop_end_keyword))
+        (function_end)))
+
+
+===================
+While With Parenthesised Condition
+===================
+FUNCTION WhileParens()
+    INT Counter;
+    WHILE (Counter < 10) DO
+        Counter = Counter + 1;
+    END
+END
+
+---
+   (source_file
+      (a_function
+        (function_definition
+          (function_keyword)
+          (identifier)
+          (punctuation_bracket_open)
+          (punctuation_bracket_close))
+        (variable_declaration
+          (type)
+          (identifier))
+        (while_loop
+          (while_loop_while_keyword)
+          (conditional_expression
+            (conditional_expression_in_brackets
+              (punctuation_bracket_open)
+              (conditional_expression
+                (conditional_expression
+                  (identifier))
+                (relational_operators)
+                (conditional_expression
+                  (number)))
+              (punctuation_bracket_close)))
+          (while_loop_do_keyword)
+          (variable_assignment
+            (identifier)
+            (assign_to_value
+              (punctuation_equals_sign)
+              (expression
+                (identifier)
+                (mathematical_operators)
+                (number)))
+            (punctuation_semicolon))
+          (while_loop_end_keyword))
+        (function_end)))
+
+
+===================
+Nested While Loops
+===================
+FUNCTION NestedWhile()
+    INT i;
+    INT j;
+    WHILE i < 5 DO
+        j = 0;
+        WHILE j < 3 DO
+            j = j + 1;
+        END
+        i = i + 1;
+    END
+END
+
+---
+   (source_file
+      (a_function
+        (function_definition
+          (function_keyword)
+          (identifier)
+          (punctuation_bracket_open)
+          (punctuation_bracket_close))
+        (variable_declaration
+          (type)
+          (identifier))
+        (variable_declaration
+          (type)
+          (identifier))
+        (while_loop
+          (while_loop_while_keyword)
+          (conditional_expression
+            (conditional_expression
+              (identifier))
+            (relational_operators)
+            (conditional_expression
+              (number)))
+          (while_loop_do_keyword)
+          (variable_assignment
+            (identifier)
+            (assign_to_value
+              (punctuation_equals_sign)
+              (number))
+            (punctuation_semicolon))
+          (while_loop
+            (while_loop_while_keyword)
+            (conditional_expression
+              (conditional_expression
+                (identifier))
+              (relational_operators)
+              (conditional_expression
+                (number)))
+            (while_loop_do_keyword)
+            (variable_assignment
+              (identifier)
+              (assign_to_value
+                (punctuation_equals_sign)
+                (expression
+                  (identifier)
+                  (mathematical_operators)
+                  (number)))
+              (punctuation_semicolon))
+            (while_loop_end_keyword))
+          (variable_assignment
+            (identifier)
+            (assign_to_value
+              (punctuation_equals_sign)
+              (expression
+                (identifier)
+                (mathematical_operators)
+                (number)))
+            (punctuation_semicolon))
+          (while_loop_end_keyword))
+        (function_end)))
+
+
+
+===================
+Simple For Loop
+===================
+FUNCTION SimpleFor()
+    INT Counter;
+    FOR Counter = 0 TO 10 DO
+        Counter = Counter + 1;
+    END
+END
+
+---
+ (source_file
+      (a_function
+        (function_definition
+          (function_keyword)
+          (identifier)
+          (punctuation_bracket_open)
+          (punctuation_bracket_close))
+        (variable_declaration
+          (type)
+          (identifier))
+        (for_loop
+          (for_loop_for_keyword)
+          (for_loop_iterable
+            (identifier)
+            (assign_to_value
+              (punctuation_equals_sign)
+              (number))
+            (to_statement_to_keyword)
+            (number))
+          (for_loop_do_keyword)
+          (variable_assignment
+            (identifier)
+            (assign_to_value
+              (punctuation_equals_sign)
+              (expression
+                (identifier)
+                (mathematical_operators)
+                (number)))
+            (punctuation_semicolon))
+          (for_loop_end_keyword))
+        (function_end)))
+
+
+===================
+For Loop With Expressions
+===================
+FUNCTION ForExpressions()
+    INT Counter;
+    FOR Counter = 1 + 1 TO 10 - 1 DO
+        Counter = Counter * 2;
+    END
+END
+
+---
+   (source_file
+      (a_function
+        (function_definition
+          (function_keyword)
+          (identifier)
+          (punctuation_bracket_open)
+          (punctuation_bracket_close))
+        (variable_declaration
+          (type)
+          (identifier))
+        (for_loop
+          (for_loop_for_keyword)
+          (for_loop_iterable
+            (identifier)
+            (assign_to_value
+              (punctuation_equals_sign)
+              (expression
+                (number)
+                (mathematical_operators)
+                (number)))
+            (to_statement_to_keyword)
+            (expression
+              (number)
+              (mathematical_operators)
+              (number)))
+          (for_loop_do_keyword)
+          (variable_assignment
+            (identifier)
+            (assign_to_value
+              (punctuation_equals_sign)
+              (expression
+                (identifier)
+                (mathematical_operators)
+                (number)))
+            (punctuation_semicolon))
+          (for_loop_end_keyword))
+        (function_end)))
+
+===================
+For Loop With Array Access
+===================
+STRING ArrayA[5];
+
+FUNCTION ForArray()
+    INT Counter;
+    FOR Counter = 0 TO 4 DO
+        Prompt(ArrayA[Counter]);
+    END
+END
+
+---
+
+    (source_file
+      (array_declaration
+        (type)
+        (identifier)
+        (array_brackets_index
+          (number))
+        (punctuation_semicolon))
+      (a_function
+        (function_definition
+          (function_keyword)
+          (identifier)
+          (punctuation_bracket_open)
+          (punctuation_bracket_close))
+        (variable_declaration
+          (type)
+          (identifier))
+        (for_loop
+          (for_loop_for_keyword)
+          (for_loop_iterable
+            (identifier)
+            (assign_to_value
+              (punctuation_equals_sign)
+              (number))
+            (to_statement_to_keyword)
+            (number))
+          (for_loop_do_keyword)
+          (statement_function_call
+            (function_call
+              (identifier)
+              (punctuation_bracket_open)
+              (array_variable
+                (identifier)
+                (array_brackets_index
+                  (identifier)))
+              (punctuation_bracket_close))
+            (punctuation_semicolon))
+          (for_loop_end_keyword))
+        (function_end)))
+
+
+===================
+For Loop With Function Calls
+===================
+FUNCTION ForWithCalls()
+    INT Counter;
+    FOR Counter = GetStart() TO GetEnd() DO
+        Sleep(15);
+    END
+END
+
+---
+   (source_file
+      (a_function
+        (function_definition
+          (function_keyword)
+          (identifier)
+          (punctuation_bracket_open)
+          (punctuation_bracket_close))
+        (variable_declaration
+          (type)
+          (identifier))
+        (for_loop
+          (for_loop_for_keyword)
+          (for_loop_iterable
+            (identifier)
+            (assign_to_value
+              (punctuation_equals_sign)
+              (function_call
+                (identifier)
+                (punctuation_bracket_open)
+                (punctuation_bracket_close)))
+            (to_statement_to_keyword)
+            (function_call
+              (identifier)
+              (punctuation_bracket_open)
+              (punctuation_bracket_close)))
+          (for_loop_do_keyword)
+          (statement_function_call
+            (function_call
+              (identifier)
+              (punctuation_bracket_open)
+              (number)
+              (punctuation_bracket_close))
+            (punctuation_semicolon))
+          (for_loop_end_keyword))
+        (function_end)))
+
+
+===================
+Nested For Loops
+===================
+FUNCTION NestedFor()
+    INT i;
+    INT j;
+    FOR i = 0 TO 2 DO
+        FOR j = 0 TO 3 DO
+            Prompt(i + j);
+        END
+    END
+END
+
+---
+
+
+    (source_file
+      (a_function
+        (function_definition
+          (function_keyword)
+          (identifier)
+          (punctuation_bracket_open)
+          (punctuation_bracket_close))
+        (variable_declaration
+          (type)
+          (identifier))
+        (variable_declaration
+          (type)
+          (identifier))
+        (for_loop
+          (for_loop_for_keyword)
+          (for_loop_iterable
+            (identifier)
+            (assign_to_value
+              (punctuation_equals_sign)
+              (number))
+            (to_statement_to_keyword)
+            (number))
+          (for_loop_do_keyword)
+          (for_loop
+            (for_loop_for_keyword)
+            (for_loop_iterable
+              (identifier)
+              (assign_to_value
+                (punctuation_equals_sign)
+                (number))
+              (to_statement_to_keyword)
+              (number))
+            (for_loop_do_keyword)
+            (statement_function_call
+              (function_call
+                (identifier)
+                (punctuation_bracket_open)
+                (expression
+                  (identifier)
+                  (mathematical_operators)
+                  (identifier))
+                (punctuation_bracket_close))
+              (punctuation_semicolon))
+            (for_loop_end_keyword))
+          (for_loop_end_keyword))
+        (function_end)))
+
+
+===================
+While With If Statement
+===================
+FUNCTION WhileIf()
+    INT Counter;
+    WHILE Counter < 10 DO
+        IF Counter = 5 THEN
+            RETURN Counter;
+        END
+        Counter = Counter + 1;
+    END
+END
+
+---
+    (source_file
+      (a_function
+        (function_definition
+          (function_keyword)
+          (identifier)
+          (punctuation_bracket_open)
+          (punctuation_bracket_close))
+        (variable_declaration
+          (type)
+          (identifier))
+        (while_loop
+          (while_loop_while_keyword)
+          (conditional_expression
+            (conditional_expression
+              (identifier))
+            (relational_operators)
+            (conditional_expression
+              (number)))
+          (while_loop_do_keyword)
+          (if_statement
+            (if_statement_if_keyword)
+            (conditional_expression
+              (conditional_expression
+                (identifier))
+              (relational_operators)
+              (conditional_expression
+                (number)))
+            (if_statement_then_keyword)
+            (return_statment
+              (return_keyword)
+              (identifier)
+              (punctuation_semicolon))
+            (if_statement_end_keyword))
+          (variable_assignment
+            (identifier)
+            (assign_to_value
+              (punctuation_equals_sign)
+              (expression
+                (identifier)
+                (mathematical_operators)
+                (number)))
+            (punctuation_semicolon))
+          (while_loop_end_keyword))
+        (function_end)))

@@ -78,7 +78,7 @@ Invalid DocString
 /**
 invalid docstring
 **/
-FUNCTION testDocString(param1)
+FUNCTION testDocString(INT param1)
 END
 ---
     (source_file
@@ -93,7 +93,9 @@ END
           (function_keyword)
           (identifier)
           (punctuation_bracket_open)
-          (ERROR
-            (identifier))
+          (function_parameters
+            (function_parameter
+              (type)
+              (identifier)))
           (punctuation_bracket_close))
         (function_end)))

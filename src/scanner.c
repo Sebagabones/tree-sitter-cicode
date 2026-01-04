@@ -5,10 +5,6 @@
 
 #define advance_macro(lexer) lexer->advance(lexer, false)
 
-/*
- * The order of this enum needs to follow the order of externals
- * in grammar.js
- */
 enum TokenType {
   DOXYGEN_SUMMARY_CONTENT,
   DOXYGEN_PARAM_CONTENT,

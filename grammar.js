@@ -9,7 +9,6 @@
 
 module.exports = grammar({
     name: "cicode",
-    // TODO: Loops
 
     externals: ($) => [
         $.doxygen_summary_content,
@@ -31,7 +30,7 @@ module.exports = grammar({
         $.operators_used_in_conditionals,
         $.expression_,
     ],
-
+    reserved: { global: ($) => ["END", "FUNCTION", "RETURN"] },
     rules: {
         source_file: ($) => repeat($._definition),
 
@@ -65,7 +64,7 @@ module.exports = grammar({
                 $.array_declaration, // cannot be inside of function body - at least, i dont think a module declaration inside of a function would work? idk, should test it sometime
             ),
 
-        function_end: ($) => token(seq("END")),
+        function_end: ($) => token("END"),
 
         a_function: ($) =>
             seq(
@@ -214,7 +213,10 @@ module.exports = grammar({
                 ),
             ),
         array_brackets_index: ($) =>
-            repeat1(seq("[", field("array_dimension_size", $.number), "]")),
+            repeat1(
+                seq("[", field("array_dimension_size", $.expression_atom), "]"),
+            ),
+
         array_declaration: ($) =>
             seq(
                 optional(field("array_scope", $.array_scope)),
@@ -264,6 +266,8 @@ module.exports = grammar({
         statement: ($) =>
             choice(
                 $.statement_function_call,
+                $.for_loop,
+                $.while_loop,
                 $.variable_assignment,
                 field("if_statement", $.if_statement),
                 field("select_case", $.select_case_statement),
@@ -362,6 +366,8 @@ module.exports = grammar({
         conditional_atom: ($) =>
             choice(
                 $.identifier,
+                $.number,
+                $.array_variable,
                 $.conditional_expression_in_brackets,
                 $.unary_not_conditional_atom,
                 $.function_call,
@@ -382,7 +388,7 @@ module.exports = grammar({
         if_statement_if_keyword: ($) => token("IF"),
         if_statement_then_keyword: ($) => token("THEN"),
         if_statement_else_keyword: ($) => token("ELSE"),
-        if_statement_end_keyword: ($) => token(seq("END")), // idk for some reason this was needed to get END as a token and not as string
+        if_statement_end_keyword: ($) => token("END"), // idk for some reason this was needed to get END as a token and not as string
 
         if_statement: ($) =>
             seq(
@@ -458,6 +464,42 @@ module.exports = grammar({
                 optional($.statement),
                 optional($.return_statment),
             ),
+        /****************************************
+         *              Loops                   *
+         *                                      *
+         ***************************************/
+        for_loop_for_keyword: ($) => token("FOR"),
+        for_loop_do_keyword: ($) => token("DO"),
+        for_loop_end_keyword: ($) => token("END"),
+
+        for_loop_iterable: ($) =>
+            seq(
+                field("for_loop_variable", $.identifier),
+                $.assign_to_value,
+                $.to_statement_to_keyword,
+                $.expression_,
+            ),
+
+        for_loop: ($) =>
+            seq(
+                $.for_loop_for_keyword,
+                $.for_loop_iterable,
+                $.for_loop_do_keyword,
+                repeat1($.statement),
+                $.for_loop_end_keyword,
+            ),
+
+        while_loop_while_keyword: ($) => token("WHILE"),
+        while_loop_do_keyword: ($) => token("DO"),
+        while_loop_end_keyword: ($) => token("END"),
+        while_loop: ($) =>
+            seq(
+                $.while_loop_while_keyword,
+                $.conditional_expression,
+                $.while_loop_do_keyword,
+                repeat1($.statement),
+                $.while_loop_end_keyword,
+            ),
 
         /*********************************************************
          *              Doxygen XML Docstrings                   *
@@ -468,9 +510,12 @@ module.exports = grammar({
 
         delimited_comment_doxygen_xml_closing: ($) => "**/",
 
+        _star_in_xml_comment: ($) => token(seq("*")),
+
         xml_docstring_contents: ($) =>
             repeat1(
                 choice(
+                    $._star_in_xml_comment,
                     $.doxygen_summary_xml_tag,
                     $.doxygen_param_xml_tag,
                     field("returns_contents", $.doxygen_returns_xml_tag),

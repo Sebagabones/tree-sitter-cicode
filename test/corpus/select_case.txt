@@ -292,7 +292,7 @@ END
                 (select_case_is_keyword)
                 (relational_operators)
                 (conditional_expression
-                  (identifier))))
+                  (number))))
             (return_statment
               (return_keyword)
               (number)
@@ -333,7 +333,7 @@ END
                 (select_case_is_keyword)
                 (relational_operators)
                 (conditional_expression
-                  (identifier))))
+                  (number))))
             (return_statment
               (return_keyword)
               (unary_minus_expression_atom
@@ -376,14 +376,14 @@ END
                 (select_case_is_keyword)
                 (relational_operators)
                 (conditional_expression
-                  (identifier))))
+                  (number))))
             (punctuation_comma)
             (case_expression
               (select_case_conditional_expression
                 (select_case_is_keyword)
                 (relational_operators)
                 (conditional_expression
-                  (identifier))))
+                  (number))))
             (return_statment
               (return_keyword)
               (unary_minus_expression_atom
@@ -435,7 +435,7 @@ END
                 (select_case_is_keyword)
                 (relational_operators)
                 (conditional_expression
-                  (identifier))))
+                  (number))))
             (return_statment
               (return_keyword)
               (number)

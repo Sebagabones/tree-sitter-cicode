@@ -210,13 +210,8 @@
     "function_end": {
       "type": "TOKEN",
       "content": {
-        "type": "SEQ",
-        "members": [
-          {
-            "type": "STRING",
-            "value": "END"
-          }
-        ]
+        "type": "STRING",
+        "value": "END"
       }
     },
     "a_function": {
@@ -914,7 +909,7 @@
             "name": "array_dimension_size",
             "content": {
               "type": "SYMBOL",
-              "name": "number"
+              "name": "expression_atom"
             }
           },
           {
@@ -1108,6 +1103,14 @@
         {
           "type": "SYMBOL",
           "name": "statement_function_call"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "for_loop"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "while_loop"
         },
         {
           "type": "SYMBOL",
@@ -1437,6 +1440,14 @@
         },
         {
           "type": "SYMBOL",
+          "name": "number"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "array_variable"
+        },
+        {
+          "type": "SYMBOL",
           "name": "conditional_expression_in_brackets"
         },
         {
@@ -1503,13 +1514,8 @@
     "if_statement_end_keyword": {
       "type": "TOKEN",
       "content": {
-        "type": "SEQ",
-        "members": [
-          {
-            "type": "STRING",
-            "value": "END"
-          }
-        ]
+        "type": "STRING",
+        "value": "END"
       }
     },
     "if_statement": {
@@ -1857,6 +1863,129 @@
         }
       ]
     },
+    "for_loop_for_keyword": {
+      "type": "TOKEN",
+      "content": {
+        "type": "STRING",
+        "value": "FOR"
+      }
+    },
+    "for_loop_do_keyword": {
+      "type": "TOKEN",
+      "content": {
+        "type": "STRING",
+        "value": "DO"
+      }
+    },
+    "for_loop_end_keyword": {
+      "type": "TOKEN",
+      "content": {
+        "type": "STRING",
+        "value": "END"
+      }
+    },
+    "for_loop_iterable": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "FIELD",
+          "name": "for_loop_variable",
+          "content": {
+            "type": "SYMBOL",
+            "name": "identifier"
+          }
+        },
+        {
+          "type": "SYMBOL",
+          "name": "assign_to_value"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "to_statement_to_keyword"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "expression_"
+        }
+      ]
+    },
+    "for_loop": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "for_loop_for_keyword"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "for_loop_iterable"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "for_loop_do_keyword"
+        },
+        {
+          "type": "REPEAT1",
+          "content": {
+            "type": "SYMBOL",
+            "name": "statement"
+          }
+        },
+        {
+          "type": "SYMBOL",
+          "name": "for_loop_end_keyword"
+        }
+      ]
+    },
+    "while_loop_while_keyword": {
+      "type": "TOKEN",
+      "content": {
+        "type": "STRING",
+        "value": "WHILE"
+      }
+    },
+    "while_loop_do_keyword": {
+      "type": "TOKEN",
+      "content": {
+        "type": "STRING",
+        "value": "DO"
+      }
+    },
+    "while_loop_end_keyword": {
+      "type": "TOKEN",
+      "content": {
+        "type": "STRING",
+        "value": "END"
+      }
+    },
+    "while_loop": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "while_loop_while_keyword"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "conditional_expression"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "while_loop_do_keyword"
+        },
+        {
+          "type": "REPEAT1",
+          "content": {
+            "type": "SYMBOL",
+            "name": "statement"
+          }
+        },
+        {
+          "type": "SYMBOL",
+          "name": "while_loop_end_keyword"
+        }
+      ]
+    },
     "delimited_comment_doxygen_xml_opening": {
       "type": "STRING",
       "value": "/**"
@@ -1865,11 +1994,27 @@
       "type": "STRING",
       "value": "**/"
     },
+    "_star_in_xml_comment": {
+      "type": "TOKEN",
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "STRING",
+            "value": "*"
+          }
+        ]
+      }
+    },
     "xml_docstring_contents": {
       "type": "REPEAT1",
       "content": {
         "type": "CHOICE",
         "members": [
+          {
+            "type": "SYMBOL",
+            "name": "_star_in_xml_comment"
+          },
           {
             "type": "SYMBOL",
             "name": "doxygen_summary_xml_tag"
@@ -2163,5 +2308,20 @@
     "operators_used_in_conditionals",
     "expression_"
   ],
-  "reserved": {}
+  "reserved": {
+    "global": [
+      {
+        "type": "STRING",
+        "value": "END"
+      },
+      {
+        "type": "STRING",
+        "value": "FUNCTION"
+      },
+      {
+        "type": "STRING",
+        "value": "RETURN"
+      }
+    ]
+  }
 }

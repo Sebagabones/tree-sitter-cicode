@@ -1,8 +1,9 @@
 ===================
 Array And Select Case
 ===================
+INT Values[3];
+
 FUNCTION ArraySelect(INT X)
-    INT Values[3];
     SELECT CASE X
         CASE 0
             RETURN Values[0];
@@ -12,6 +13,48 @@ FUNCTION ArraySelect(INT X)
 END
 
 ---
+    (source_file
+      (array_declaration
+        (type)
+        (identifier)
+        (array_brackets_index
+          (number))
+        (punctuation_semicolon))
+      (a_function
+        (function_definition
+          (function_keyword)
+          (identifier)
+          (punctuation_bracket_open)
+          (function_parameters
+            (function_parameter
+              (type)
+              (identifier)))
+          (punctuation_bracket_close))
+        (select_case_statement
+          (select_case_select_case_keyword)
+          (conditional_expression
+            (identifier))
+          (case_statement
+            (case_statement_case_keyword)
+            (case_expression
+              (number))
+            (return_statment
+              (return_keyword)
+              (array_variable
+                (identifier)
+                (array_brackets_index
+                  (number)))
+              (punctuation_semicolon)))
+          (case_else_statement
+            (case_statement_case_else_keyword)
+            (return_statment
+              (return_keyword)
+              (unary_minus_expression_atom
+                (unary_minus_negation_symbol)
+                (number))
+              (punctuation_semicolon)))
+          (select_case_end_select_keyword))
+        (function_end)))
 
 ===================
 Global Array Used In Function
@@ -23,6 +66,29 @@ FUNCTION ReadGlobalArray()
 END
 
 ---
+    (source_file
+      (array_declaration
+        (array_scope
+          (global_variable_scope))
+        (type)
+        (identifier)
+        (array_brackets_index
+          (number))
+        (punctuation_semicolon))
+      (a_function
+        (function_definition
+          (function_keyword)
+          (identifier)
+          (punctuation_bracket_open)
+          (punctuation_bracket_close))
+        (return_statment
+          (return_keyword)
+          (array_variable
+            (identifier)
+            (array_brackets_index
+              (number)))
+          (punctuation_semicolon))
+        (function_end)))
 
 ===================
 Module Array Used In Function
@@ -34,16 +100,66 @@ FUNCTION ReadModuleArray()
 END
 
 ---
+    (source_file
+      (array_declaration
+        (type)
+        (identifier)
+        (array_brackets_index
+          (number))
+        (punctuation_semicolon))
+      (a_function
+        (function_definition
+          (function_keyword)
+          (identifier)
+          (punctuation_bracket_open)
+          (punctuation_bracket_close))
+        (return_statment
+          (return_keyword)
+          (array_variable
+            (identifier)
+            (array_brackets_index
+              (number)))
+          (punctuation_semicolon))
+        (function_end)))
 
 ===================
 Array With Parenthesised Index
 ===================
+INT Values[10];
+
 FUNCTION ArrayParenIndex()
-    INT Values[10];
     Values[(1 + 2)] = 5;
 END
 
 ---
+    (source_file
+      (array_declaration
+        (type)
+        (identifier)
+        (array_brackets_index
+          (number))
+        (punctuation_semicolon))
+      (a_function
+        (function_definition
+          (function_keyword)
+          (identifier)
+          (punctuation_bracket_open)
+          (punctuation_bracket_close))
+        (variable_assignment
+          (identifier)
+          (array_brackets_index
+            (expression_in_brackets
+              (punctuation_bracket_open)
+              (expression
+                (number)
+                (mathematical_operators)
+                (number))
+              (punctuation_bracket_close)))
+          (assign_to_value
+            (punctuation_equals_sign)
+            (number))
+          (punctuation_semicolon))
+        (function_end)))
 
 ===================
 Array Returned Element
@@ -55,19 +171,64 @@ FUNCTION ReturnArrayValue()
 END
 
 ---
+    (source_file
+      (array_declaration
+        (type)
+        (identifier)
+        (array_brackets_index
+          (number))
+        (punctuation_semicolon))
+      (a_function
+        (function_definition
+          (function_keyword)
+          (identifier)
+          (punctuation_bracket_open)
+          (punctuation_bracket_close))
+        (return_statment
+          (return_keyword)
+          (array_variable
+            (identifier)
+            (array_brackets_index
+              (number)))
+          (punctuation_semicolon))
+        (function_end)))
 
 ===================
 Array Passed To Function
 ===================
+
 FUNCTION TakeArray(INT Arr[5])
     RETURN Arr[0];
 END
 
 ---
+    (source_file
+      (a_function
+        (function_definition
+          (function_keyword)
+          (identifier)
+          (punctuation_bracket_open)
+          (function_parameters
+            (function_parameter
+              (type)
+              (array_variable
+                (identifier)
+                (array_brackets_index
+                  (number)))))
+          (punctuation_bracket_close))
+        (return_statment
+          (return_keyword)
+          (array_variable
+            (identifier)
+            (array_brackets_index
+              (number)))
+          (punctuation_semicolon))
+        (function_end)))
 
 ===================
 Array Used In Expression
 ===================
+
 INT Values[5];
 
 FUNCTION ArrayExpr()
@@ -76,6 +237,38 @@ FUNCTION ArrayExpr()
 END
 
 ---
+    (source_file
+      (array_declaration
+        (type)
+        (identifier)
+        (array_brackets_index
+          (number))
+        (punctuation_semicolon))
+      (a_function
+        (function_definition
+          (function_keyword)
+          (identifier)
+          (punctuation_bracket_open)
+          (punctuation_bracket_close))
+        (variable_declaration
+          (type)
+          (identifier))
+        (variable_assignment
+          (identifier)
+          (assign_to_value
+            (punctuation_equals_sign)
+            (expression
+              (array_variable
+                (identifier)
+                (array_brackets_index
+                  (number)))
+              (mathematical_operators)
+              (array_variable
+                (identifier)
+                (array_brackets_index
+                  (number)))))
+          (punctuation_semicolon))
+        (function_end)))
 
 ===================
 Array Default Assignment
@@ -86,18 +279,98 @@ FUNCTION ArrayAssign()
 END
 
 ---
-
+   (source_file
+      (array_declaration
+        (type)
+        (identifier)
+        (array_brackets_index
+          (number))
+        (array_initial_values
+          (punctuation_equals_sign)
+          (string
+            (punctuation_quotation_mark)
+            (string_contents)
+            (punctuation_quotation_mark))
+          (punctuation_comma)
+          (string
+            (punctuation_quotation_mark)
+            (string_contents)
+            (punctuation_quotation_mark))
+          (punctuation_comma)
+          (string
+            (punctuation_quotation_mark)
+            (string_contents)
+            (punctuation_quotation_mark))
+          (punctuation_comma)
+          (string
+            (punctuation_quotation_mark)
+            (string_contents)
+            (punctuation_quotation_mark))
+          (punctuation_comma)
+          (string
+            (punctuation_quotation_mark)
+            (string_contents)
+            (punctuation_quotation_mark)))
+        (punctuation_semicolon))
+      (a_function
+        (function_definition
+          (function_keyword)
+          (identifier)
+          (punctuation_bracket_open)
+          (punctuation_bracket_close))
+        (function_end)))
 
 ===================
 Array Loop
 ===================
-REAL Array[10]
-FUNCTION TestArrayLoop:
+REAL Array[10];
+
+FUNCTION TestArrayLoop()
     INT Counter;
     FOR Counter = 0 TO 9 DO
-        Array[Counter] = 0
+        Array[Counter] = 0;
     END
-    RETURN Total
+    RETURN Total;
 END
 
 ---
+    (source_file
+      (array_declaration
+        (type)
+        (identifier)
+        (array_brackets_index
+          (number))
+        (punctuation_semicolon))
+      (a_function
+        (function_definition
+          (function_keyword)
+          (identifier)
+          (punctuation_bracket_open)
+          (punctuation_bracket_close))
+        (variable_declaration
+          (type)
+          (identifier))
+        (for_loop
+          (for_loop_for_keyword)
+          (for_loop_iterable
+            (identifier)
+            (assign_to_value
+              (punctuation_equals_sign)
+              (number))
+            (to_statement_to_keyword)
+            (number))
+          (for_loop_do_keyword)
+          (variable_assignment
+            (identifier)
+            (array_brackets_index
+              (identifier))
+            (assign_to_value
+              (punctuation_equals_sign)
+              (number))
+            (punctuation_semicolon))
+          (for_loop_end_keyword))
+        (return_statment
+          (return_keyword)
+          (identifier)
+          (punctuation_semicolon))
+        (function_end)))

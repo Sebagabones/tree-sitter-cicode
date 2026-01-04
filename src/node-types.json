@@ -4,6 +4,10 @@
     "named": true,
     "subtypes": [
       {
+        "type": "array_variable",
+        "named": true
+      },
+      {
         "type": "conditional_expression_in_brackets",
         "named": true
       },
@@ -13,6 +17,10 @@
       },
       {
         "type": "identifier",
+        "named": true
+      },
+      {
+        "type": "number",
         "named": true
       },
       {
@@ -102,6 +110,10 @@
     "named": true,
     "subtypes": [
       {
+        "type": "for_loop",
+        "named": true
+      },
+      {
         "type": "if_statement",
         "named": true
       },
@@ -115,6 +127,10 @@
       },
       {
         "type": "variable_assignment",
+        "named": true
+      },
+      {
+        "type": "while_loop",
         "named": true
       }
     ]
@@ -163,7 +179,7 @@
         "required": true,
         "types": [
           {
-            "type": "number",
+            "type": "expression_atom",
             "named": true
           }
         ]
@@ -689,6 +705,81 @@
       "types": [
         {
           "type": "expression_",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "for_loop",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "for_loop_do_keyword",
+          "named": true
+        },
+        {
+          "type": "for_loop_end_keyword",
+          "named": true
+        },
+        {
+          "type": "for_loop_for_keyword",
+          "named": true
+        },
+        {
+          "type": "for_loop_iterable",
+          "named": true
+        },
+        {
+          "type": "statement",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "for_loop_do_keyword",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "for_loop_end_keyword",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "for_loop_iterable",
+    "named": true,
+    "fields": {
+      "for_loop_variable": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "assign_to_value",
+          "named": true
+        },
+        {
+          "type": "expression_",
+          "named": true
+        },
+        {
+          "type": "to_statement_to_keyword",
           "named": true
         }
       ]
@@ -1373,6 +1464,47 @@
     }
   },
   {
+    "type": "while_loop",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "conditional_expression",
+          "named": true
+        },
+        {
+          "type": "statement",
+          "named": true
+        },
+        {
+          "type": "while_loop_do_keyword",
+          "named": true
+        },
+        {
+          "type": "while_loop_end_keyword",
+          "named": true
+        },
+        {
+          "type": "while_loop_while_keyword",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "while_loop_do_keyword",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "while_loop_end_keyword",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "xml_docstring_contents",
     "named": true,
     "fields": {
@@ -1522,6 +1654,14 @@
     "named": false
   },
   {
+    "type": "DO",
+    "named": false
+  },
+  {
+    "type": "END",
+    "named": false
+  },
+  {
     "type": "INT",
     "named": false
   },
@@ -1643,6 +1783,10 @@
     "named": true
   },
   {
+    "type": "for_loop_for_keyword",
+    "named": true
+  },
+  {
     "type": "format_specifier_decimal_notation",
     "named": true
   },
@@ -1736,6 +1880,10 @@
   },
   {
     "type": "to_statement_to_keyword",
+    "named": true
+  },
+  {
+    "type": "while_loop_while_keyword",
     "named": true
   }
 ]

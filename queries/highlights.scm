@@ -1,6 +1,6 @@
 ; highlights.scm
 ;; See https://tree-sitter.github.io/tree-sitter/3-syntax-highlighting#query-paths
-
+;; TODO: Highlighting for the :*** format style
 ;; keywords
 (function_keyword) @keyword
 (function_end) @keyword
@@ -15,6 +15,14 @@
 (select_case_is_keyword) @keyword
 (case_statement_case_keyword) @keyword
 (case_statement_case_else_keyword) @keyword
+(for_loop_for_keyword) @keyword
+(for_loop_do_keyword) @keyword
+(for_loop_end_keyword) @keyword
+(while_loop_end_keyword) @keyword
+(while_loop_while_keyword) @keyword
+(while_loop_do_keyword) @keyword
+
+
 
 ;; punctuation
 (punctuation_quotation_mark) @punctuation.special
@@ -41,10 +49,12 @@
 
 (function_definition (function_parameters (function_parameter parameter_type: (type) @type)))
 
-(function_parameter parameter_name: (identifier) @variable.parameter)
-(function_call function_parameter: (identifier) @variable.parameter)
-(function_call function_parameter: (expression  (identifier) @variable.parameter))
+;; (function_parameter parameter_name: (identifier) @variable.parameter)
+;; (function_parameter parameter_name: (array_variable (identifier)) @variable.parameter)
 
+(function_call function_parameter: (identifier) @variable.parameter)
+(function_call function_parameter: (array_variable) @variable.parameter)
+(function_call function_parameter: (expression  (identifier) @variable.parameter))
 
 (comment) @comment
 
