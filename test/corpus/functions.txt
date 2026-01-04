@@ -104,7 +104,8 @@ END
     (source_file
       (a_function
         (function_definition
-          (function_scope)
+          (function_scope
+            (function_scope_private_keyword))
           (type)
           (function_keyword)
           (identifier)
@@ -127,7 +128,8 @@ END
   (source_file
       (a_function
         (function_definition
-          (function_scope)
+          (function_scope
+            (function_scope_public_keyword))
           (type)
           (function_keyword)
           (identifier)

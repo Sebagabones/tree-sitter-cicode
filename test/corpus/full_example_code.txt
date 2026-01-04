@@ -59,7 +59,18 @@ PRIVATE INT FUNCTION AddBoatToManifest(INT BoatID, STRING BoatName = "My default
                 RETURN MapValueSet(ManifestOfBoats, IntToStr(BoatID), BoatName);
             END
     END SELECT
+
+    FOR counter = 0 TO 4 DO
+        Prompt(ArrayA[counter]);
+        Prompt(ArrayA);
+
+        Sleep(15);
+    END
+    WHILE counter > 0 DO
+        Prompt(ArrayA[counter]);
+    END
 END
+
 ---
 
     (source_file
@@ -99,7 +110,8 @@ END
               (doxygen_returns_xml_close_tag)))
           (delimited_comment_doxygen_xml_closing))
         (function_definition
-          (function_scope)
+          (function_scope
+            (function_scope_private_keyword))
           (type)
           (function_keyword)
           (identifier)
@@ -413,4 +425,59 @@ END
                 (punctuation_semicolon))
               (if_statement_end_keyword)))
           (select_case_end_select_keyword))
+        (for_loop
+          (for_loop_for_keyword)
+          (for_loop_iterable
+            (identifier)
+            (assign_to_value
+              (punctuation_equals_sign)
+              (number))
+            (to_statement_to_keyword)
+            (number))
+          (for_loop_do_keyword)
+          (statement_function_call
+            (function_call
+              (identifier)
+              (punctuation_bracket_open)
+              (array_variable
+                (identifier)
+                (array_brackets_index
+                  (identifier)))
+              (punctuation_bracket_close))
+            (punctuation_semicolon))
+          (statement_function_call
+            (function_call
+              (identifier)
+              (punctuation_bracket_open)
+              (identifier)
+              (punctuation_bracket_close))
+            (punctuation_semicolon))
+          (statement_function_call
+            (function_call
+              (identifier)
+              (punctuation_bracket_open)
+              (number)
+              (punctuation_bracket_close))
+            (punctuation_semicolon))
+          (for_loop_end_keyword))
+        (while_loop
+          (while_loop_while_keyword)
+          (conditional_expression
+            (conditional_expression
+              (identifier))
+            (relational_operators)
+            (conditional_expression
+              (number)))
+          (while_loop_do_keyword)
+          (statement_function_call
+            (function_call
+              (identifier)
+              (punctuation_bracket_open)
+              (array_variable
+                (identifier)
+                (array_brackets_index
+                  (identifier)))
+              (punctuation_bracket_close))
+            (punctuation_semicolon))
+          (while_loop_end_keyword))
         (function_end)))

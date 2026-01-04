@@ -1,6 +1,7 @@
 ; highlights.scm
 ;; See https://tree-sitter.github.io/tree-sitter/3-syntax-highlighting#query-paths
 ;; TODO: Highlighting for the :*** format style
+;; Probably need to do bitand keywords too - honestly a bunch of keywords need doing
 ;; keywords
 (function_keyword) @keyword
 (function_end) @keyword

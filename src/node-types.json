@@ -357,7 +357,25 @@
   {
     "type": "bit_operators",
     "named": true,
-    "fields": {}
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "bit_operators_bitand_keyword",
+          "named": true
+        },
+        {
+          "type": "bit_operators_bitor_keyword",
+          "named": true
+        },
+        {
+          "type": "bit_operators_bitxor_keyword",
+          "named": true
+        }
+      ]
+    }
   },
   {
     "type": "case_else_statement",
@@ -1060,7 +1078,21 @@
   {
     "type": "function_scope",
     "named": true,
-    "fields": {}
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "function_scope_private_keyword",
+          "named": true
+        },
+        {
+          "type": "function_scope_public_keyword",
+          "named": true
+        }
+      ]
+    }
   },
   {
     "type": "if_statement",
@@ -1638,18 +1670,6 @@
     "named": false
   },
   {
-    "type": "BITAND",
-    "named": false
-  },
-  {
-    "type": "BITOR",
-    "named": false
-  },
-  {
-    "type": "BITXOR",
-    "named": false
-  },
-  {
     "type": "BOOL",
     "named": false
   },
@@ -1686,14 +1706,6 @@
     "named": false
   },
   {
-    "type": "PRIVATE",
-    "named": false
-  },
-  {
-    "type": "PUBLIC",
-    "named": false
-  },
-  {
     "type": "QUALITY",
     "named": false
   },
@@ -1720,6 +1732,18 @@
   {
     "type": "]",
     "named": false
+  },
+  {
+    "type": "bit_operators_bitand_keyword",
+    "named": true
+  },
+  {
+    "type": "bit_operators_bitor_keyword",
+    "named": true
+  },
+  {
+    "type": "bit_operators_bitxor_keyword",
+    "named": true
   },
   {
     "type": "case_statement_case_else_keyword",
@@ -1808,6 +1832,14 @@
   },
   {
     "type": "function_keyword",
+    "named": true
+  },
+  {
+    "type": "function_scope_private_keyword",
+    "named": true
+  },
+  {
+    "type": "function_scope_public_keyword",
     "named": true
   },
   {

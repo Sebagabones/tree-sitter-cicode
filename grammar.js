@@ -9,7 +9,7 @@
 
 module.exports = grammar({
     name: "cicode",
-
+    // TODO: Add a bunch of things to keywords
     externals: ($) => [
         $.doxygen_summary_content,
         $.doxygen_param_content,
@@ -30,16 +30,62 @@ module.exports = grammar({
         $.operators_used_in_conditionals,
         $.expression_,
     ],
-    reserved: { global: ($) => ["END", "FUNCTION", "RETURN"] },
+    reserved: {
+        global: ($) => [
+            "END",
+            "FUNCTION",
+            "RETURN",
+            "PRIVATE",
+            "PUBLIC",
+            "INT",
+            "STRING",
+            "REAL",
+            "QUALITY",
+            "TIMESTAMP",
+            "BOOL",
+            "OBJECT",
+            "LONG",
+            "VOID",
+            "CASE ELSE",
+            "CASE",
+            "IS",
+            "SELECT CASE",
+            "END SELECT",
+            "IF",
+            "THEN",
+            "ELSE",
+            "TO",
+            "FOR",
+            "DO",
+            "WHILE",
+        ],
+    },
     rules: {
         source_file: ($) => repeat($._definition),
 
         _whitespace: ($) => /\s/,
 
         mathematical_operators: ($) => choice("+", "-", "*", "/", "MOD"),
-        bit_operators: ($) => choice("BITAND", "BITOR", "BITXOR"),
+        bit_operators_bitand_keyword: (_) => token("BITAND"),
+        bit_operators_bitor_keyword: (_) => token("BITOR"),
+        bit_operators_bitxor_keyword: (_) => token("BITXOR"),
+        bit_operators: ($) =>
+            choice(
+                $.bit_operators_bitand_keyword,
+                $.bit_operators_bitor_keyword,
+                $.bit_operators_bitxor_keyword,
+            ),
         relational_operators: ($) => choice("=", "<>", "<", ">", "<=", ">="),
-        logical_operators: ($) => choice("AND", "OR", "NOT"),
+        _logical_operators_and_keyword: (_) => token("AND"),
+        _logical_operators_or_keyword: (_) => token("OR"),
+        _logical_operators_not_keyword: (_) => token("NOT"),
+
+        logical_operators: ($) =>
+            choice(
+                $._logical_operators_or_keyword,
+                $._logical_operators_not_keyword,
+                $._logical_operators_and_keyword,
+            ),
 
         operators_used_in_statements: ($) =>
             choice($.mathematical_operators, $.bit_operators),
@@ -75,20 +121,35 @@ module.exports = grammar({
                 optional($.return_statment),
                 $.function_end,
             ),
+        function_scope_public_keyword: ($) => token("PUBLIC"),
+        function_scope_private_keyword: ($) => token("PRIVATE"),
 
-        function_scope: ($) => choice("PUBLIC", "PRIVATE"),
+        function_scope: ($) =>
+            choice(
+                $.function_scope_public_keyword,
+                $.function_scope_private_keyword,
+            ),
+        _int_keyword: (_) => token("INT"),
+        _string_keyword: (_) => token("STRING"),
+        _real_keyword: (_) => token("REAL"),
+        _quality_keyword: (_) => token("QUALITY"),
+        _timestamp_keyword: (_) => token("TIMESTAMP"),
+        _bool_keyword: (_) => token("BOOL"),
+        _object_keyword: (_) => token("OBJECT"),
+        _long_keyword: (_) => token("LONG"),
+        _void_keyword: (_) => token("VOID"),
 
         type: ($) =>
             choice(
-                "INT",
-                "STRING",
-                "REAL",
-                "QUALITY",
-                "TIMESTAMP",
-                "BOOL",
-                "OBJECT",
-                "LONG", // IDK, their docs dont mention it iirc, but their examples do
-                "VOID", // Only valid for functions, but eh
+                $._int_keyword,
+                $._string_keyword,
+                $._real_keyword,
+                $._quality_keyword,
+                $._timestamp_keyword,
+                $._bool_keyword,
+                $._object_keyword,
+                $._long_keyword, // IDK, their docs dont mention it iirc, but their examples do
+                $._void_keyword, // Only valid for functions, but eh
             ),
 
         number: ($) => prec(2, /[0-9]+/),
@@ -361,7 +422,10 @@ module.exports = grammar({
                 ),
             ),
         unary_not_conditional_atom: ($) =>
-            prec.right(2, seq("NOT", $.conditional_atom)), // unary NOT
+            prec.right(
+                2,
+                seq($._logical_operators_not_keyword, $.conditional_atom),
+            ), // unary NOT
 
         conditional_atom: ($) =>
             choice(
@@ -447,7 +511,7 @@ module.exports = grammar({
                 choice($.expression_),
                 $.punctuation_semicolon,
             ),
-        case_statement_case_keyword: ($) => "CASE",
+        case_statement_case_keyword: ($) => token("CASE"),
         case_statement: ($) =>
             seq(
                 $.case_statement_case_keyword,
@@ -457,7 +521,7 @@ module.exports = grammar({
                 ),
                 seq(repeat($.statement), optional($.return_statment)),
             ),
-        case_statement_case_else_keyword: ($) => "CASE ELSE",
+        case_statement_case_else_keyword: ($) => token("CASE ELSE"),
         case_else_statement: ($) =>
             seq(
                 $.case_statement_case_else_keyword,

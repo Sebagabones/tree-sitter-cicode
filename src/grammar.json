@@ -39,20 +39,41 @@
         }
       ]
     },
+    "bit_operators_bitand_keyword": {
+      "type": "TOKEN",
+      "content": {
+        "type": "STRING",
+        "value": "BITAND"
+      }
+    },
+    "bit_operators_bitor_keyword": {
+      "type": "TOKEN",
+      "content": {
+        "type": "STRING",
+        "value": "BITOR"
+      }
+    },
+    "bit_operators_bitxor_keyword": {
+      "type": "TOKEN",
+      "content": {
+        "type": "STRING",
+        "value": "BITXOR"
+      }
+    },
     "bit_operators": {
       "type": "CHOICE",
       "members": [
         {
-          "type": "STRING",
-          "value": "BITAND"
+          "type": "SYMBOL",
+          "name": "bit_operators_bitand_keyword"
         },
         {
-          "type": "STRING",
-          "value": "BITOR"
+          "type": "SYMBOL",
+          "name": "bit_operators_bitor_keyword"
         },
         {
-          "type": "STRING",
-          "value": "BITXOR"
+          "type": "SYMBOL",
+          "name": "bit_operators_bitxor_keyword"
         }
       ]
     },
@@ -85,20 +106,41 @@
         }
       ]
     },
+    "_logical_operators_and_keyword": {
+      "type": "TOKEN",
+      "content": {
+        "type": "STRING",
+        "value": "AND"
+      }
+    },
+    "_logical_operators_or_keyword": {
+      "type": "TOKEN",
+      "content": {
+        "type": "STRING",
+        "value": "OR"
+      }
+    },
+    "_logical_operators_not_keyword": {
+      "type": "TOKEN",
+      "content": {
+        "type": "STRING",
+        "value": "NOT"
+      }
+    },
     "logical_operators": {
       "type": "CHOICE",
       "members": [
         {
-          "type": "STRING",
-          "value": "AND"
+          "type": "SYMBOL",
+          "name": "_logical_operators_or_keyword"
         },
         {
-          "type": "STRING",
-          "value": "OR"
+          "type": "SYMBOL",
+          "name": "_logical_operators_not_keyword"
         },
         {
-          "type": "STRING",
-          "value": "NOT"
+          "type": "SYMBOL",
+          "name": "_logical_operators_and_keyword"
         }
       ]
     },
@@ -281,57 +323,134 @@
         }
       ]
     },
+    "function_scope_public_keyword": {
+      "type": "TOKEN",
+      "content": {
+        "type": "STRING",
+        "value": "PUBLIC"
+      }
+    },
+    "function_scope_private_keyword": {
+      "type": "TOKEN",
+      "content": {
+        "type": "STRING",
+        "value": "PRIVATE"
+      }
+    },
     "function_scope": {
       "type": "CHOICE",
       "members": [
         {
-          "type": "STRING",
-          "value": "PUBLIC"
+          "type": "SYMBOL",
+          "name": "function_scope_public_keyword"
         },
         {
-          "type": "STRING",
-          "value": "PRIVATE"
+          "type": "SYMBOL",
+          "name": "function_scope_private_keyword"
         }
       ]
+    },
+    "_int_keyword": {
+      "type": "TOKEN",
+      "content": {
+        "type": "STRING",
+        "value": "INT"
+      }
+    },
+    "_string_keyword": {
+      "type": "TOKEN",
+      "content": {
+        "type": "STRING",
+        "value": "STRING"
+      }
+    },
+    "_real_keyword": {
+      "type": "TOKEN",
+      "content": {
+        "type": "STRING",
+        "value": "REAL"
+      }
+    },
+    "_quality_keyword": {
+      "type": "TOKEN",
+      "content": {
+        "type": "STRING",
+        "value": "QUALITY"
+      }
+    },
+    "_timestamp_keyword": {
+      "type": "TOKEN",
+      "content": {
+        "type": "STRING",
+        "value": "TIMESTAMP"
+      }
+    },
+    "_bool_keyword": {
+      "type": "TOKEN",
+      "content": {
+        "type": "STRING",
+        "value": "BOOL"
+      }
+    },
+    "_object_keyword": {
+      "type": "TOKEN",
+      "content": {
+        "type": "STRING",
+        "value": "OBJECT"
+      }
+    },
+    "_long_keyword": {
+      "type": "TOKEN",
+      "content": {
+        "type": "STRING",
+        "value": "LONG"
+      }
+    },
+    "_void_keyword": {
+      "type": "TOKEN",
+      "content": {
+        "type": "STRING",
+        "value": "VOID"
+      }
     },
     "type": {
       "type": "CHOICE",
       "members": [
         {
-          "type": "STRING",
-          "value": "INT"
+          "type": "SYMBOL",
+          "name": "_int_keyword"
         },
         {
-          "type": "STRING",
-          "value": "STRING"
+          "type": "SYMBOL",
+          "name": "_string_keyword"
         },
         {
-          "type": "STRING",
-          "value": "REAL"
+          "type": "SYMBOL",
+          "name": "_real_keyword"
         },
         {
-          "type": "STRING",
-          "value": "QUALITY"
+          "type": "SYMBOL",
+          "name": "_quality_keyword"
         },
         {
-          "type": "STRING",
-          "value": "TIMESTAMP"
+          "type": "SYMBOL",
+          "name": "_timestamp_keyword"
         },
         {
-          "type": "STRING",
-          "value": "BOOL"
+          "type": "SYMBOL",
+          "name": "_bool_keyword"
         },
         {
-          "type": "STRING",
-          "value": "OBJECT"
+          "type": "SYMBOL",
+          "name": "_object_keyword"
         },
         {
-          "type": "STRING",
-          "value": "LONG"
+          "type": "SYMBOL",
+          "name": "_long_keyword"
         },
         {
-          "type": "STRING",
-          "value": "VOID"
+          "type": "SYMBOL",
+          "name": "_void_keyword"
         }
       ]
     },
@@ -1421,8 +1540,8 @@
         "type": "SEQ",
         "members": [
           {
-            "type": "STRING",
-            "value": "NOT"
+            "type": "SYMBOL",
+            "name": "_logical_operators_not_keyword"
           },
           {
             "type": "SYMBOL",
@@ -1765,8 +1884,11 @@
       ]
     },
     "case_statement_case_keyword": {
-      "type": "STRING",
-      "value": "CASE"
+      "type": "TOKEN",
+      "content": {
+        "type": "STRING",
+        "value": "CASE"
+      }
     },
     "case_statement": {
       "type": "SEQ",
@@ -1827,8 +1949,11 @@
       ]
     },
     "case_statement_case_else_keyword": {
-      "type": "STRING",
-      "value": "CASE ELSE"
+      "type": "TOKEN",
+      "content": {
+        "type": "STRING",
+        "value": "CASE ELSE"
+      }
     },
     "case_else_statement": {
       "type": "SEQ",
@@ -2321,6 +2446,98 @@
       {
         "type": "STRING",
         "value": "RETURN"
+      },
+      {
+        "type": "STRING",
+        "value": "PRIVATE"
+      },
+      {
+        "type": "STRING",
+        "value": "PUBLIC"
+      },
+      {
+        "type": "STRING",
+        "value": "INT"
+      },
+      {
+        "type": "STRING",
+        "value": "STRING"
+      },
+      {
+        "type": "STRING",
+        "value": "REAL"
+      },
+      {
+        "type": "STRING",
+        "value": "QUALITY"
+      },
+      {
+        "type": "STRING",
+        "value": "TIMESTAMP"
+      },
+      {
+        "type": "STRING",
+        "value": "BOOL"
+      },
+      {
+        "type": "STRING",
+        "value": "OBJECT"
+      },
+      {
+        "type": "STRING",
+        "value": "LONG"
+      },
+      {
+        "type": "STRING",
+        "value": "VOID"
+      },
+      {
+        "type": "STRING",
+        "value": "CASE ELSE"
+      },
+      {
+        "type": "STRING",
+        "value": "CASE"
+      },
+      {
+        "type": "STRING",
+        "value": "IS"
+      },
+      {
+        "type": "STRING",
+        "value": "SELECT CASE"
+      },
+      {
+        "type": "STRING",
+        "value": "END SELECT"
+      },
+      {
+        "type": "STRING",
+        "value": "IF"
+      },
+      {
+        "type": "STRING",
+        "value": "THEN"
+      },
+      {
+        "type": "STRING",
+        "value": "ELSE"
+      },
+      {
+        "type": "STRING",
+        "value": "TO"
+      },
+      {
+        "type": "STRING",
+        "value": "FOR"
+      },
+      {
+        "type": "STRING",
+        "value": "DO"
+      },
+      {
+        "type": "STRING",
+        "value": "WHILE"
       }
     ]
   }

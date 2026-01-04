@@ -19,7 +19,7 @@ PRIVATE INT FUNCTION AddBoatToManifest(INT BoatID, STRING BoatName = "My default
 
     counter = "a" + 2;
     Counter = (2 + incrementValue)/3;
-    IF counter > 0 THEN
+    IF counter > 0 AND counter < 1000 THEN
         incrementValue = 1;
         IF checkIfBoatIsCoastGuards(BoatID) THEN
             val1 =  MapValueSet(ManifestOfBoats, IntToStr(BoatID), BoatName); // All Coast Guard boat ID’s already exist in manifest, but update the name
