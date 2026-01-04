@@ -1,0 +1,99 @@
+===================
+TripleSlash DocString
+===================
+/// <function name="testDocString">
+/// <summary>
+/// TODO summary
+/// </summary>
+/// <param name="param1">TODO</param>
+/// </function>
+FUNCTION testDocString(param1)
+END
+---
+    (source_file
+      (comment)
+      (comment)
+      (comment)
+      (comment)
+      (comment)
+      (comment)
+      (a_function
+        (function_definition
+          (function_keyword)
+          (identifier)
+          (punctuation_bracket_open)
+          (ERROR
+            (identifier))
+          (punctuation_bracket_close))
+        (function_end)))
+
+===================
+Actual Docstring
+===================
+/**
+<summary>
+TODO summary
+</summary>
+<param name="param1">TODO</param>
+**/
+FUNCTION testDocString(INT param1)
+END
+
+---
+    (source_file
+      (a_function
+        (xml_function_docstring
+          (delimited_comment_doxygen_xml_opening)
+          (xml_docstring_contents
+            (doxygen_summary_xml_tag
+              (doxygen_summary_xml_open_tag)
+              (doxygen_summary_content)
+              (doxygen_summary_xml_close_tag))
+            (doxygen_param_xml_tag
+              (doxygen_param_xml_open_tag)
+              (doxygen_xml_name_attribute
+                (doxygen_xml_name_attribute_name_keyword)
+                (punctuation_equals_sign)
+                (punctuation_quotation_mark)
+                (identifier)
+                (punctuation_quotation_mark))
+              (doxygen_param_xml_close_opening_tag)
+              (doxygen_param_content)
+              (doxygen_param_xml_close_tag)))
+          (delimited_comment_doxygen_xml_closing))
+        (function_definition
+          (function_keyword)
+          (identifier)
+          (punctuation_bracket_open)
+          (function_parameters
+            (function_parameter
+              (type)
+              (identifier)))
+          (punctuation_bracket_close))
+        (function_end)))
+
+===================
+Invalid DocString
+===================
+/**
+invalid docstring
+**/
+FUNCTION testDocString(param1)
+END
+---
+    (source_file
+      (xml_non_function_docstring
+        (delimited_comment_doxygen_xml_opening)
+        (ERROR
+          (identifier)
+          (identifier))
+        (delimited_comment_doxygen_xml_closing))
+      (a_function
+        (function_definition
+          (function_keyword)
+          (identifier)
+          (punctuation_bracket_open)
+          (ERROR
+            (identifier))
+          (punctuation_bracket_close))
+        (function_end)))

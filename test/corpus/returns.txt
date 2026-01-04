@@ -1,0 +1,198 @@
+===================
+Return INT
+===================
+INT FUNCTION ReturnsInt()
+    RETURN(1);
+END
+
+---
+    (source_file
+      (a_function
+        (function_definition
+          return_type: (type)
+          (function_keyword)
+          function_name: (identifier)
+          function_definition_bracket_open: (punctuation_bracket_open)
+          function_definition_bracket_close: (punctuation_bracket_close))
+        (return_statment
+          (return_keyword)
+          (expression_in_brackets
+            expression_open_brackets: (punctuation_bracket_open)
+            (number)
+            expression_close_brackets: (punctuation_bracket_close))
+          (punctuation_semicolon))
+        (function_end)))
+
+===================
+Return STRING
+===================
+STRING FUNCTION ReturnsString()
+    RETURN("TEST");
+END
+---
+    (source_file
+      (a_function
+        (function_definition
+          return_type: (type)
+          (function_keyword)
+          function_name: (identifier)
+          function_definition_bracket_open: (punctuation_bracket_open)
+          function_definition_bracket_close: (punctuation_bracket_close))
+        (return_statment
+          (return_keyword)
+          (expression_in_brackets
+            expression_open_brackets: (punctuation_bracket_open)
+          (string
+              (punctuation_quotation_mark)
+              (string_contents)
+              (punctuation_quotation_mark))
+            expression_close_brackets: (punctuation_bracket_close))
+          (punctuation_semicolon))
+        (function_end)))
+
+===================
+Returns Expression
+===================
+INT FUNCTION ReturnsExpression()
+    RETURN(1+2);
+END
+---
+
+(source_file
+      (a_function
+        (function_definition
+          (type)
+          (function_keyword)
+          (identifier)
+          (punctuation_bracket_open)
+          (punctuation_bracket_close))
+        (return_statment
+          (return_keyword)
+          (expression_in_brackets
+            (punctuation_bracket_open)
+            (expression
+              (number)
+              (mathematical_operators)
+              (number))
+            (punctuation_bracket_close))
+          (punctuation_semicolon))
+        (function_end)))
+
+===================
+Return Empty Function Call
+===================
+INT FUNCTION ReturnsEmptyFunctionCall()
+    RETURN(functionCall());
+END
+
+---
+    (source_file
+      (a_function
+        (function_definition
+          (type)
+          (function_keyword)
+          (identifier)
+          (punctuation_bracket_open)
+          (punctuation_bracket_close))
+        (return_statment
+          (return_keyword)
+          (expression_in_brackets
+            (punctuation_bracket_open)
+            (function_call
+              (identifier)
+              (punctuation_bracket_open)
+              (punctuation_bracket_close))
+            (punctuation_bracket_close))
+          (punctuation_semicolon))
+        (function_end)))
+
+===================
+Return Function Call With Parameters
+===================
+INT FUNCTION ReturnsParamFunctionCall()
+    RETURN(functionCall(1, "testString"));
+END
+
+---
+    (source_file
+      (a_function
+        (function_definition
+          (type)
+          (function_keyword)
+          (identifier)
+          (punctuation_bracket_open)
+          (punctuation_bracket_close))
+        (return_statment
+          (return_keyword)
+          (expression_in_brackets
+            (punctuation_bracket_open)
+            (function_call
+              (identifier)
+              (punctuation_bracket_open)
+              (number)
+              (punctuation_comma)
+              (string
+                (punctuation_quotation_mark)
+                (string_contents)
+                (punctuation_quotation_mark))
+              (punctuation_bracket_close))
+            (punctuation_bracket_close))
+          (punctuation_semicolon))
+        (function_end)))
+
+===================
+Return Function Call With Expression
+===================
+INT FUNCTION ReturnsFunctionCallParamWithExpression()
+    RETURN(functionCall(1) + 1);
+END
+
+---
+
+    (source_file
+      (a_function
+        (function_definition
+          (type)
+          (function_keyword)
+          (identifier)
+          (punctuation_bracket_open)
+          (punctuation_bracket_close))
+        (return_statment
+          (return_keyword)
+          (expression_in_brackets
+            (punctuation_bracket_open)
+            (expression
+              (function_call
+                (identifier)
+                (punctuation_bracket_open)
+                (number)
+                (punctuation_bracket_close))
+              (mathematical_operators)
+              (number))
+            (punctuation_bracket_close))
+          (punctuation_semicolon))
+        (function_end)))
+
+===================
+Return Function Call Without Brackets
+===================
+FUNCTION ReturnFunctionCall()
+    RETURN TestFunctionCall();
+END
+
+---
+    (source_file
+      (a_function
+        (function_definition
+          (function_keyword)
+          (identifier)
+          (punctuation_bracket_open)
+          (punctuation_bracket_close))
+        (return_statment
+          (return_keyword)
+          (function_call
+            (identifier)
+            (punctuation_bracket_open)
+            (punctuation_bracket_close))
+          (punctuation_semicolon))
+        (function_end)))

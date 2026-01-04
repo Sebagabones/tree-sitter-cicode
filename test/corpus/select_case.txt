@@ -1,0 +1,885 @@
+===================
+Select Case Single Expression
+===================
+FUNCTION SelectSingle(INT X)
+    SELECT CASE X
+        CASE 1
+            RETURN 1;
+        CASE 2
+            RETURN 2;
+    END SELECT
+END
+
+---
+    (source_file
+      (a_function
+        (function_definition
+          (function_keyword)
+          (identifier)
+          (punctuation_bracket_open)
+          (function_parameters
+            (function_parameter
+              (type)
+              (identifier)))
+          (punctuation_bracket_close))
+        (select_case_statement
+          (select_case_select_case_keyword)
+          (conditional_expression
+            (identifier))
+          (case_statement
+            (case_statement_case_keyword)
+            (case_expression
+              (number))
+            (return_statment
+              (return_keyword)
+              (number)
+              (punctuation_semicolon)))
+          (case_statement
+            (case_statement_case_keyword)
+            (case_expression
+              (number))
+            (return_statment
+              (return_keyword)
+              (number)
+              (punctuation_semicolon)))
+          (select_case_end_select_keyword))
+        (function_end)))
+
+===================
+Select Case Multiple Expressions
+===================
+FUNCTION SelectMultiple(INT X)
+    SELECT CASE X
+        CASE 1, 3, 5
+            RETURN 1;
+        CASE 2, 4
+            RETURN 2;
+    END SELECT
+END
+
+---
+    (source_file
+      (a_function
+        (function_definition
+          (function_keyword)
+          (identifier)
+          (punctuation_bracket_open)
+          (function_parameters
+            (function_parameter
+              (type)
+              (identifier)))
+          (punctuation_bracket_close))
+        (select_case_statement
+          (select_case_select_case_keyword)
+          (conditional_expression
+            (identifier))
+          (case_statement
+            (case_statement_case_keyword)
+            (case_expression
+              (number))
+            (punctuation_comma)
+            (case_expression
+              (number))
+            (punctuation_comma)
+            (case_expression
+              (number))
+            (return_statment
+              (return_keyword)
+              (number)
+              (punctuation_semicolon)))
+          (case_statement
+            (case_statement_case_keyword)
+            (case_expression
+              (number))
+            (punctuation_comma)
+            (case_expression
+              (number))
+            (return_statment
+              (return_keyword)
+              (number)
+              (punctuation_semicolon)))
+          (select_case_end_select_keyword))
+        (function_end)))
+
+===================
+Select Case Range
+===================
+FUNCTION SelectRange(INT X)
+    SELECT CASE X
+        CASE 1 TO 5
+            RETURN 1;
+        CASE 6 TO 10
+            RETURN 2;
+    END SELECT
+END
+
+---
+    (source_file
+      (a_function
+        (function_definition
+          (function_keyword)
+          (identifier)
+          (punctuation_bracket_open)
+          (function_parameters
+            (function_parameter
+              (type)
+              (identifier)))
+          (punctuation_bracket_close))
+        (select_case_statement
+          (select_case_select_case_keyword)
+          (conditional_expression
+            (identifier))
+          (case_statement
+            (case_statement_case_keyword)
+            (case_expression
+              (to_statement
+                (number)
+                (to_statement_to_keyword)
+                (number)))
+            (return_statment
+              (return_keyword)
+              (number)
+              (punctuation_semicolon)))
+          (case_statement
+            (case_statement_case_keyword)
+            (case_expression
+              (to_statement
+                (number)
+                (to_statement_to_keyword)
+                (number)))
+            (return_statment
+              (return_keyword)
+              (number)
+              (punctuation_semicolon)))
+          (select_case_end_select_keyword))
+        (function_end)))
+
+===================
+Select Case Multiple Ranges
+===================
+FUNCTION SelectMultipleRanges(INT X)
+    SELECT CASE X
+        CASE 1 TO 4, 7 TO 9
+            RETURN 1;
+        CASE 10 TO 20
+            RETURN 2;
+    END SELECT
+END
+
+---
+    (source_file
+      (a_function
+        (function_definition
+          (function_keyword)
+          (identifier)
+          (punctuation_bracket_open)
+          (function_parameters
+            (function_parameter
+              (type)
+              (identifier)))
+          (punctuation_bracket_close))
+        (select_case_statement
+          (select_case_select_case_keyword)
+          (conditional_expression
+            (identifier))
+          (case_statement
+            (case_statement_case_keyword)
+            (case_expression
+              (to_statement
+                (number)
+                (to_statement_to_keyword)
+                (number)))
+            (punctuation_comma)
+            (case_expression
+              (to_statement
+                (number)
+                (to_statement_to_keyword)
+                (number)))
+            (return_statment
+              (return_keyword)
+              (number)
+              (punctuation_semicolon)))
+          (case_statement
+            (case_statement_case_keyword)
+            (case_expression
+              (to_statement
+                (number)
+                (to_statement_to_keyword)
+                (number)))
+            (return_statment
+              (return_keyword)
+              (number)
+              (punctuation_semicolon)))
+          (select_case_end_select_keyword))
+        (function_end)))
+
+===================
+Select Case Expression And Range
+===================
+FUNCTION SelectExprAndRange(INT X)
+    SELECT CASE X
+        CASE 1, 3 TO 5, 8
+            RETURN 1;
+    END SELECT
+END
+
+---
+    (source_file
+      (a_function
+        (function_definition
+          (function_keyword)
+          (identifier)
+          (punctuation_bracket_open)
+          (function_parameters
+            (function_parameter
+              (type)
+              (identifier)))
+          (punctuation_bracket_close))
+        (select_case_statement
+          (select_case_select_case_keyword)
+          (conditional_expression
+            (identifier))
+          (case_statement
+            (case_statement_case_keyword)
+            (case_expression
+              (number))
+            (punctuation_comma)
+            (case_expression
+              (to_statement
+                (number)
+                (to_statement_to_keyword)
+                (number)))
+            (punctuation_comma)
+            (case_expression
+              (number))
+            (return_statment
+              (return_keyword)
+              (number)
+              (punctuation_semicolon)))
+          (select_case_end_select_keyword))
+        (function_end)))
+
+===================
+Select Case IS Greater Than
+===================
+FUNCTION SelectIsGreater(INT X)
+    SELECT CASE X
+        CASE IS > 10
+            RETURN 1;
+    END SELECT
+END
+
+---
+    (source_file
+      (a_function
+        (function_definition
+          (function_keyword)
+          (identifier)
+          (punctuation_bracket_open)
+          (function_parameters
+            (function_parameter
+              (type)
+              (identifier)))
+          (punctuation_bracket_close))
+        (select_case_statement
+          (select_case_select_case_keyword)
+          (conditional_expression
+            (identifier))
+          (case_statement
+            (case_statement_case_keyword)
+            (case_expression
+              (select_case_conditional_expression
+                (select_case_is_keyword)
+                (relational_operators)
+                (conditional_expression
+                  (identifier))))
+            (return_statment
+              (return_keyword)
+              (number)
+              (punctuation_semicolon)))
+          (select_case_end_select_keyword))
+        (function_end)))
+
+===================
+Select Case IS Less Than Or Equal
+===================
+FUNCTION SelectIsLessEqual(INT X)
+    SELECT CASE X
+        CASE IS <= 0
+            RETURN -1;
+    END SELECT
+END
+
+---
+    (source_file
+      (a_function
+        (function_definition
+          (function_keyword)
+          (identifier)
+          (punctuation_bracket_open)
+          (function_parameters
+            (function_parameter
+              (type)
+              (identifier)))
+          (punctuation_bracket_close))
+        (select_case_statement
+          (select_case_select_case_keyword)
+          (conditional_expression
+            (identifier))
+          (case_statement
+            (case_statement_case_keyword)
+            (case_expression
+              (select_case_conditional_expression
+                (select_case_is_keyword)
+                (relational_operators)
+                (conditional_expression
+                  (identifier))))
+            (return_statment
+              (return_keyword)
+              (unary_minus_expression_atom
+                (unary_minus_negation_symbol)
+                (number))
+              (punctuation_semicolon)))
+          (select_case_end_select_keyword))
+        (function_end)))
+
+===================
+Select Case Multiple IS Expressions
+===================
+FUNCTION SelectMultipleIs(INT X)
+    SELECT CASE X
+        CASE IS < 0, IS > 100
+            RETURN -1;
+    END SELECT
+END
+
+---
+    (source_file
+      (a_function
+        (function_definition
+          (function_keyword)
+          (identifier)
+          (punctuation_bracket_open)
+          (function_parameters
+            (function_parameter
+              (type)
+              (identifier)))
+          (punctuation_bracket_close))
+        (select_case_statement
+          (select_case_select_case_keyword)
+          (conditional_expression
+            (identifier))
+          (case_statement
+            (case_statement_case_keyword)
+            (case_expression
+              (select_case_conditional_expression
+                (select_case_is_keyword)
+                (relational_operators)
+                (conditional_expression
+                  (identifier))))
+            (punctuation_comma)
+            (case_expression
+              (select_case_conditional_expression
+                (select_case_is_keyword)
+                (relational_operators)
+                (conditional_expression
+                  (identifier))))
+            (return_statment
+              (return_keyword)
+              (unary_minus_expression_atom
+                (unary_minus_negation_symbol)
+                (number))
+              (punctuation_semicolon)))
+          (select_case_end_select_keyword))
+        (function_end)))
+
+===================
+Select Case Mixed IS And Expressions
+===================
+FUNCTION SelectMixed(INT X)
+    SELECT CASE X
+        CASE 1, 3 TO 5, IS > 10
+            RETURN 1;
+    END SELECT
+END
+
+---
+    (source_file
+      (a_function
+        (function_definition
+          (function_keyword)
+          (identifier)
+          (punctuation_bracket_open)
+          (function_parameters
+            (function_parameter
+              (type)
+              (identifier)))
+          (punctuation_bracket_close))
+        (select_case_statement
+          (select_case_select_case_keyword)
+          (conditional_expression
+            (identifier))
+          (case_statement
+            (case_statement_case_keyword)
+            (case_expression
+              (number))
+            (punctuation_comma)
+            (case_expression
+              (to_statement
+                (number)
+                (to_statement_to_keyword)
+                (number)))
+            (punctuation_comma)
+            (case_expression
+              (select_case_conditional_expression
+                (select_case_is_keyword)
+                (relational_operators)
+                (conditional_expression
+                  (identifier))))
+            (return_statment
+              (return_keyword)
+              (number)
+              (punctuation_semicolon)))
+          (select_case_end_select_keyword))
+        (function_end)))
+
+===================
+Select Case With Variable Expressions
+===================
+FUNCTION SelectVariable(INT X, INT MaxValue)
+    SELECT CASE X
+        CASE IS > MaxValue
+            RETURN 1;
+        CASE 1 TO MaxValue
+            RETURN 0;
+    END SELECT
+END
+
+---
+    (source_file
+      (a_function
+        (function_definition
+          (function_keyword)
+          (identifier)
+          (punctuation_bracket_open)
+          (function_parameters
+            (function_parameter
+              (type)
+              (identifier))
+            (punctuation_comma)
+            (function_parameter
+              (type)
+              (identifier)))
+          (punctuation_bracket_close))
+        (select_case_statement
+          (select_case_select_case_keyword)
+          (conditional_expression
+            (identifier))
+          (case_statement
+            (case_statement_case_keyword)
+            (case_expression
+              (select_case_conditional_expression
+                (select_case_is_keyword)
+                (relational_operators)
+                (conditional_expression
+                  (identifier))))
+            (return_statment
+              (return_keyword)
+              (number)
+              (punctuation_semicolon)))
+          (case_statement
+            (case_statement_case_keyword)
+            (case_expression
+              (to_statement
+                (number)
+                (to_statement_to_keyword)
+                (identifier)))
+            (return_statment
+              (return_keyword)
+              (number)
+              (punctuation_semicolon)))
+          (select_case_end_select_keyword))
+        (function_end)))
+
+===================
+Select Case With Strings
+===================
+FUNCTION SelectStrings(STRING S)
+    SELECT CASE S
+        CASE "everything"
+            RETURN 1;
+        CASE "nuts" TO "soup"
+            RETURN 2;
+    END SELECT
+END
+
+---
+  (source_file
+      (a_function
+        (function_definition
+          (function_keyword)
+          (identifier)
+          (punctuation_bracket_open)
+          (function_parameters
+            (function_parameter
+              (type)
+              (identifier)))
+          (punctuation_bracket_close))
+        (select_case_statement
+          (select_case_select_case_keyword)
+          (conditional_expression
+            (identifier))
+          (case_statement
+            (case_statement_case_keyword)
+            (case_expression
+              (string
+                (punctuation_quotation_mark)
+                (string_contents)
+                (punctuation_quotation_mark)))
+            (return_statment
+              (return_keyword)
+              (number)
+              (punctuation_semicolon)))
+          (case_statement
+            (case_statement_case_keyword)
+            (case_expression
+              (to_statement
+                (string
+                  (punctuation_quotation_mark)
+                  (string_contents)
+                  (punctuation_quotation_mark))
+                (to_statement_to_keyword)
+                (string
+                  (punctuation_quotation_mark)
+                  (string_contents)
+                  (punctuation_quotation_mark))))
+            (return_statment
+              (return_keyword)
+              (number)
+              (punctuation_semicolon)))
+          (select_case_end_select_keyword))
+        (function_end)))
+
+===================
+Select Case With Strings And Variables
+===================
+FUNCTION SelectStringMixed(STRING S, STRING TestItem)
+    SELECT CASE S
+        CASE "everything", "nuts" TO "soup", TestItem
+            RETURN 1;
+    END SELECT
+END
+
+---
+    (source_file
+      (a_function
+        (function_definition
+          (function_keyword)
+          (identifier)
+          (punctuation_bracket_open)
+          (function_parameters
+            (function_parameter
+              (type)
+              (identifier))
+            (punctuation_comma)
+            (function_parameter
+              (type)
+              (identifier)))
+          (punctuation_bracket_close))
+        (select_case_statement
+          (select_case_select_case_keyword)
+          (conditional_expression
+            (identifier))
+          (case_statement
+            (case_statement_case_keyword)
+            (case_expression
+              (string
+                (punctuation_quotation_mark)
+                (string_contents)
+                (punctuation_quotation_mark)))
+            (punctuation_comma)
+            (case_expression
+              (to_statement
+                (string
+                  (punctuation_quotation_mark)
+                  (string_contents)
+                  (punctuation_quotation_mark))
+                (to_statement_to_keyword)
+                (string
+                  (punctuation_quotation_mark)
+                  (string_contents)
+                  (punctuation_quotation_mark))))
+            (punctuation_comma)
+            (case_expression
+              (identifier))
+            (return_statment
+              (return_keyword)
+              (number)
+              (punctuation_semicolon)))
+          (select_case_end_select_keyword))
+        (function_end)))
+
+===================
+Select Case With Else
+===================
+FUNCTION SelectElse(INT X)
+    SELECT CASE X
+        CASE 1
+            RETURN 1;
+        CASE ELSE
+            RETURN -1;
+    END SELECT
+END
+
+---
+    (source_file
+      (a_function
+        (function_definition
+          (function_keyword)
+          (identifier)
+          (punctuation_bracket_open)
+          (function_parameters
+            (function_parameter
+              (type)
+              (identifier)))
+          (punctuation_bracket_close))
+        (select_case_statement
+          (select_case_select_case_keyword)
+          (conditional_expression
+            (identifier))
+          (case_statement
+            (case_statement_case_keyword)
+            (case_expression
+              (number))
+            (return_statment
+              (return_keyword)
+              (number)
+              (punctuation_semicolon)))
+          (case_else_statement
+            (case_statement_case_else_keyword)
+            (return_statment
+              (return_keyword)
+              (unary_minus_expression_atom
+                (unary_minus_negation_symbol)
+                (number))
+              (punctuation_semicolon)))
+          (select_case_end_select_keyword))
+        (function_end)))
+
+===================
+Select Case Without Else
+===================
+FUNCTION SelectNoElse(INT X)
+    SELECT CASE X
+        CASE 1
+            RETURN 1;
+    END SELECT
+    RETURN 0;
+END
+
+---
+    (source_file
+      (a_function
+        (function_definition
+          (function_keyword)
+          (identifier)
+          (punctuation_bracket_open)
+          (function_parameters
+            (function_parameter
+              (type)
+              (identifier)))
+          (punctuation_bracket_close))
+        (select_case_statement
+          (select_case_select_case_keyword)
+          (conditional_expression
+            (identifier))
+          (case_statement
+            (case_statement_case_keyword)
+            (case_expression
+              (number))
+            (return_statment
+              (return_keyword)
+              (number)
+              (punctuation_semicolon)))
+          (select_case_end_select_keyword))
+        (return_statment
+          (return_keyword)
+          (number)
+          (punctuation_semicolon))
+        (function_end)))
+
+===================
+Nested Select Case
+===================
+FUNCTION NestedSelect(INT X, INT Y)
+    SELECT CASE X
+        CASE 1
+            SELECT CASE Y
+                CASE 10
+                    RETURN 1;
+                CASE ELSE
+                    RETURN 2;
+            END SELECT
+        CASE ELSE
+            RETURN -1;
+    END SELECT
+END
+
+---
+    (source_file
+      (a_function
+        (function_definition
+          (function_keyword)
+          (identifier)
+          (punctuation_bracket_open)
+          (function_parameters
+            (function_parameter
+              (type)
+              (identifier))
+            (punctuation_comma)
+            (function_parameter
+              (type)
+              (identifier)))
+          (punctuation_bracket_close))
+        (select_case_statement
+          (select_case_select_case_keyword)
+          (conditional_expression
+            (identifier))
+          (case_statement
+            (case_statement_case_keyword)
+            (case_expression
+              (number))
+            (select_case_statement
+              (select_case_select_case_keyword)
+              (conditional_expression
+                (identifier))
+              (case_statement
+                (case_statement_case_keyword)
+                (case_expression
+                  (number))
+                (return_statment
+                  (return_keyword)
+                  (number)
+                  (punctuation_semicolon)))
+              (case_else_statement
+                (case_statement_case_else_keyword)
+                (return_statment
+                  (return_keyword)
+                  (number)
+                  (punctuation_semicolon)))
+              (select_case_end_select_keyword)))
+          (case_else_statement
+            (case_statement_case_else_keyword)
+            (return_statment
+              (return_keyword)
+              (unary_minus_expression_atom
+                (unary_minus_negation_symbol)
+                (number))
+              (punctuation_semicolon)))
+          (select_case_end_select_keyword))
+        (function_end)))
+
+===================
+Select Case Example From Documentation
+===================
+FUNCTION ShipStatus(INT iStatus)
+    SELECT CASE iStatus
+        CASE 1
+            Prompt("Waiting");
+        CASE 2
+            Prompt("Berthed");
+        CASE 3
+            Prompt("Loading");
+        CASE 4
+            Prompt("Loaded");
+        CASE ELSE
+            Prompt("No Status");
+    END SELECT
+END
+
+---
+    (source_file
+      (a_function
+        (function_definition
+          (function_keyword)
+          (identifier)
+          (punctuation_bracket_open)
+          (function_parameters
+            (function_parameter
+              (type)
+              (identifier)))
+          (punctuation_bracket_close))
+        (select_case_statement
+          (select_case_select_case_keyword)
+          (conditional_expression
+            (identifier))
+          (case_statement
+            (case_statement_case_keyword)
+            (case_expression
+              (number))
+            (statement_function_call
+              (function_call
+                (identifier)
+                (punctuation_bracket_open)
+                (string
+                  (punctuation_quotation_mark)
+                  (string_contents)
+                  (punctuation_quotation_mark))
+                (punctuation_bracket_close))
+              (punctuation_semicolon)))
+          (case_statement
+            (case_statement_case_keyword)
+            (case_expression
+              (number))
+            (statement_function_call
+              (function_call
+                (identifier)
+                (punctuation_bracket_open)
+                (string
+                  (punctuation_quotation_mark)
+                  (string_contents)
+                  (punctuation_quotation_mark))
+                (punctuation_bracket_close))
+              (punctuation_semicolon)))
+          (case_statement
+            (case_statement_case_keyword)
+            (case_expression
+              (number))
+            (statement_function_call
+              (function_call
+                (identifier)
+                (punctuation_bracket_open)
+                (string
+                  (punctuation_quotation_mark)
+                  (string_contents)
+                  (punctuation_quotation_mark))
+                (punctuation_bracket_close))
+              (punctuation_semicolon)))
+          (case_statement
+            (case_statement_case_keyword)
+            (case_expression
+              (number))
+            (statement_function_call
+              (function_call
+                (identifier)
+                (punctuation_bracket_open)
+                (string
+                  (punctuation_quotation_mark)
+                  (string_contents)
+                  (punctuation_quotation_mark))
+                (punctuation_bracket_close))
+              (punctuation_semicolon)))
+          (case_else_statement
+            (case_statement_case_else_keyword)
+            (statement_function_call
+              (function_call
+                (identifier)
+                (punctuation_bracket_open)
+                (string
+                  (punctuation_quotation_mark)
+                  (string_contents)
+                  (punctuation_quotation_mark))
+                (punctuation_bracket_close))
+              (punctuation_semicolon)))
+          (select_case_end_select_keyword))
+        (function_end)))

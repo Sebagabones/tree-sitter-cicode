@@ -1,0 +1,103 @@
+===================
+Array And Select Case
+===================
+FUNCTION ArraySelect(INT X)
+    INT Values[3];
+    SELECT CASE X
+        CASE 0
+            RETURN Values[0];
+        CASE ELSE
+            RETURN -1;
+    END SELECT
+END
+
+---
+
+===================
+Global Array Used In Function
+===================
+GLOBAL INT GlobalValues[10];
+
+FUNCTION ReadGlobalArray()
+    RETURN GlobalValues[1];
+END
+
+---
+
+===================
+Module Array Used In Function
+===================
+INT Values[5];
+
+FUNCTION ReadModuleArray()
+    RETURN Values[0];
+END
+
+---
+
+===================
+Array With Parenthesised Index
+===================
+FUNCTION ArrayParenIndex()
+    INT Values[10];
+    Values[(1 + 2)] = 5;
+END
+
+---
+
+===================
+Array Returned Element
+===================
+INT Values[3];
+
+FUNCTION ReturnArrayValue()
+    RETURN Values[2];
+END
+
+---
+
+===================
+Array Passed To Function
+===================
+FUNCTION TakeArray(INT Arr[5])
+    RETURN Arr[0];
+END
+
+---
+
+===================
+Array Used In Expression
+===================
+INT Values[5];
+
+FUNCTION ArrayExpr()
+    INT x;
+    x = Values[1] + Values[2];
+END
+
+---
+
+===================
+Array Default Assignment
+===================
+STRING ArrayA[5]="This","is","a","String","Array";
+
+FUNCTION ArrayAssign()
+END
+
+---
+
+
+===================
+Array Loop
+===================
+REAL Array[10]
+FUNCTION TestArrayLoop:
+    INT Counter;
+    FOR Counter = 0 TO 9 DO
+        Array[Counter] = 0
+    END
+    RETURN Total
+END
+
+---

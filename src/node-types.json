@@ -40,6 +40,10 @@
     "named": true,
     "subtypes": [
       {
+        "type": "array_variable",
+        "named": true
+      },
+      {
         "type": "expression_in_brackets",
         "named": true
       },
@@ -103,6 +107,10 @@
       },
       {
         "type": "select_case_statement",
+        "named": true
+      },
+      {
+        "type": "statement_function_call",
         "named": true
       },
       {
@@ -276,6 +284,25 @@
         },
         {
           "type": "module_variable_scope",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "array_variable",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "array_brackets_index",
+          "named": true
+        },
+        {
+          "type": "identifier",
           "named": true
         }
       ]
@@ -899,6 +926,10 @@
         "required": true,
         "types": [
           {
+            "type": "array_variable",
+            "named": true
+          },
+          {
             "type": "identifier",
             "named": true
           }
@@ -1117,6 +1148,25 @@
         },
         {
           "type": "xml_non_function_docstring",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "statement_function_call",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "function_call",
+          "named": true
+        },
+        {
+          "type": "punctuation_semicolon",
           "named": true
         }
       ]

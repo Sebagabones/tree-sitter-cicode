@@ -13,6 +13,7 @@
         devShell = pkgs.mkShell {
           packages = [
             pkgs.nodejs
+            pkgs.graphviz
             pkgs.tree-sitter
             pkgs.rustc
             pkgs.cargo

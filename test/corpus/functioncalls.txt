@@ -1,0 +1,86 @@
+===================
+Simple Function Call
+===================
+FUNCTION SimpleCall()
+    CallMe();
+END
+
+---
+    (source_file
+      (a_function
+        (function_definition
+          (function_keyword)
+          (identifier)
+          (punctuation_bracket_open)
+          (punctuation_bracket_close))
+       (statement_function_call
+          (function_call
+            (identifier)
+            (punctuation_bracket_open)
+            (punctuation_bracket_close))
+          (punctuation_semicolon))
+        (function_end)))
+
+===================
+Function Call With Arguments
+===================
+FUNCTION CallArgs()
+    DoThing(1, "Boat");
+END
+
+---
+    (source_file
+      (a_function
+        (function_definition
+          (function_keyword)
+          (identifier)
+          (punctuation_bracket_open)
+          (punctuation_bracket_close))
+        (statement_function_call
+          (function_call
+            (identifier)
+            (punctuation_bracket_open)
+            (number)
+            (punctuation_comma)
+            (string
+              (punctuation_quotation_mark)
+              (string_contents)
+              (punctuation_quotation_mark))
+            (punctuation_bracket_close))
+          (punctuation_semicolon))
+        (function_end)))
+
+===================
+Nested Function Calls
+===================
+FUNCTION NestedCalls()
+    MapValueSet(A, IntToStr(B), "X");
+END
+
+---
+   (source_file
+      (a_function
+        (function_definition
+          (function_keyword)
+          (identifier)
+          (punctuation_bracket_open)
+          (punctuation_bracket_close))
+      (statement_function_call
+          (function_call
+            (identifier)
+            (punctuation_bracket_open)
+            (identifier)
+            (punctuation_comma)
+            (function_call
+              (identifier)
+              (punctuation_bracket_open)
+              (identifier)
+              (punctuation_bracket_close))
+            (punctuation_comma)
+            (string
+              (punctuation_quotation_mark)
+              (string_contents)
+              (punctuation_quotation_mark))
+            (punctuation_bracket_close))
+          (punctuation_semicolon))
+        (function_end)))

@@ -14,7 +14,6 @@
 ! new style
 
 /**
-
 <summary>
 Adds a boat to the boat manifest
 </summary>
@@ -28,12 +27,12 @@ Adds a boat to the boat manifest
 
 
 /**
- <summary>
-  TODO summary
- </summary>
- <param name="BoatID">TODO</param>
-  <param name="BoatName">TODO</param>
- <returns>TODO</returns>
+<summary>
+TODO summary
+</summary>
+<param name="BoatID">TODO</param>
+<param name="BoatName">TODO</param>
+<returns>TODO</returns>
 **/
 
 /// <summary>
@@ -45,14 +44,17 @@ Adds a boat to the boat manifest
 
 
 
-/// <function name="AddBoatToManifest">
-/// <summary>
-/// TODO summary
-/// </summary>
-/// <param name="BoatID">TODO</param>
-/// <param name="BoatName">TODO</param>
-/// <returns>TODO</returns>
-/// </function>
+
+/**
+<summary>
+Adds a boat to the boat manifest
+</summary>
+<param name="BoatID">Boat ID number</param>
+<param name="BoatName">Name of boat</param>
+<returns>
+0 for success, otherwise error code (either -1 for incorrect ID number, or MapValueSet error code)
+</returns>
+**/
 PRIVATE INT FUNCTION AddBoatToManifest(INT BoatID, STRING BoatName = "My default boat name ")
     /*
     NOTE: There may be some underlying flaw here, I wrote this at 2AM
@@ -80,6 +82,8 @@ PRIVATE INT FUNCTION AddBoatToManifest(INT BoatID, STRING BoatName = "My default
     END
 
     SELECT CASE BoatID
+        CASE 1
+            functionCall();
         CASE 0 TO 9             // BoatID’s cannot be single digits
             RETURN -1;
         CASE 11,12              // These are reserved by the Coast Guard

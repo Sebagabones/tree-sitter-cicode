@@ -9,7 +9,8 @@
 
 module.exports = grammar({
     name: "cicode",
-    // TODO: Look into injection for the comments https://www.jonashietala.se/blog/2024/03/19/lets_create_a_tree-sitter_grammar/#Language-injection - it may be better to just do simple version ourselves that lets us define the type as docstirng, buuut we could probs do that anyway, idk
+    // TODO: Loops
+
     externals: ($) => [
         $.doxygen_summary_content,
         $.doxygen_param_content,
@@ -20,7 +21,7 @@ module.exports = grammar({
     conflicts: ($) => [
         [$.format_specifier_shortform_notation, $.format_specifier],
         [$.array_scope, $.variable_scope],
-        [$.xml_non_function_docstring, $.xml_function_docstring],
+        [$.xml_function_docstring, $.xml_non_function_docstring],
     ],
     supertypes: ($) => [
         $.statement,
@@ -51,7 +52,7 @@ module.exports = grammar({
                 choice(
                     seq("//", /.*/),
                     seq("!", /.*/),
-                    token(seq(/(\/\*[^\*])/, /[^*]*\*+([^/*][^*]*\*+)*/, "/")), // this is janky as HELL
+                    token(seq(/(\/\*[^\*])/, /[^*]*\*+([^\/*][^*]*\*+)*/, "/")), // this is janky as HELL
                     "/**/", // this is even more janky
                 ),
             ),
@@ -91,7 +92,7 @@ module.exports = grammar({
                 "VOID", // Only valid for functions, but eh
             ),
 
-        number: ($) => /[0-9]+/,
+        number: ($) => prec(2, /[0-9]+/),
 
         string_contents: ($) => repeat1(choice(/[^\^"]/, /\^./)),
 
@@ -125,7 +126,10 @@ module.exports = grammar({
         function_parameter: ($) =>
             seq(
                 field("parameter_type", $.type),
-                field("parameter_name", $.identifier) /*
+                field(
+                    "parameter_name",
+                    choice($.identifier, $.array_variable),
+                ) /*
           I don’t think cicode has any rules about what a variable name can be, except for, and I quote:
           "The first 32 characters of a variable name needs to be unique." - https://docs.aveva.com/bundle/plant-scada/page/1130531.html
           That is not going to be implemented here.
@@ -192,7 +196,7 @@ module.exports = grammar({
         array_scope: (
             $, // can’t have local scope arrays
         ) => choice($.global_variable_scope, $.module_variable_scope),
-
+        array_variable: ($) => seq($.identifier, $.array_brackets_index),
         array_initial_values: ($) =>
             seq(
                 field(
@@ -239,6 +243,7 @@ module.exports = grammar({
                 $.identifier,
                 $.string,
                 $.number,
+                $.array_variable,
                 $.expression_in_brackets,
                 $.unary_minus_expression_atom,
                 $.function_call,
@@ -258,6 +263,7 @@ module.exports = grammar({
 
         statement: ($) =>
             choice(
+                $.statement_function_call,
                 $.variable_assignment,
                 field("if_statement", $.if_statement),
                 field("select_case", $.select_case_statement),
@@ -319,7 +325,8 @@ module.exports = grammar({
                     ),
                 ),
             ),
-
+        statement_function_call: ($) =>
+            seq($.function_call, $.punctuation_semicolon),
         function_call: ($) =>
             seq(
                 field("function_name", $.identifier),
@@ -469,19 +476,25 @@ module.exports = grammar({
                     field("returns_contents", $.doxygen_returns_xml_tag),
                 ),
             ),
+
         xml_non_function_docstring: ($) =>
             seq(
                 $.delimited_comment_doxygen_xml_opening,
-                optional($.xml_docstring_contents),
-                $.delimited_comment_doxygen_xml_closing,
+                seq(
+                    optional($.xml_docstring_contents),
+                    $.delimited_comment_doxygen_xml_closing,
+                ),
             ),
 
         xml_function_docstring: ($) =>
             seq(
                 $.delimited_comment_doxygen_xml_opening,
-                optional($.xml_docstring_contents),
-                $.delimited_comment_doxygen_xml_closing,
+                seq(
+                    optional($.xml_docstring_contents),
+                    $.delimited_comment_doxygen_xml_closing,
+                ),
             ),
+
         doxygen_xml_name_attribute_name_keyword: ($) => "name",
 
         doxygen_xml_name_attribute: ($) =>

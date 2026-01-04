@@ -1,0 +1,152 @@
+===================
+Unary Expression
+===================
+FUNCTION UnaryExpr()
+    INT x;
+    x = -x;
+END
+
+---
+    (source_file
+      (a_function
+        (function_definition
+          (function_keyword)
+          (identifier)
+          (punctuation_bracket_open)
+          (punctuation_bracket_close))
+        (variable_declaration
+          (type)
+          (identifier))
+        (variable_assignment
+          (identifier)
+          (assign_to_value
+            (punctuation_equals_sign)
+            (unary_minus_expression_atom
+              (unary_minus_negation_symbol)
+              (identifier)))
+          (punctuation_semicolon))
+        (function_end)))
+
+===================
+Binary Expression
+===================
+FUNCTION BinaryExpr()
+    INT x;
+    x = 1 + 2;
+END
+
+---
+    (source_file
+      (a_function
+        (function_definition
+          (function_keyword)
+          (identifier)
+          (punctuation_bracket_open)
+          (punctuation_bracket_close))
+        (variable_declaration
+          (type)
+          (identifier))
+        (variable_assignment
+          (identifier)
+          (assign_to_value
+            (punctuation_equals_sign)
+            (expression
+              (number)
+              (mathematical_operators)
+              (number)))
+          (punctuation_semicolon))
+        (function_end)))
+
+===================
+Nested Expression
+===================
+FUNCTION NestedExpr()
+    INT x;
+    x = (1 + (2 * 3)) - 4;
+END
+
+---
+    (source_file
+      (a_function
+        (function_definition
+          (function_keyword)
+          (identifier)
+          (punctuation_bracket_open)
+          (punctuation_bracket_close))
+        (variable_declaration
+          (type)
+          (identifier))
+        (variable_assignment
+          (identifier)
+          (assign_to_value
+            (punctuation_equals_sign)
+            (expression
+              (expression_in_brackets
+                (punctuation_bracket_open)
+                (expression
+                  (number)
+                  (mathematical_operators)
+                  (expression_in_brackets
+                    (punctuation_bracket_open)
+                    (expression
+                      (number)
+                      (mathematical_operators)
+                      (number))
+                    (punctuation_bracket_close)))
+                (punctuation_bracket_close))
+              (mathematical_operators)
+              (number)))
+          (punctuation_semicolon))
+        (function_end)))
+
+===================
+Math Expressions
+===================
+FUNCTION MathExpression()
+    INT Value1;
+    Value1 = 3*((1+2)-2);
+    Value1 = Value1/4;
+END
+
+---
+    (source_file
+      (a_function
+        (function_definition
+          (function_keyword)
+          (identifier)
+          (punctuation_bracket_open)
+          (punctuation_bracket_close))
+        (variable_declaration
+          (type)
+          (identifier))
+        (variable_assignment
+          (identifier)
+          (assign_to_value
+            (punctuation_equals_sign)
+            (expression
+              (number)
+              (mathematical_operators)
+              (expression_in_brackets
+                (punctuation_bracket_open)
+                (expression
+                  (expression_in_brackets
+                    (punctuation_bracket_open)
+                    (expression
+                      (number)
+                      (mathematical_operators)
+                      (number))
+                    (punctuation_bracket_close))
+                  (mathematical_operators)
+                  (number))
+                (punctuation_bracket_close))))
+          (punctuation_semicolon))
+        (variable_assignment
+          (identifier)
+          (assign_to_value
+            (punctuation_equals_sign)
+            (expression
+              (identifier)
+              (mathematical_operators)
+              (number)))
+          (punctuation_semicolon))
+        (function_end)))

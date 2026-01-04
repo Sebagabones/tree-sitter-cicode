@@ -1,0 +1,416 @@
+===================
+Large Example Code
+===================
+/**
+<summary>
+Adds a boat to the boat manifest
+</summary>
+<param name="BoatID">Boat ID number</param>
+<param name="BoatName">Name of boat</param>
+<returns>
+0 for success, otherwise error code (either -1 for incorrect ID number, or MapValueSet error code)
+</returns>
+**/
+PRIVATE INT FUNCTION AddBoatToManifest(INT BoatID, STRING BoatName = "My default boat name ")
+    /*
+    NOTE: There may be some underlying flaw here, I wrote this at 2AM
+    */
+    INT incrementValue;
+    STRING val1, val2;
+
+    INT counter = incrementValue;
+
+    counter = "a" + 2;
+    Counter = (2 + incrementValue)/3;
+    IF counter > 0 THEN
+        incrementValue = 1;
+        IF checkIfBoatIsCoastGuards(BoatID) THEN
+            val1 =  MapValueSet(ManifestOfBoats, IntToStr(BoatID), BoatName); // All Coast Guard boat ID’s already exist in manifest, but update the name
+            RETURN val1;
+        ELSE
+            IF MapKeyExists(ManifestOfBoats, BoatID) THEN
+                RETURN -1;      // Couldn’t add boat, ID already exists
+            ELSE
+                RETURN MapValueSet(ManifestOfBoats, IntToStr(BoatID), BoatName);
+            END
+
+        END
+    END
+
+    SELECT CASE BoatID
+        CASE 1
+            functionCall();
+        CASE 0 TO 9             // BoatID’s cannot be single digits
+            RETURN -1;
+        CASE 11,12              // These are reserved by the Coast Guard
+            IF checkIfBoatIsCoastGuards(BoatID) THEN
+                StringVar=IntVar:3.2;
+                RETURN MapValueSet(ManifestOfBoats, IntToStr(BoatID), BoatName); // All Coast Guard boat ID’s already exist in manifest, but update the name
+            ELSE
+                StringVar=IntVar:#0-###.##EU;
+                RETURN -1;
+            END
+        CASE 1 TO 4, 7 TO 9, 11, 13, IS > MaxNumber
+
+        CASE ELSE
+            IF MapKeyExists(ManifestOfBoats + 1, BoatID) THEN
+                RETURN -1;      // Couldn’t add boat, ID already exists
+            ELSE
+                RETURN MapValueSet(ManifestOfBoats, IntToStr(BoatID), BoatName);
+            END
+    END SELECT
+END
+---
+
+    (source_file
+      (a_function
+        (xml_function_docstring
+          (delimited_comment_doxygen_xml_opening)
+          (xml_docstring_contents
+            (doxygen_summary_xml_tag
+              (doxygen_summary_xml_open_tag)
+              (doxygen_summary_content)
+              (doxygen_summary_xml_close_tag))
+            (doxygen_param_xml_tag
+              (doxygen_param_xml_open_tag)
+              (doxygen_xml_name_attribute
+                (doxygen_xml_name_attribute_name_keyword)
+                (punctuation_equals_sign)
+                (punctuation_quotation_mark)
+                (identifier)
+                (punctuation_quotation_mark))
+              (doxygen_param_xml_close_opening_tag)
+              (doxygen_param_content)
+              (doxygen_param_xml_close_tag))
+            (doxygen_param_xml_tag
+              (doxygen_param_xml_open_tag)
+              (doxygen_xml_name_attribute
+                (doxygen_xml_name_attribute_name_keyword)
+                (punctuation_equals_sign)
+                (punctuation_quotation_mark)
+                (identifier)
+                (punctuation_quotation_mark))
+              (doxygen_param_xml_close_opening_tag)
+              (doxygen_param_content)
+              (doxygen_param_xml_close_tag))
+            (doxygen_returns_xml_tag
+              (doxygen_returns_xml_open_tag)
+              (doxygen_returns_content)
+              (doxygen_returns_xml_close_tag)))
+          (delimited_comment_doxygen_xml_closing))
+        (function_definition
+          (function_scope)
+          (type)
+          (function_keyword)
+          (identifier)
+          (punctuation_bracket_open)
+          (function_parameters
+            (function_parameter
+              (type)
+              (identifier))
+            (punctuation_comma)
+            (function_parameter
+              (type)
+              (identifier)
+              (default_value
+                (punctuation_equals_sign)
+                (string
+                  (punctuation_quotation_mark)
+                  (string_contents)
+                  (punctuation_quotation_mark)))))
+          (punctuation_bracket_close))
+        (comment)
+        (variable_declaration
+          (type)
+          (identifier))
+        (variable_declaration
+          (type)
+          (identifier)
+          (punctuation_comma)
+          (identifier))
+        (variable_declaration
+          (type)
+          (identifier)
+          (assign_to_value
+            (punctuation_equals_sign)
+            (identifier)))
+        (variable_assignment
+          (identifier)
+          (assign_to_value
+            (punctuation_equals_sign)
+            (expression
+              (string
+                (punctuation_quotation_mark)
+                (string_contents)
+                (punctuation_quotation_mark))
+              (mathematical_operators)
+              (number)))
+          (punctuation_semicolon))
+        (variable_assignment
+          (identifier)
+          (assign_to_value
+            (punctuation_equals_sign)
+            (expression
+              (expression_in_brackets
+                (punctuation_bracket_open)
+                (expression
+                  (number)
+                  (mathematical_operators)
+                  (identifier))
+                (punctuation_bracket_close))
+              (mathematical_operators)
+              (number)))
+          (punctuation_semicolon))
+        (if_statement
+          (if_statement_if_keyword)
+          (conditional_expression
+            (conditional_expression
+              (identifier))
+            (relational_operators)
+            (conditional_expression
+              (identifier)))
+          (if_statement_then_keyword)
+          (variable_assignment
+            (identifier)
+            (assign_to_value
+              (punctuation_equals_sign)
+              (number))
+            (punctuation_semicolon))
+          (if_statement
+            (if_statement_if_keyword)
+            (conditional_expression
+              (function_call
+                (identifier)
+                (punctuation_bracket_open)
+                (identifier)
+                (punctuation_bracket_close)))
+            (if_statement_then_keyword)
+            (variable_assignment
+              (identifier)
+              (assign_to_value
+                (punctuation_equals_sign)
+                (function_call
+                  (identifier)
+                  (punctuation_bracket_open)
+                  (identifier)
+                  (punctuation_comma)
+                  (function_call
+                    (identifier)
+                    (punctuation_bracket_open)
+                    (identifier)
+                    (punctuation_bracket_close))
+                  (punctuation_comma)
+                  (identifier)
+                  (punctuation_bracket_close)))
+              (punctuation_semicolon))
+            (comment)
+            (return_statment
+              (return_keyword)
+              (identifier)
+              (punctuation_semicolon))
+            (if_statement_else_keyword)
+            (if_statement
+              (if_statement_if_keyword)
+              (conditional_expression
+                (function_call
+                  (identifier)
+                  (punctuation_bracket_open)
+                  (identifier)
+                  (punctuation_comma)
+                  (identifier)
+                  (punctuation_bracket_close)))
+              (if_statement_then_keyword)
+              (return_statment
+                (return_keyword)
+                (unary_minus_expression_atom
+                  (unary_minus_negation_symbol)
+                  (number))
+                (punctuation_semicolon))
+              (comment)
+              (if_statement_else_keyword)
+              (return_statment
+                (return_keyword)
+                (function_call
+                  (identifier)
+                  (punctuation_bracket_open)
+                  (identifier)
+                  (punctuation_comma)
+                  (function_call
+                    (identifier)
+                    (punctuation_bracket_open)
+                    (identifier)
+                    (punctuation_bracket_close))
+                  (punctuation_comma)
+                  (identifier)
+                  (punctuation_bracket_close))
+                (punctuation_semicolon))
+              (if_statement_end_keyword))
+            (if_statement_end_keyword))
+          (if_statement_end_keyword))
+        (select_case_statement
+          (select_case_select_case_keyword)
+          (conditional_expression
+            (identifier))
+          (case_statement
+            (case_statement_case_keyword)
+            (case_expression
+              (number))
+            (statement_function_call
+              (function_call
+                (identifier)
+                (punctuation_bracket_open)
+                (punctuation_bracket_close))
+              (punctuation_semicolon)))
+          (case_statement
+            (case_statement_case_keyword)
+            (case_expression
+              (to_statement
+                (number)
+                (to_statement_to_keyword)
+                (number)))
+            (comment)
+            (return_statment
+              (return_keyword)
+              (unary_minus_expression_atom
+                (unary_minus_negation_symbol)
+                (number))
+              (punctuation_semicolon)))
+          (case_statement
+            (case_statement_case_keyword)
+            (case_expression
+              (number))
+            (punctuation_comma)
+            (case_expression
+              (number))
+            (comment)
+            (if_statement
+              (if_statement_if_keyword)
+              (conditional_expression
+                (function_call
+                  (identifier)
+                  (punctuation_bracket_open)
+                  (identifier)
+                  (punctuation_bracket_close)))
+              (if_statement_then_keyword)
+              (variable_assignment
+                (identifier)
+                (assign_to_value
+                  (punctuation_equals_sign)
+                  (identifier)
+                  (format_specifier
+                    (format_specifier_shortform_notation
+                      (format_specifier_shortform_number)
+                      (format_specifier_decimal_notation)
+                      (format_specifier_shortform_number))))
+                (punctuation_semicolon))
+              (return_statment
+                (return_keyword)
+                (function_call
+                  (identifier)
+                  (punctuation_bracket_open)
+                  (identifier)
+                  (punctuation_comma)
+                  (function_call
+                    (identifier)
+                    (punctuation_bracket_open)
+                    (identifier)
+                    (punctuation_bracket_close))
+                  (punctuation_comma)
+                  (identifier)
+                  (punctuation_bracket_close))
+                (punctuation_semicolon))
+              (comment)
+              (if_statement_else_keyword)
+              (variable_assignment
+                (identifier)
+                (assign_to_value
+                  (punctuation_equals_sign)
+                  (identifier)
+                  (format_specifier
+                    (format_specifier_hash)
+                    (format_specifier_padding)
+                    (format_specifier_justification)
+                    (format_specifier_hash)
+                    (format_specifier_hash)
+                    (format_specifier_hash)
+                    (format_specifier_decimal_notation)
+                    (format_specifier_hash)
+                    (format_specifier_hash)
+                    (format_specifier_engineering_units)))
+                (punctuation_semicolon))
+              (return_statment
+                (return_keyword)
+                (unary_minus_expression_atom
+                  (unary_minus_negation_symbol)
+                  (number))
+                (punctuation_semicolon))
+              (if_statement_end_keyword)))
+          (case_statement
+            (case_statement_case_keyword)
+            (case_expression
+              (to_statement
+                (number)
+                (to_statement_to_keyword)
+                (number)))
+            (punctuation_comma)
+            (case_expression
+              (to_statement
+                (number)
+                (to_statement_to_keyword)
+                (number)))
+            (punctuation_comma)
+            (case_expression
+              (number))
+            (punctuation_comma)
+            (case_expression
+              (number))
+            (punctuation_comma)
+            (case_expression
+              (select_case_conditional_expression
+                (select_case_is_keyword)
+                (relational_operators)
+                (conditional_expression
+                  (identifier)))))
+          (case_else_statement
+            (case_statement_case_else_keyword)
+            (if_statement
+              (if_statement_if_keyword)
+              (conditional_expression
+                (function_call
+                  (identifier)
+                  (punctuation_bracket_open)
+                  (expression
+                    (identifier)
+                    (mathematical_operators)
+                    (number))
+                  (punctuation_comma)
+                  (identifier)
+                  (punctuation_bracket_close)))
+              (if_statement_then_keyword)
+              (return_statment
+                (return_keyword)
+                (unary_minus_expression_atom
+                  (unary_minus_negation_symbol)
+                  (number))
+                (punctuation_semicolon))
+              (comment)
+              (if_statement_else_keyword)
+              (return_statment
+                (return_keyword)
+                (function_call
+                  (identifier)
+                  (punctuation_bracket_open)
+                  (identifier)
+                  (punctuation_comma)
+                  (function_call
+                    (identifier)
+                    (punctuation_bracket_open)
+                    (identifier)
+                    (punctuation_bracket_close))
+                  (punctuation_comma)
+                  (identifier)
+                  (punctuation_bracket_close))
+                (punctuation_semicolon))
+              (if_statement_end_keyword)))
+          (select_case_end_select_keyword))
+        (function_end)))

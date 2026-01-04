@@ -170,7 +170,7 @@
                 },
                 {
                   "type": "PATTERN",
-                  "value": "[^*]*\\*+([^/*][^*]*\\*+)*"
+                  "value": "[^*]*\\*+([^\\/*][^*]*\\*+)*"
                 },
                 {
                   "type": "STRING",
@@ -341,8 +341,12 @@
       ]
     },
     "number": {
-      "type": "PATTERN",
-      "value": "[0-9]+"
+      "type": "PREC",
+      "value": 2,
+      "content": {
+        "type": "PATTERN",
+        "value": "[0-9]+"
+      }
     },
     "string_contents": {
       "type": "REPEAT1",
@@ -531,8 +535,17 @@
           "type": "FIELD",
           "name": "parameter_name",
           "content": {
-            "type": "SYMBOL",
-            "name": "identifier"
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "identifier"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "array_variable"
+              }
+            ]
           }
         },
         {
@@ -817,6 +830,19 @@
         }
       ]
     },
+    "array_variable": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "identifier"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "array_brackets_index"
+        }
+      ]
+    },
     "array_initial_values": {
       "type": "SEQ",
       "members": [
@@ -1026,6 +1052,10 @@
         },
         {
           "type": "SYMBOL",
+          "name": "array_variable"
+        },
+        {
+          "type": "SYMBOL",
           "name": "expression_in_brackets"
         },
         {
@@ -1075,6 +1105,10 @@
     "statement": {
       "type": "CHOICE",
       "members": [
+        {
+          "type": "SYMBOL",
+          "name": "statement_function_call"
+        },
         {
           "type": "SYMBOL",
           "name": "variable_assignment"
@@ -1271,6 +1305,19 @@
               "type": "BLANK"
             }
           ]
+        }
+      ]
+    },
+    "statement_function_call": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "function_call"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "punctuation_semicolon"
         }
       ]
     },
@@ -1850,20 +1897,25 @@
           "name": "delimited_comment_doxygen_xml_opening"
         },
         {
-          "type": "CHOICE",
+          "type": "SEQ",
           "members": [
             {
-              "type": "SYMBOL",
-              "name": "xml_docstring_contents"
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "xml_docstring_contents"
+                },
+                {
+                  "type": "BLANK"
+                }
+              ]
             },
             {
-              "type": "BLANK"
+              "type": "SYMBOL",
+              "name": "delimited_comment_doxygen_xml_closing"
             }
           ]
-        },
-        {
-          "type": "SYMBOL",
-          "name": "delimited_comment_doxygen_xml_closing"
         }
       ]
     },
@@ -1875,20 +1927,25 @@
           "name": "delimited_comment_doxygen_xml_opening"
         },
         {
-          "type": "CHOICE",
+          "type": "SEQ",
           "members": [
             {
-              "type": "SYMBOL",
-              "name": "xml_docstring_contents"
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "xml_docstring_contents"
+                },
+                {
+                  "type": "BLANK"
+                }
+              ]
             },
             {
-              "type": "BLANK"
+              "type": "SYMBOL",
+              "name": "delimited_comment_doxygen_xml_closing"
             }
           ]
-        },
-        {
-          "type": "SYMBOL",
-          "name": "delimited_comment_doxygen_xml_closing"
         }
       ]
     },
@@ -2078,8 +2135,8 @@
       "variable_scope"
     ],
     [
-      "xml_non_function_docstring",
-      "xml_function_docstring"
+      "xml_function_docstring",
+      "xml_non_function_docstring"
     ]
   ],
   "precedences": [],

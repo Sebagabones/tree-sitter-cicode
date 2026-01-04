@@ -1,0 +1,187 @@
+===================
+Empty Function
+===================
+FUNCTION Empty()
+END
+
+---
+    (source_file
+      (a_function
+        (function_definition
+          (function_keyword)
+          (identifier)
+          (punctuation_bracket_open)
+          (punctuation_bracket_close))
+        (function_end)))
+
+===================
+Function With Parameters
+===================
+FUNCTION Params(INT A, STRING B)
+    RETURN A;
+END
+
+---
+    (source_file
+      (a_function
+        (function_definition
+          (function_keyword)
+          (identifier)
+          (punctuation_bracket_open)
+          (function_parameters
+            (function_parameter
+              (type)
+              (identifier))
+            (punctuation_comma)
+            (function_parameter
+              (type)
+              (identifier)))
+          (punctuation_bracket_close))
+        (return_statment
+          (return_keyword)
+          (identifier)
+          (punctuation_semicolon))
+        (function_end)))
+
+===================
+Function With Default Parameter
+===================
+FUNCTION DefaultParam(INT A = 5)
+    RETURN A;
+END
+
+---
+   (source_file
+      (a_function
+        (function_definition
+          (function_keyword)
+          (identifier)
+          (punctuation_bracket_open)
+          (function_parameters
+            (function_parameter
+              (type)
+              (identifier)
+              (default_value
+                (punctuation_equals_sign)
+                (number))))
+          (punctuation_bracket_close))
+        (return_statment
+          (return_keyword)
+          (identifier)
+          (punctuation_semicolon))
+        (function_end)))
+
+===================
+Private Function Implicit
+===================
+INT FUNCTION ImplicitPrivate()
+    RETURN 0;
+END
+
+---
+    (source_file
+      (a_function
+        (function_definition
+          (type)
+          (function_keyword)
+          (identifier)
+          (punctuation_bracket_open)
+          (punctuation_bracket_close))
+        (return_statment
+          (return_keyword)
+          (number)
+          (punctuation_semicolon))
+        (function_end)))
+
+===================
+Private Function Explicit
+===================
+PRIVATE INT FUNCTION ImplicitPrivate()
+    RETURN 0;
+END
+
+---
+    (source_file
+      (a_function
+        (function_definition
+          (function_scope)
+          (type)
+          (function_keyword)
+          (identifier)
+          (punctuation_bracket_open)
+          (punctuation_bracket_close))
+        (return_statment
+          (return_keyword)
+          (number)
+          (punctuation_semicolon))
+        (function_end)))
+
+===================
+Public Function Explicit
+===================
+PUBLIC INT FUNCTION ExplicitPublic()
+    RETURN 0;
+END
+
+---
+  (source_file
+      (a_function
+        (function_definition
+          (function_scope)
+          (type)
+          (function_keyword)
+          (identifier)
+          (punctuation_bracket_open)
+          (punctuation_bracket_close))
+        (return_statment
+          (return_keyword)
+          (number)
+          (punctuation_semicolon))
+        (function_end)))
+
+===================
+Multiple Functions
+===================
+INT FUNCTION function1(INT testParam)
+    RETURN functionCall();
+END
+
+STRING FUNCTION SecondFunctionCall()
+    function1();
+END
+
+---
+    (source_file
+      (a_function
+        (function_definition
+          (type)
+          (function_keyword)
+          (identifier)
+          (punctuation_bracket_open)
+          (function_parameters
+            (function_parameter
+              (type)
+              (identifier)))
+          (punctuation_bracket_close))
+        (return_statment
+          (return_keyword)
+          (function_call
+            (identifier)
+            (punctuation_bracket_open)
+            (punctuation_bracket_close))
+          (punctuation_semicolon))
+        (function_end))
+      (a_function
+        (function_definition
+          (type)
+          (function_keyword)
+          (identifier)
+          (punctuation_bracket_open)
+          (punctuation_bracket_close))
+        (statement_function_call
+          (function_call
+            (identifier)
+            (punctuation_bracket_open)
+            (punctuation_bracket_close))
+          (punctuation_semicolon))
+        (function_end)))

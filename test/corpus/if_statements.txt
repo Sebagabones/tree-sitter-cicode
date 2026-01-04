@@ -1,0 +1,182 @@
+===================
+If Only
+===================
+FUNCTION IfOnly()
+    IF 1 > 0 THEN
+        RETURN 1;
+    END
+END
+
+---
+
+    (source_file
+      (a_function
+        (function_definition
+          (function_keyword)
+          (identifier)
+          (punctuation_bracket_open)
+          (punctuation_bracket_close))
+        (if_statement
+          (if_statement_if_keyword)
+          (conditional_expression
+            (conditional_expression
+              (identifier))
+            (relational_operators)
+            (conditional_expression
+              (identifier)))
+          (if_statement_then_keyword)
+          (return_statment
+            (return_keyword)
+            (number)
+            (punctuation_semicolon))
+          (if_statement_end_keyword))
+        (function_end)))
+
+===================
+If Else
+===================
+FUNCTION IfElse()
+    IF 1 > 0 THEN
+        RETURN 1;
+    ELSE
+        RETURN -1;
+    END
+END
+
+---
+    (source_file
+      (a_function
+        (function_definition
+          (function_keyword)
+          (identifier)
+          (punctuation_bracket_open)
+          (punctuation_bracket_close))
+        (if_statement
+          (if_statement_if_keyword)
+          (conditional_expression
+            (conditional_expression
+              (identifier))
+            (relational_operators)
+            (conditional_expression
+              (identifier)))
+          (if_statement_then_keyword)
+          (return_statment
+            (return_keyword)
+            (number)
+            (punctuation_semicolon))
+          (if_statement_else_keyword)
+          (return_statment
+            (return_keyword)
+            (unary_minus_expression_atom
+              (unary_minus_negation_symbol)
+              (number))
+            (punctuation_semicolon))
+          (if_statement_end_keyword))
+        (function_end)))
+
+===================
+Nested If
+===================
+FUNCTION NestedIf()
+    IF A > 0 THEN
+        IF B > 0 THEN
+            RETURN 1;
+        END
+    END
+END
+
+---
+    (source_file
+      (a_function
+        (function_definition
+          (function_keyword)
+          (identifier)
+          (punctuation_bracket_open)
+          (punctuation_bracket_close))
+        (if_statement
+          (if_statement_if_keyword)
+          (conditional_expression
+            (conditional_expression
+              (identifier))
+            (relational_operators)
+            (conditional_expression
+              (identifier)))
+          (if_statement_then_keyword)
+          (if_statement
+            (if_statement_if_keyword)
+            (conditional_expression
+              (conditional_expression
+                (identifier))
+              (relational_operators)
+              (conditional_expression
+                (identifier)))
+            (if_statement_then_keyword)
+            (return_statment
+              (return_keyword)
+              (number)
+              (punctuation_semicolon))
+            (if_statement_end_keyword))
+          (if_statement_end_keyword))
+        (function_end)))
+
+
+===================
+Nested If Else
+===================
+FUNCTION NestedIfElse()
+    IF A > 0 THEN
+        IF B > 0 THEN
+            RETURN 1;
+        ELSE
+            RETURN 0;
+        END
+    ELSE
+        RETURN -1;
+    END
+END
+
+---
+    (source_file
+      (a_function
+        (function_definition
+          (function_keyword)
+          (identifier)
+          (punctuation_bracket_open)
+          (punctuation_bracket_close))
+        (if_statement
+          (if_statement_if_keyword)
+          (conditional_expression
+            (conditional_expression
+              (identifier))
+            (relational_operators)
+            (conditional_expression
+              (identifier)))
+          (if_statement_then_keyword)
+          (if_statement
+            (if_statement_if_keyword)
+            (conditional_expression
+              (conditional_expression
+                (identifier))
+              (relational_operators)
+              (conditional_expression
+                (identifier)))
+            (if_statement_then_keyword)
+            (return_statment
+              (return_keyword)
+              (number)
+              (punctuation_semicolon))
+            (if_statement_else_keyword)
+            (return_statment
+              (return_keyword)
+              (number)
+              (punctuation_semicolon))
+            (if_statement_end_keyword))
+          (if_statement_else_keyword)
+          (return_statment
+            (return_keyword)
+            (unary_minus_expression_atom
+              (unary_minus_negation_symbol)
+              (number))
+            (punctuation_semicolon))
+          (if_statement_end_keyword))
+        (function_end)))

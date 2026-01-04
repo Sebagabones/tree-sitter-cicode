@@ -1,0 +1,59 @@
+===================
+Simple String
+===================
+FUNCTION SimpleString()
+    STRING s;
+    s = "hello";
+END
+
+---
+    (source_file
+      (a_function
+        (function_definition
+          (function_keyword)
+          (identifier)
+          (punctuation_bracket_open)
+          (punctuation_bracket_close))
+        (variable_declaration
+          (type)
+          (identifier))
+        (variable_assignment
+          (identifier)
+          (assign_to_value
+            (punctuation_equals_sign)
+            (string
+              (punctuation_quotation_mark)
+              (string_contents)
+              (punctuation_quotation_mark)))
+          (punctuation_semicolon))
+        (function_end)))
+
+===================
+String With Escape
+===================
+FUNCTION EscapedString()
+    STRING s;
+    s = "quote ^" inside";
+END
+
+---
+    (source_file
+      (a_function
+        (function_definition
+          (function_keyword)
+          (identifier)
+          (punctuation_bracket_open)
+          (punctuation_bracket_close))
+        (variable_declaration
+          (type)
+          (identifier))
+        (variable_assignment
+          (identifier)
+          (assign_to_value
+            (punctuation_equals_sign)
+            (string
+              (punctuation_quotation_mark)
+              (string_contents)
+              (punctuation_quotation_mark)))
+          (punctuation_semicolon))
+        (function_end)))
