@@ -10,6 +10,7 @@
 module.exports = grammar({
     name: "cicode",
     // TODO: Add a bunch of things to keywords
+    // TODO: Still need to do scope
     externals: ($) => [
         $.doxygen_summary_content,
         $.doxygen_param_content,

@@ -38,8 +38,6 @@
 (unary_minus_negation_symbol) @operator
 
 
-
-
 (number) @number
 (string) @string
 
@@ -62,7 +60,6 @@
 (xml_function_docstring) @comment.block.documentation
 (xml_non_function_docstring) @comment.block.documentation
 
-
 (variable_declaration variable_type: (type) @type)
 
 (doxygen_xml_name_attribute parameter_name: (identifier) @attribute)
@@ -77,7 +74,6 @@
 
 (doxygen_returns_xml_open_tag) @property
 (doxygen_returns_xml_close_tag) @property
-
 
 
 (variable_scope) @module
