@@ -9,28 +9,36 @@ END
 
 ---
 
-    (source_file
-      (a_function
-        (function_definition
-          (function_keyword)
-          (identifier)
-          (punctuation_bracket_open)
-          (punctuation_bracket_close))
-        (if_statement
-          (if_statement_if_keyword)
+(source_file
+  (a_function
+    (function_definition
+      (function_keyword)
+      (identifier)
+      (punctuation_bracket_open)
+      (punctuation_bracket_close))
+    (statement
+      (if_statement
+        (if_statement_if_keyword)
+        (conditional_expression
           (conditional_expression
-            (conditional_expression
-              (number))
-            (relational_operators)
-            (conditional_expression
+            (conditional_atom
+              (expression_atom
+                (number))))
+          (operators_used_in_conditionals
+            (relational_operators))
+          (conditional_expression
+            (conditional_atom
+              (expression_atom
+                (number)))))
+        (if_statement_then_keyword)
+        (return_statment
+          (return_keyword)
+          (expression_
+            (expression_atom
               (number)))
-          (if_statement_then_keyword)
-          (return_statment
-            (return_keyword)
-            (number)
-            (punctuation_semicolon))
-          (if_statement_end_keyword))
-        (function_end)))
+          (punctuation_semicolon))
+        (if_statement_end_keyword)))
+    (function_end)))
 
 ===================
 If Else
@@ -44,35 +52,47 @@ FUNCTION IfElse()
 END
 
 ---
-    (source_file
-      (a_function
-        (function_definition
-          (function_keyword)
-          (identifier)
-          (punctuation_bracket_open)
-          (punctuation_bracket_close))
-        (if_statement
-          (if_statement_if_keyword)
+
+(source_file
+  (a_function
+    (function_definition
+      (function_keyword)
+      (identifier)
+      (punctuation_bracket_open)
+      (punctuation_bracket_close))
+    (statement
+      (if_statement
+        (if_statement_if_keyword)
+        (conditional_expression
           (conditional_expression
-            (conditional_expression
-              (number))
-            (relational_operators)
-            (conditional_expression
+            (conditional_atom
+              (expression_atom
+                (number))))
+          (operators_used_in_conditionals
+            (relational_operators))
+          (conditional_expression
+            (conditional_atom
+              (expression_atom
+                (number)))))
+        (if_statement_then_keyword)
+        (return_statment
+          (return_keyword)
+          (expression_
+            (expression_atom
               (number)))
-          (if_statement_then_keyword)
-          (return_statment
-            (return_keyword)
-            (number)
-            (punctuation_semicolon))
-          (if_statement_else_keyword)
-          (return_statment
-            (return_keyword)
-            (unary_minus_expression_atom
-              (unary_minus_negation_symbol)
-              (number))
-            (punctuation_semicolon))
-          (if_statement_end_keyword))
-        (function_end)))
+          (punctuation_semicolon))
+        (if_statement_else_keyword)
+        (return_statment
+          (return_keyword)
+          (expression_
+            (expression_atom
+              (unary_minus_expression_atom
+                (unary_minus_negation_symbol)
+                (expression_atom
+                  (number)))))
+          (punctuation_semicolon))
+        (if_statement_end_keyword)))
+    (function_end)))
 
 ===================
 Nested If
@@ -86,39 +106,53 @@ FUNCTION NestedIf()
 END
 
 ---
-    (source_file
-      (a_function
-        (function_definition
-          (function_keyword)
-          (identifier)
-          (punctuation_bracket_open)
-          (punctuation_bracket_close))
-        (if_statement
-          (if_statement_if_keyword)
+
+(source_file
+  (a_function
+    (function_definition
+      (function_keyword)
+      (identifier)
+      (punctuation_bracket_open)
+      (punctuation_bracket_close))
+    (statement
+      (if_statement
+        (if_statement_if_keyword)
+        (conditional_expression
           (conditional_expression
-            (conditional_expression
-              (identifier))
-            (relational_operators)
-            (conditional_expression
-              (number)))
-          (if_statement_then_keyword)
+            (conditional_atom
+              (expression_atom
+                (identifier))))
+          (operators_used_in_conditionals
+            (relational_operators))
+          (conditional_expression
+            (conditional_atom
+              (expression_atom
+                (number)))))
+        (if_statement_then_keyword)
+        (statement
           (if_statement
             (if_statement_if_keyword)
             (conditional_expression
               (conditional_expression
-                (identifier))
-              (relational_operators)
+                (conditional_atom
+                  (expression_atom
+                    (identifier))))
+              (operators_used_in_conditionals
+                (relational_operators))
               (conditional_expression
-                (number)))
+                (conditional_atom
+                  (expression_atom
+                    (number)))))
             (if_statement_then_keyword)
             (return_statment
               (return_keyword)
-              (number)
+              (expression_
+                (expression_atom
+                  (number)))
               (punctuation_semicolon))
-            (if_statement_end_keyword))
-          (if_statement_end_keyword))
-        (function_end)))
-
+            (if_statement_end_keyword)))
+        (if_statement_end_keyword)))
+    (function_end)))
 
 ===================
 Nested If Else
@@ -136,47 +170,67 @@ FUNCTION NestedIfElse()
 END
 
 ---
-    (source_file
-      (a_function
-        (function_definition
-          (function_keyword)
-          (identifier)
-          (punctuation_bracket_open)
-          (punctuation_bracket_close))
-        (if_statement
-          (if_statement_if_keyword)
+
+(source_file
+  (a_function
+    (function_definition
+      (function_keyword)
+      (identifier)
+      (punctuation_bracket_open)
+      (punctuation_bracket_close))
+    (statement
+      (if_statement
+        (if_statement_if_keyword)
+        (conditional_expression
           (conditional_expression
-            (conditional_expression
-              (identifier))
-            (relational_operators)
-            (conditional_expression
-              (number)))
-          (if_statement_then_keyword)
+            (conditional_atom
+              (expression_atom
+                (identifier))))
+          (operators_used_in_conditionals
+            (relational_operators))
+          (conditional_expression
+            (conditional_atom
+              (expression_atom
+                (number)))))
+        (if_statement_then_keyword)
+        (statement
           (if_statement
             (if_statement_if_keyword)
             (conditional_expression
               (conditional_expression
-                (identifier))
-              (relational_operators)
+                (conditional_atom
+                  (expression_atom
+                    (identifier))))
+              (operators_used_in_conditionals
+                (relational_operators))
               (conditional_expression
-                (number)))
+                (conditional_atom
+                  (expression_atom
+                    (number)))))
             (if_statement_then_keyword)
             (return_statment
               (return_keyword)
-              (number)
+              (expression_
+                (expression_atom
+                  (number)))
               (punctuation_semicolon))
             (if_statement_else_keyword)
             (return_statment
               (return_keyword)
-              (number)
+              (expression_
+                (expression_atom
+                  (number)))
               (punctuation_semicolon))
-            (if_statement_end_keyword))
-          (if_statement_else_keyword)
-          (return_statment
-            (return_keyword)
-            (unary_minus_expression_atom
-              (unary_minus_negation_symbol)
-              (number))
-            (punctuation_semicolon))
-          (if_statement_end_keyword))
-        (function_end)))
+            (if_statement_end_keyword)))
+        (if_statement_else_keyword)
+        (return_statment
+          (return_keyword)
+          (expression_
+            (expression_atom
+              (unary_minus_expression_atom
+                (unary_minus_negation_symbol)
+                (expression_atom
+                  (number)))))
+          (punctuation_semicolon))
+        (if_statement_end_keyword)))
+    (function_end)))

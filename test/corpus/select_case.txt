@@ -11,39 +11,49 @@ FUNCTION SelectSingle(INT X)
 END
 
 ---
-    (source_file
-      (a_function
-        (function_definition
-          (function_keyword)
-          (identifier)
-          (punctuation_bracket_open)
-          (function_parameters
-            (function_parameter
-              (type)
-              (identifier)))
-          (punctuation_bracket_close))
-        (select_case_statement
-          (select_case_select_case_keyword)
-          (conditional_expression
-            (identifier))
-          (case_statement
-            (case_statement_case_keyword)
-            (case_expression
-              (number))
-            (return_statment
-              (return_keyword)
-              (number)
-              (punctuation_semicolon)))
-          (case_statement
-            (case_statement_case_keyword)
-            (case_expression
-              (number))
-            (return_statment
-              (return_keyword)
-              (number)
-              (punctuation_semicolon)))
-          (select_case_end_select_keyword))
-        (function_end)))
+
+(source_file
+  (a_function
+    (function_definition
+      (function_keyword)
+      (identifier)
+      (punctuation_bracket_open)
+      (function_parameters
+        (function_parameter
+          (type)
+          (identifier)))
+      (punctuation_bracket_close))
+    (statement
+      (select_case_statement
+        (select_case_select_case_keyword)
+        (conditional_expression
+          (conditional_atom
+            (expression_atom
+              (identifier))))
+        (case_statement
+          (case_statement_case_keyword)
+          (case_expression
+            (expression_atom
+              (number)))
+          (return_statment
+            (return_keyword)
+            (expression_
+              (expression_atom
+                (number)))
+            (punctuation_semicolon)))
+        (case_statement
+          (case_statement_case_keyword)
+          (case_expression
+            (expression_atom
+              (number)))
+          (return_statment
+            (return_keyword)
+            (expression_
+              (expression_atom
+                (number)))
+            (punctuation_semicolon)))
+        (select_case_end_select_keyword)))
+    (function_end)))
 
 ===================
 Select Case Multiple Expressions
@@ -58,48 +68,61 @@ FUNCTION SelectMultiple(INT X)
 END
 
 ---
-    (source_file
-      (a_function
-        (function_definition
-          (function_keyword)
-          (identifier)
-          (punctuation_bracket_open)
-          (function_parameters
-            (function_parameter
-              (type)
-              (identifier)))
-          (punctuation_bracket_close))
-        (select_case_statement
-          (select_case_select_case_keyword)
-          (conditional_expression
-            (identifier))
-          (case_statement
-            (case_statement_case_keyword)
-            (case_expression
-              (number))
-            (punctuation_comma)
-            (case_expression
-              (number))
-            (punctuation_comma)
-            (case_expression
-              (number))
-            (return_statment
-              (return_keyword)
-              (number)
-              (punctuation_semicolon)))
-          (case_statement
-            (case_statement_case_keyword)
-            (case_expression
-              (number))
-            (punctuation_comma)
-            (case_expression
-              (number))
-            (return_statment
-              (return_keyword)
-              (number)
-              (punctuation_semicolon)))
-          (select_case_end_select_keyword))
-        (function_end)))
+
+(source_file
+  (a_function
+    (function_definition
+      (function_keyword)
+      (identifier)
+      (punctuation_bracket_open)
+      (function_parameters
+        (function_parameter
+          (type)
+          (identifier)))
+      (punctuation_bracket_close))
+    (statement
+      (select_case_statement
+        (select_case_select_case_keyword)
+        (conditional_expression
+          (conditional_atom
+            (expression_atom
+              (identifier))))
+        (case_statement
+          (case_statement_case_keyword)
+          (case_expression
+            (expression_atom
+              (number)))
+          (punctuation_comma)
+          (case_expression
+            (expression_atom
+              (number)))
+          (punctuation_comma)
+          (case_expression
+            (expression_atom
+              (number)))
+          (return_statment
+            (return_keyword)
+            (expression_
+              (expression_atom
+                (number)))
+            (punctuation_semicolon)))
+        (case_statement
+          (case_statement_case_keyword)
+          (case_expression
+            (expression_atom
+              (number)))
+          (punctuation_comma)
+          (case_expression
+            (expression_atom
+              (number)))
+          (return_statment
+            (return_keyword)
+            (expression_
+              (expression_atom
+                (number)))
+            (punctuation_semicolon)))
+        (select_case_end_select_keyword)))
+    (function_end)))
 
 ===================
 Select Case Range
@@ -114,45 +137,57 @@ FUNCTION SelectRange(INT X)
 END
 
 ---
-    (source_file
-      (a_function
-        (function_definition
-          (function_keyword)
-          (identifier)
-          (punctuation_bracket_open)
-          (function_parameters
-            (function_parameter
-              (type)
-              (identifier)))
-          (punctuation_bracket_close))
-        (select_case_statement
-          (select_case_select_case_keyword)
-          (conditional_expression
-            (identifier))
-          (case_statement
-            (case_statement_case_keyword)
-            (case_expression
-              (to_statement
-                (number)
-                (to_statement_to_keyword)
+
+(source_file
+  (a_function
+    (function_definition
+      (function_keyword)
+      (identifier)
+      (punctuation_bracket_open)
+      (function_parameters
+        (function_parameter
+          (type)
+          (identifier)))
+      (punctuation_bracket_close))
+    (statement
+      (select_case_statement
+        (select_case_select_case_keyword)
+        (conditional_expression
+          (conditional_atom
+            (expression_atom
+              (identifier))))
+        (case_statement
+          (case_statement_case_keyword)
+          (case_expression
+            (to_statement
+              (expression_atom
+                (number))
+              (to_statement_to_keyword)
+              (expression_atom
+                (number))))
+          (return_statment
+            (return_keyword)
+            (expression_
+              (expression_atom
                 (number)))
-            (return_statment
-              (return_keyword)
-              (number)
-              (punctuation_semicolon)))
-          (case_statement
-            (case_statement_case_keyword)
-            (case_expression
-              (to_statement
-                (number)
-                (to_statement_to_keyword)
+            (punctuation_semicolon)))
+        (case_statement
+          (case_statement_case_keyword)
+          (case_expression
+            (to_statement
+              (expression_atom
+                (number))
+              (to_statement_to_keyword)
+              (expression_atom
+                (number))))
+          (return_statment
+            (return_keyword)
+            (expression_
+              (expression_atom
                 (number)))
-            (return_statment
-              (return_keyword)
-              (number)
-              (punctuation_semicolon)))
-          (select_case_end_select_keyword))
-        (function_end)))
+            (punctuation_semicolon)))
+        (select_case_end_select_keyword)))
+    (function_end)))
 
 ===================
 Select Case Multiple Ranges
@@ -167,51 +202,65 @@ FUNCTION SelectMultipleRanges(INT X)
 END
 
 ---
-    (source_file
-      (a_function
-        (function_definition
-          (function_keyword)
-          (identifier)
-          (punctuation_bracket_open)
-          (function_parameters
-            (function_parameter
-              (type)
-              (identifier)))
-          (punctuation_bracket_close))
-        (select_case_statement
-          (select_case_select_case_keyword)
-          (conditional_expression
-            (identifier))
-          (case_statement
-            (case_statement_case_keyword)
-            (case_expression
-              (to_statement
-                (number)
-                (to_statement_to_keyword)
+
+(source_file
+  (a_function
+    (function_definition
+      (function_keyword)
+      (identifier)
+      (punctuation_bracket_open)
+      (function_parameters
+        (function_parameter
+          (type)
+          (identifier)))
+      (punctuation_bracket_close))
+    (statement
+      (select_case_statement
+        (select_case_select_case_keyword)
+        (conditional_expression
+          (conditional_atom
+            (expression_atom
+              (identifier))))
+        (case_statement
+          (case_statement_case_keyword)
+          (case_expression
+            (to_statement
+              (expression_atom
+                (number))
+              (to_statement_to_keyword)
+              (expression_atom
+                (number))))
+          (punctuation_comma)
+          (case_expression
+            (to_statement
+              (expression_atom
+                (number))
+              (to_statement_to_keyword)
+              (expression_atom
+                (number))))
+          (return_statment
+            (return_keyword)
+            (expression_
+              (expression_atom
                 (number)))
-            (punctuation_comma)
-            (case_expression
-              (to_statement
-                (number)
-                (to_statement_to_keyword)
+            (punctuation_semicolon)))
+        (case_statement
+          (case_statement_case_keyword)
+          (case_expression
+            (to_statement
+              (expression_atom
+                (number))
+              (to_statement_to_keyword)
+              (expression_atom
+                (number))))
+          (return_statment
+            (return_keyword)
+            (expression_
+              (expression_atom
                 (number)))
-            (return_statment
-              (return_keyword)
-              (number)
-              (punctuation_semicolon)))
-          (case_statement
-            (case_statement_case_keyword)
-            (case_expression
-              (to_statement
-                (number)
-                (to_statement_to_keyword)
-                (number)))
-            (return_statment
-              (return_keyword)
-              (number)
-              (punctuation_semicolon)))
-          (select_case_end_select_keyword))
-        (function_end)))
+            (punctuation_semicolon)))
+        (select_case_end_select_keyword)))
+    (function_end)))
 
 ===================
 Select Case Expression And Range
@@ -224,40 +273,50 @@ FUNCTION SelectExprAndRange(INT X)
 END
 
 ---
-    (source_file
-      (a_function
-        (function_definition
-          (function_keyword)
-          (identifier)
-          (punctuation_bracket_open)
-          (function_parameters
-            (function_parameter
-              (type)
-              (identifier)))
-          (punctuation_bracket_close))
-        (select_case_statement
-          (select_case_select_case_keyword)
-          (conditional_expression
-            (identifier))
-          (case_statement
-            (case_statement_case_keyword)
-            (case_expression
-              (number))
-            (punctuation_comma)
-            (case_expression
-              (to_statement
-                (number)
-                (to_statement_to_keyword)
+
+(source_file
+  (a_function
+    (function_definition
+      (function_keyword)
+      (identifier)
+      (punctuation_bracket_open)
+      (function_parameters
+        (function_parameter
+          (type)
+          (identifier)))
+      (punctuation_bracket_close))
+    (statement
+      (select_case_statement
+        (select_case_select_case_keyword)
+        (conditional_expression
+          (conditional_atom
+            (expression_atom
+              (identifier))))
+        (case_statement
+          (case_statement_case_keyword)
+          (case_expression
+            (expression_atom
+              (number)))
+          (punctuation_comma)
+          (case_expression
+            (to_statement
+              (expression_atom
+                (number))
+              (to_statement_to_keyword)
+              (expression_atom
+                (number))))
+          (punctuation_comma)
+          (case_expression
+            (expression_atom
+              (number)))
+          (return_statment
+            (return_keyword)
+            (expression_
+              (expression_atom
                 (number)))
-            (punctuation_comma)
-            (case_expression
-              (number))
-            (return_statment
-              (return_keyword)
-              (number)
-              (punctuation_semicolon)))
-          (select_case_end_select_keyword))
-        (function_end)))
+            (punctuation_semicolon)))
+        (select_case_end_select_keyword)))
+    (function_end)))
 
 ===================
 Select Case IS Greater Than
@@ -270,35 +329,44 @@ FUNCTION SelectIsGreater(INT X)
 END
 
 ---
-    (source_file
-      (a_function
-        (function_definition
-          (function_keyword)
-          (identifier)
-          (punctuation_bracket_open)
-          (function_parameters
-            (function_parameter
-              (type)
-              (identifier)))
-          (punctuation_bracket_close))
-        (select_case_statement
-          (select_case_select_case_keyword)
-          (conditional_expression
-            (identifier))
-          (case_statement
-            (case_statement_case_keyword)
-            (case_expression
-              (select_case_conditional_expression
-                (select_case_is_keyword)
-                (relational_operators)
-                (conditional_expression
-                  (number))))
-            (return_statment
-              (return_keyword)
-              (number)
-              (punctuation_semicolon)))
-          (select_case_end_select_keyword))
-        (function_end)))
+
+(source_file
+  (a_function
+    (function_definition
+      (function_keyword)
+      (identifier)
+      (punctuation_bracket_open)
+      (function_parameters
+        (function_parameter
+          (type)
+          (identifier)))
+      (punctuation_bracket_close))
+    (statement
+      (select_case_statement
+        (select_case_select_case_keyword)
+        (conditional_expression
+          (conditional_atom
+            (expression_atom
+              (identifier))))
+        (case_statement
+          (case_statement_case_keyword)
+          (case_expression
+            (select_case_conditional_expression
+              (select_case_is_keyword)
+              (operators_used_in_conditionals
+                (relational_operators))
+              (conditional_expression
+                (conditional_atom
+                  (expression_atom
+                    (number))))))
+          (return_statment
+            (return_keyword)
+            (expression_
+              (expression_atom
+                (number)))
+            (punctuation_semicolon)))
+        (select_case_end_select_keyword)))
+    (function_end)))
 
 ===================
 Select Case IS Less Than Or Equal
@@ -311,37 +379,47 @@ FUNCTION SelectIsLessEqual(INT X)
 END
 
 ---
-    (source_file
-      (a_function
-        (function_definition
-          (function_keyword)
-          (identifier)
-          (punctuation_bracket_open)
-          (function_parameters
-            (function_parameter
-              (type)
-              (identifier)))
-          (punctuation_bracket_close))
-        (select_case_statement
-          (select_case_select_case_keyword)
-          (conditional_expression
-            (identifier))
-          (case_statement
-            (case_statement_case_keyword)
-            (case_expression
-              (select_case_conditional_expression
-                (select_case_is_keyword)
-                (relational_operators)
-                (conditional_expression
-                  (number))))
-            (return_statment
-              (return_keyword)
-              (unary_minus_expression_atom
-                (unary_minus_negation_symbol)
-                (number))
-              (punctuation_semicolon)))
-          (select_case_end_select_keyword))
-        (function_end)))
+
+(source_file
+  (a_function
+    (function_definition
+      (function_keyword)
+      (identifier)
+      (punctuation_bracket_open)
+      (function_parameters
+        (function_parameter
+          (type)
+          (identifier)))
+      (punctuation_bracket_close))
+    (statement
+      (select_case_statement
+        (select_case_select_case_keyword)
+        (conditional_expression
+          (conditional_atom
+            (expression_atom
+              (identifier))))
+        (case_statement
+          (case_statement_case_keyword)
+          (case_expression
+            (select_case_conditional_expression
+              (select_case_is_keyword)
+              (operators_used_in_conditionals
+                (relational_operators))
+              (conditional_expression
+                (conditional_atom
+                  (expression_atom
+                    (number))))))
+          (return_statment
+            (return_keyword)
+            (expression_
+              (expression_atom
+                (unary_minus_expression_atom
+                  (unary_minus_negation_symbol)
+                  (expression_atom
+                    (number)))))
+            (punctuation_semicolon)))
+        (select_case_end_select_keyword)))
+    (function_end)))
 
 ===================
 Select Case Multiple IS Expressions
@@ -354,44 +432,57 @@ FUNCTION SelectMultipleIs(INT X)
 END
 
 ---
-    (source_file
-      (a_function
-        (function_definition
-          (function_keyword)
-          (identifier)
-          (punctuation_bracket_open)
-          (function_parameters
-            (function_parameter
-              (type)
-              (identifier)))
-          (punctuation_bracket_close))
-        (select_case_statement
-          (select_case_select_case_keyword)
-          (conditional_expression
-            (identifier))
-          (case_statement
-            (case_statement_case_keyword)
-            (case_expression
-              (select_case_conditional_expression
-                (select_case_is_keyword)
-                (relational_operators)
-                (conditional_expression
-                  (number))))
-            (punctuation_comma)
-            (case_expression
-              (select_case_conditional_expression
-                (select_case_is_keyword)
-                (relational_operators)
-                (conditional_expression
-                  (number))))
-            (return_statment
-              (return_keyword)
-              (unary_minus_expression_atom
-                (unary_minus_negation_symbol)
-                (number))
-              (punctuation_semicolon)))
-          (select_case_end_select_keyword))
-        (function_end)))
+
+(source_file
+  (a_function
+    (function_definition
+      (function_keyword)
+      (identifier)
+      (punctuation_bracket_open)
+      (function_parameters
+        (function_parameter
+          (type)
+          (identifier)))
+      (punctuation_bracket_close))
+    (statement
+      (select_case_statement
+        (select_case_select_case_keyword)
+        (conditional_expression
+          (conditional_atom
+            (expression_atom
+              (identifier))))
+        (case_statement
+          (case_statement_case_keyword)
+          (case_expression
+            (select_case_conditional_expression
+              (select_case_is_keyword)
+              (operators_used_in_conditionals
+                (relational_operators))
+              (conditional_expression
+                (conditional_atom
+                  (expression_atom
+                    (number))))))
+          (punctuation_comma)
+          (case_expression
+            (select_case_conditional_expression
+              (select_case_is_keyword)
+              (operators_used_in_conditionals
+                (relational_operators))
+              (conditional_expression
+                (conditional_atom
+                  (expression_atom
+                    (number))))))
+          (return_statment
+            (return_keyword)
+            (expression_
+              (expression_atom
+                (unary_minus_expression_atom
+                  (unary_minus_negation_symbol)
+                  (expression_atom
+                    (number)))))
+            (punctuation_semicolon)))
+        (select_case_end_select_keyword)))
+    (function_end)))
 
 ===================
 Select Case Mixed IS And Expressions
@@ -404,44 +495,56 @@ FUNCTION SelectMixed(INT X)
 END
 
 ---
-    (source_file
-      (a_function
-        (function_definition
-          (function_keyword)
-          (identifier)
-          (punctuation_bracket_open)
-          (function_parameters
-            (function_parameter
-              (type)
-              (identifier)))
-          (punctuation_bracket_close))
-        (select_case_statement
-          (select_case_select_case_keyword)
-          (conditional_expression
-            (identifier))
-          (case_statement
-            (case_statement_case_keyword)
-            (case_expression
-              (number))
-            (punctuation_comma)
-            (case_expression
-              (to_statement
-                (number)
-                (to_statement_to_keyword)
+
+(source_file
+  (a_function
+    (function_definition
+      (function_keyword)
+      (identifier)
+      (punctuation_bracket_open)
+      (function_parameters
+        (function_parameter
+          (type)
+          (identifier)))
+      (punctuation_bracket_close))
+    (statement
+      (select_case_statement
+        (select_case_select_case_keyword)
+        (conditional_expression
+          (conditional_atom
+            (expression_atom
+              (identifier))))
+        (case_statement
+          (case_statement_case_keyword)
+          (case_expression
+            (expression_atom
+              (number)))
+          (punctuation_comma)
+          (case_expression
+            (to_statement
+              (expression_atom
+                (number))
+              (to_statement_to_keyword)
+              (expression_atom
+                (number))))
+          (punctuation_comma)
+          (case_expression
+            (select_case_conditional_expression
+              (select_case_is_keyword)
+              (operators_used_in_conditionals
+                (relational_operators))
+              (conditional_expression
+                (conditional_atom
+                  (expression_atom
+                    (number))))))
+          (return_statment
+            (return_keyword)
+            (expression_
+              (expression_atom
                 (number)))
-            (punctuation_comma)
-            (case_expression
-              (select_case_conditional_expression
-                (select_case_is_keyword)
-                (relational_operators)
-                (conditional_expression
-                  (number))))
-            (return_statment
-              (return_keyword)
-              (number)
-              (punctuation_semicolon)))
-          (select_case_end_select_keyword))
-        (function_end)))
+            (punctuation_semicolon)))
+        (select_case_end_select_keyword)))
+    (function_end)))
 
 ===================
 Select Case With Variable Expressions
@@ -456,50 +559,63 @@ FUNCTION SelectVariable(INT X, INT MaxValue)
 END
 
 ---
-    (source_file
-      (a_function
-        (function_definition
-          (function_keyword)
-          (identifier)
-          (punctuation_bracket_open)
-          (function_parameters
-            (function_parameter
-              (type)
-              (identifier))
-            (punctuation_comma)
-            (function_parameter
-              (type)
-              (identifier)))
-          (punctuation_bracket_close))
-        (select_case_statement
-          (select_case_select_case_keyword)
-          (conditional_expression
-            (identifier))
-          (case_statement
-            (case_statement_case_keyword)
-            (case_expression
-              (select_case_conditional_expression
-                (select_case_is_keyword)
-                (relational_operators)
-                (conditional_expression
-                  (identifier))))
-            (return_statment
-              (return_keyword)
-              (number)
-              (punctuation_semicolon)))
-          (case_statement
-            (case_statement_case_keyword)
-            (case_expression
-              (to_statement
-                (number)
-                (to_statement_to_keyword)
-                (identifier)))
-            (return_statment
-              (return_keyword)
-              (number)
-              (punctuation_semicolon)))
-          (select_case_end_select_keyword))
-        (function_end)))
+
+(source_file
+  (a_function
+    (function_definition
+      (function_keyword)
+      (identifier)
+      (punctuation_bracket_open)
+      (function_parameters
+        (function_parameter
+          (type)
+          (identifier))
+        (punctuation_comma)
+        (function_parameter
+          (type)
+          (identifier)))
+      (punctuation_bracket_close))
+    (statement
+      (select_case_statement
+        (select_case_select_case_keyword)
+        (conditional_expression
+          (conditional_atom
+            (expression_atom
+              (identifier))))
+        (case_statement
+          (case_statement_case_keyword)
+          (case_expression
+            (select_case_conditional_expression
+              (select_case_is_keyword)
+              (operators_used_in_conditionals
+                (relational_operators))
+              (conditional_expression
+                (conditional_atom
+                  (expression_atom
+                    (identifier))))))
+          (return_statment
+            (return_keyword)
+            (expression_
+              (expression_atom
+                (number)))
+            (punctuation_semicolon)))
+        (case_statement
+          (case_statement_case_keyword)
+          (case_expression
+            (to_statement
+              (expression_atom
+                (number))
+              (to_statement_to_keyword)
+              (expression_atom
+                (identifier))))
+          (return_statment
+            (return_keyword)
+            (expression_
+              (expression_atom
+                (number)))
+            (punctuation_semicolon)))
+        (select_case_end_select_keyword)))
+    (function_end)))
 
 ===================
 Select Case With Strings
@@ -514,51 +630,62 @@ FUNCTION SelectStrings(STRING S)
 END
 
 ---
-  (source_file
-      (a_function
-        (function_definition
-          (function_keyword)
-          (identifier)
-          (punctuation_bracket_open)
-          (function_parameters
-            (function_parameter
-              (type)
-              (identifier)))
-          (punctuation_bracket_close))
-        (select_case_statement
-          (select_case_select_case_keyword)
-          (conditional_expression
-            (identifier))
-          (case_statement
-            (case_statement_case_keyword)
-            (case_expression
+
+(source_file
+  (a_function
+    (function_definition
+      (function_keyword)
+      (identifier)
+      (punctuation_bracket_open)
+      (function_parameters
+        (function_parameter
+          (type)
+          (identifier)))
+      (punctuation_bracket_close))
+    (statement
+      (select_case_statement
+        (select_case_select_case_keyword)
+        (conditional_expression
+          (conditional_atom
+            (expression_atom
+              (identifier))))
+        (case_statement
+          (case_statement_case_keyword)
+          (case_expression
+            (expression_atom
               (string
                 (punctuation_quotation_mark)
                 (string_contents)
-                (punctuation_quotation_mark)))
-            (return_statment
-              (return_keyword)
-              (number)
-              (punctuation_semicolon)))
-          (case_statement
-            (case_statement_case_keyword)
-            (case_expression
-              (to_statement
+                (punctuation_quotation_mark))))
+          (return_statment
+            (return_keyword)
+            (expression_
+              (expression_atom
+                (number)))
+            (punctuation_semicolon)))
+        (case_statement
+          (case_statement_case_keyword)
+          (case_expression
+            (to_statement
+              (expression_atom
                 (string
                   (punctuation_quotation_mark)
                   (string_contents)
-                  (punctuation_quotation_mark))
-                (to_statement_to_keyword)
+                  (punctuation_quotation_mark)))
+              (to_statement_to_keyword)
+              (expression_atom
                 (string
                   (punctuation_quotation_mark)
                   (string_contents)
-                  (punctuation_quotation_mark))))
-            (return_statment
-              (return_keyword)
-              (number)
-              (punctuation_semicolon)))
-          (select_case_end_select_keyword))
-        (function_end)))
+                  (punctuation_quotation_mark)))))
+          (return_statment
+            (return_keyword)
+            (expression_
+              (expression_atom
+                (number)))
+            (punctuation_semicolon)))
+        (select_case_end_select_keyword)))
+    (function_end)))
 
 ===================
 Select Case With Strings And Variables
@@ -571,53 +698,63 @@ FUNCTION SelectStringMixed(STRING S, STRING TestItem)
 END
 
 ---
-    (source_file
-      (a_function
-        (function_definition
-          (function_keyword)
-          (identifier)
-          (punctuation_bracket_open)
-          (function_parameters
-            (function_parameter
-              (type)
-              (identifier))
-            (punctuation_comma)
-            (function_parameter
-              (type)
-              (identifier)))
-          (punctuation_bracket_close))
-        (select_case_statement
-          (select_case_select_case_keyword)
-          (conditional_expression
-            (identifier))
-          (case_statement
-            (case_statement_case_keyword)
-            (case_expression
+
+(source_file
+  (a_function
+    (function_definition
+      (function_keyword)
+      (identifier)
+      (punctuation_bracket_open)
+      (function_parameters
+        (function_parameter
+          (type)
+          (identifier))
+        (punctuation_comma)
+        (function_parameter
+          (type)
+          (identifier)))
+      (punctuation_bracket_close))
+    (statement
+      (select_case_statement
+        (select_case_select_case_keyword)
+        (conditional_expression
+          (conditional_atom
+            (expression_atom
+              (identifier))))
+        (case_statement
+          (case_statement_case_keyword)
+          (case_expression
+            (expression_atom
               (string
                 (punctuation_quotation_mark)
                 (string_contents)
-                (punctuation_quotation_mark)))
-            (punctuation_comma)
-            (case_expression
-              (to_statement
+                (punctuation_quotation_mark))))
+          (punctuation_comma)
+          (case_expression
+            (to_statement
+              (expression_atom
                 (string
                   (punctuation_quotation_mark)
                   (string_contents)
-                  (punctuation_quotation_mark))
-                (to_statement_to_keyword)
+                  (punctuation_quotation_mark)))
+              (to_statement_to_keyword)
+              (expression_atom
                 (string
                   (punctuation_quotation_mark)
                   (string_contents)
-                  (punctuation_quotation_mark))))
-            (punctuation_comma)
-            (case_expression
-              (identifier))
-            (return_statment
-              (return_keyword)
-              (number)
-              (punctuation_semicolon)))
-          (select_case_end_select_keyword))
-        (function_end)))
+                  (punctuation_quotation_mark)))))
+          (punctuation_comma)
+          (case_expression
+            (expression_atom
+              (identifier)))
+          (return_statment
+            (return_keyword)
+            (expression_
+              (expression_atom
+                (number)))
+            (punctuation_semicolon)))
+        (select_case_end_select_keyword)))
+    (function_end)))
 
 ===================
 Select Case With Else
@@ -632,39 +769,49 @@ FUNCTION SelectElse(INT X)
 END
 
 ---
-    (source_file
-      (a_function
-        (function_definition
-          (function_keyword)
-          (identifier)
-          (punctuation_bracket_open)
-          (function_parameters
-            (function_parameter
-              (type)
-              (identifier)))
-          (punctuation_bracket_close))
-        (select_case_statement
-          (select_case_select_case_keyword)
-          (conditional_expression
-            (identifier))
-          (case_statement
-            (case_statement_case_keyword)
-            (case_expression
-              (number))
-            (return_statment
-              (return_keyword)
-              (number)
-              (punctuation_semicolon)))
-          (case_else_statement
-            (case_statement_case_else_keyword)
-            (return_statment
-              (return_keyword)
-              (unary_minus_expression_atom
-                (unary_minus_negation_symbol)
-                (number))
-              (punctuation_semicolon)))
-          (select_case_end_select_keyword))
-        (function_end)))
+
+(source_file
+  (a_function
+    (function_definition
+      (function_keyword)
+      (identifier)
+      (punctuation_bracket_open)
+      (function_parameters
+        (function_parameter
+          (type)
+          (identifier)))
+      (punctuation_bracket_close))
+    (statement
+      (select_case_statement
+        (select_case_select_case_keyword)
+        (conditional_expression
+          (conditional_atom
+            (expression_atom
+              (identifier))))
+        (case_statement
+          (case_statement_case_keyword)
+          (case_expression
+            (expression_atom
+              (number)))
+          (return_statment
+            (return_keyword)
+            (expression_
+              (expression_atom
+                (number)))
+            (punctuation_semicolon)))
+        (case_else_statement
+          (case_statement_case_else_keyword)
+          (return_statment
+            (return_keyword)
+            (expression_
+              (expression_atom
+                (unary_minus_expression_atom
+                  (unary_minus_negation_symbol)
+                  (expression_atom
+                    (number)))))
+            (punctuation_semicolon)))
+        (select_case_end_select_keyword)))
+    (function_end)))
 
 ===================
 Select Case Without Else
@@ -678,35 +825,44 @@ FUNCTION SelectNoElse(INT X)
 END
 
 ---
-    (source_file
-      (a_function
-        (function_definition
-          (function_keyword)
-          (identifier)
-          (punctuation_bracket_open)
-          (function_parameters
-            (function_parameter
-              (type)
-              (identifier)))
-          (punctuation_bracket_close))
-        (select_case_statement
-          (select_case_select_case_keyword)
-          (conditional_expression
-            (identifier))
-          (case_statement
-            (case_statement_case_keyword)
-            (case_expression
-              (number))
-            (return_statment
-              (return_keyword)
-              (number)
-              (punctuation_semicolon)))
-          (select_case_end_select_keyword))
-        (return_statment
-          (return_keyword)
-          (number)
-          (punctuation_semicolon))
-        (function_end)))
+
+(source_file
+  (a_function
+    (function_definition
+      (function_keyword)
+      (identifier)
+      (punctuation_bracket_open)
+      (function_parameters
+        (function_parameter
+          (type)
+          (identifier)))
+      (punctuation_bracket_close))
+    (statement
+      (select_case_statement
+        (select_case_select_case_keyword)
+        (conditional_expression
+          (conditional_atom
+            (expression_atom
+              (identifier))))
+        (case_statement
+          (case_statement_case_keyword)
+          (case_expression
+            (expression_atom
+              (number)))
+          (return_statment
+            (return_keyword)
+            (expression_
+              (expression_atom
+                (number)))
+            (punctuation_semicolon)))
+        (select_case_end_select_keyword)))
+    (return_statment
+      (return_keyword)
+      (expression_
+        (expression_atom
+          (number)))
+      (punctuation_semicolon))
+    (function_end)))
 
 ===================
 Nested Select Case
@@ -726,58 +882,74 @@ FUNCTION NestedSelect(INT X, INT Y)
 END
 
 ---
-    (source_file
-      (a_function
-        (function_definition
-          (function_keyword)
-          (identifier)
-          (punctuation_bracket_open)
-          (function_parameters
-            (function_parameter
-              (type)
-              (identifier))
-            (punctuation_comma)
-            (function_parameter
-              (type)
-              (identifier)))
-          (punctuation_bracket_close))
-        (select_case_statement
-          (select_case_select_case_keyword)
-          (conditional_expression
-            (identifier))
-          (case_statement
-            (case_statement_case_keyword)
-            (case_expression
-              (number))
+
+(source_file
+  (a_function
+    (function_definition
+      (function_keyword)
+      (identifier)
+      (punctuation_bracket_open)
+      (function_parameters
+        (function_parameter
+          (type)
+          (identifier))
+        (punctuation_comma)
+        (function_parameter
+          (type)
+          (identifier)))
+      (punctuation_bracket_close))
+    (statement
+      (select_case_statement
+        (select_case_select_case_keyword)
+        (conditional_expression
+          (conditional_atom
+            (expression_atom
+              (identifier))))
+        (case_statement
+          (case_statement_case_keyword)
+          (case_expression
+            (expression_atom
+              (number)))
+          (statement
             (select_case_statement
               (select_case_select_case_keyword)
               (conditional_expression
-                (identifier))
+                (conditional_atom
+                  (expression_atom
+                    (identifier))))
               (case_statement
                 (case_statement_case_keyword)
                 (case_expression
-                  (number))
+                  (expression_atom
+                    (number)))
                 (return_statment
                   (return_keyword)
-                  (number)
+                  (expression_
+                    (expression_atom
+                      (number)))
                   (punctuation_semicolon)))
               (case_else_statement
                 (case_statement_case_else_keyword)
                 (return_statment
                   (return_keyword)
-                  (number)
+                  (expression_
+                    (expression_atom
+                      (number)))
                   (punctuation_semicolon)))
-              (select_case_end_select_keyword)))
-          (case_else_statement
-            (case_statement_case_else_keyword)
-            (return_statment
-              (return_keyword)
-              (unary_minus_expression_atom
-                (unary_minus_negation_symbol)
-                (number))
-              (punctuation_semicolon)))
-          (select_case_end_select_keyword))
-        (function_end)))
+              (select_case_end_select_keyword))))
+        (case_else_statement
+          (case_statement_case_else_keyword)
+          (return_statment
+            (return_keyword)
+            (expression_
+              (expression_atom
+                (unary_minus_expression_atom
+                  (unary_minus_negation_symbol)
+                  (expression_atom
+                    (number)))))
+            (punctuation_semicolon)))
+        (select_case_end_select_keyword)))
+    (function_end)))
 
 ===================
 Select Case Example From Documentation
@@ -798,88 +970,111 @@ FUNCTION ShipStatus(INT iStatus)
 END
 
 ---
-    (source_file
-      (a_function
-        (function_definition
-          (function_keyword)
-          (identifier)
-          (punctuation_bracket_open)
-          (function_parameters
-            (function_parameter
-              (type)
-              (identifier)))
-          (punctuation_bracket_close))
-        (select_case_statement
-          (select_case_select_case_keyword)
-          (conditional_expression
-            (identifier))
-          (case_statement
-            (case_statement_case_keyword)
-            (case_expression
-              (number))
+
+(source_file
+  (a_function
+    (function_definition
+      (function_keyword)
+      (identifier)
+      (punctuation_bracket_open)
+      (function_parameters
+        (function_parameter
+          (type)
+          (identifier)))
+      (punctuation_bracket_close))
+    (statement
+      (select_case_statement
+        (select_case_select_case_keyword)
+        (conditional_expression
+          (conditional_atom
+            (expression_atom
+              (identifier))))
+        (case_statement
+          (case_statement_case_keyword)
+          (case_expression
+            (expression_atom
+              (number)))
+          (statement
             (statement_function_call
               (function_call
                 (identifier)
                 (punctuation_bracket_open)
-                (string
-                  (punctuation_quotation_mark)
-                  (string_contents)
-                  (punctuation_quotation_mark))
+                (expression_
+                  (expression_atom
+                    (string
+                      (punctuation_quotation_mark)
+                      (string_contents)
+                      (punctuation_quotation_mark))))
                 (punctuation_bracket_close))
-              (punctuation_semicolon)))
-          (case_statement
-            (case_statement_case_keyword)
-            (case_expression
-              (number))
+              (punctuation_semicolon))))
+        (case_statement
+          (case_statement_case_keyword)
+          (case_expression
+            (expression_atom
+              (number)))
+          (statement
             (statement_function_call
               (function_call
                 (identifier)
                 (punctuation_bracket_open)
-                (string
-                  (punctuation_quotation_mark)
-                  (string_contents)
-                  (punctuation_quotation_mark))
+                (expression_
+                  (expression_atom
+                    (string
+                      (punctuation_quotation_mark)
+                      (string_contents)
+                      (punctuation_quotation_mark))))
                 (punctuation_bracket_close))
-              (punctuation_semicolon)))
-          (case_statement
-            (case_statement_case_keyword)
-            (case_expression
-              (number))
+              (punctuation_semicolon))))
+        (case_statement
+          (case_statement_case_keyword)
+          (case_expression
+            (expression_atom
+              (number)))
+          (statement
             (statement_function_call
               (function_call
                 (identifier)
                 (punctuation_bracket_open)
-                (string
-                  (punctuation_quotation_mark)
-                  (string_contents)
-                  (punctuation_quotation_mark))
+                (expression_
+                  (expression_atom
+                    (string
+                      (punctuation_quotation_mark)
+                      (string_contents)
+                      (punctuation_quotation_mark))))
                 (punctuation_bracket_close))
-              (punctuation_semicolon)))
-          (case_statement
-            (case_statement_case_keyword)
-            (case_expression
-              (number))
+              (punctuation_semicolon))))
+        (case_statement
+          (case_statement_case_keyword)
+          (case_expression
+            (expression_atom
+              (number)))
+          (statement
             (statement_function_call
               (function_call
                 (identifier)
                 (punctuation_bracket_open)
-                (string
-                  (punctuation_quotation_mark)
-                  (string_contents)
-                  (punctuation_quotation_mark))
+                (expression_
+                  (expression_atom
+                    (string
+                      (punctuation_quotation_mark)
+                      (string_contents)
+                      (punctuation_quotation_mark))))
                 (punctuation_bracket_close))
-              (punctuation_semicolon)))
-          (case_else_statement
-            (case_statement_case_else_keyword)
+              (punctuation_semicolon))))
+        (case_else_statement
+          (case_statement_case_else_keyword)
+          (statement
             (statement_function_call
               (function_call
                 (identifier)
                 (punctuation_bracket_open)
-                (string
-                  (punctuation_quotation_mark)
-                  (string_contents)
-                  (punctuation_quotation_mark))
+                (expression_
+                  (expression_atom
+                    (string
+                      (punctuation_quotation_mark)
+                      (string_contents)
+                      (punctuation_quotation_mark))))
                 (punctuation_bracket_close))
-              (punctuation_semicolon)))
-          (select_case_end_select_keyword))
-        (function_end)))
+              (punctuation_semicolon))))
+        (select_case_end_select_keyword)))
+    (function_end)))

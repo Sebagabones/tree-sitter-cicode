@@ -50,3 +50,4 @@ zig-out/
 *.zip
 
 .direnv
+private_tests/

@@ -13,48 +13,60 @@ FUNCTION ArraySelect(INT X)
 END
 
 ---
-    (source_file
-      (array_declaration
-        (type)
-        (identifier)
-        (array_brackets_index
-          (number))
-        (punctuation_semicolon))
-      (a_function
-        (function_definition
-          (function_keyword)
-          (identifier)
-          (punctuation_bracket_open)
-          (function_parameters
-            (function_parameter
-              (type)
-              (identifier)))
-          (punctuation_bracket_close))
-        (select_case_statement
-          (select_case_select_case_keyword)
-          (conditional_expression
-            (identifier))
-          (case_statement
-            (case_statement_case_keyword)
-            (case_expression
-              (number))
-            (return_statment
-              (return_keyword)
-              (array_variable
-                (identifier)
-                (array_brackets_index
-                  (number)))
-              (punctuation_semicolon)))
-          (case_else_statement
-            (case_statement_case_else_keyword)
-            (return_statment
-              (return_keyword)
-              (unary_minus_expression_atom
-                (unary_minus_negation_symbol)
-                (number))
-              (punctuation_semicolon)))
-          (select_case_end_select_keyword))
-        (function_end)))
+
+(source_file
+  (array_declaration
+    (type)
+    (identifier)
+    (array_brackets_index
+      (expression_atom
+        (number)))
+    (punctuation_semicolon))
+  (a_function
+    (function_definition
+      (function_keyword)
+      (identifier)
+      (punctuation_bracket_open)
+      (function_parameters
+        (function_parameter
+          (type)
+          (identifier)))
+      (punctuation_bracket_close))
+    (statement
+      (select_case_statement
+        (select_case_select_case_keyword)
+        (conditional_expression
+          (conditional_atom
+            (expression_atom
+              (identifier))))
+        (case_statement
+          (case_statement_case_keyword)
+          (case_expression
+            (expression_atom
+              (number)))
+          (return_statment
+            (return_keyword)
+            (expression_
+              (expression_atom
+                (array_variable
+                  (identifier)
+                  (array_brackets_index
+                    (expression_atom
+                      (number))))))
+            (punctuation_semicolon)))
+        (case_else_statement
+          (case_statement_case_else_keyword)
+          (return_statment
+            (return_keyword)
+            (expression_
+              (expression_atom
+                (unary_minus_expression_atom
+                  (unary_minus_negation_symbol)
+                  (expression_atom
+                    (number)))))
+            (punctuation_semicolon)))
+        (select_case_end_select_keyword)))
+    (function_end)))
 
 ===================
 Global Array Used In Function
@@ -66,29 +78,34 @@ FUNCTION ReadGlobalArray()
 END
 
 ---
-    (source_file
-      (array_declaration
-        (array_scope
-          (global_variable_scope))
-        (type)
-        (identifier)
-        (array_brackets_index
-          (number))
-        (punctuation_semicolon))
-      (a_function
-        (function_definition
-          (function_keyword)
-          (identifier)
-          (punctuation_bracket_open)
-          (punctuation_bracket_close))
-        (return_statment
-          (return_keyword)
+
+(source_file
+  (array_declaration
+    (array_scope
+      (global_variable_scope))
+    (type)
+    (identifier)
+    (array_brackets_index
+      (expression_atom
+        (number)))
+    (punctuation_semicolon))
+  (a_function
+    (function_definition
+      (function_keyword)
+      (identifier)
+      (punctuation_bracket_open)
+      (punctuation_bracket_close))
+    (return_statment
+      (return_keyword)
+      (expression_
+        (expression_atom
           (array_variable
             (identifier)
             (array_brackets_index
-              (number)))
-          (punctuation_semicolon))
-        (function_end)))
+              (expression_atom
+                (number))))))
+      (punctuation_semicolon))
+    (function_end)))
 
 ===================
 Module Array Used In Function
@@ -100,27 +117,32 @@ FUNCTION ReadModuleArray()
 END
 
 ---
-    (source_file
-      (array_declaration
-        (type)
-        (identifier)
-        (array_brackets_index
-          (number))
-        (punctuation_semicolon))
-      (a_function
-        (function_definition
-          (function_keyword)
-          (identifier)
-          (punctuation_bracket_open)
-          (punctuation_bracket_close))
-        (return_statment
-          (return_keyword)
+
+(source_file
+  (array_declaration
+    (type)
+    (identifier)
+    (array_brackets_index
+      (expression_atom
+        (number)))
+    (punctuation_semicolon))
+  (a_function
+    (function_definition
+      (function_keyword)
+      (identifier)
+      (punctuation_bracket_open)
+      (punctuation_bracket_close))
+    (return_statment
+      (return_keyword)
+      (expression_
+        (expression_atom
           (array_variable
             (identifier)
             (array_brackets_index
-              (number)))
-          (punctuation_semicolon))
-        (function_end)))
+              (expression_atom
+                (number))))))
+      (punctuation_semicolon))
+    (function_end)))
 
 ===================
 Array With Parenthesised Index
@@ -132,34 +154,46 @@ FUNCTION ArrayParenIndex()
 END
 
 ---
-    (source_file
-      (array_declaration
-        (type)
+
+(source_file
+  (array_declaration
+    (type)
+    (identifier)
+    (array_brackets_index
+      (expression_atom
+        (number)))
+    (punctuation_semicolon))
+  (a_function
+    (function_definition
+      (function_keyword)
+      (identifier)
+      (punctuation_bracket_open)
+      (punctuation_bracket_close))
+    (statement
+      (variable_assignment
         (identifier)
         (array_brackets_index
-          (number))
-        (punctuation_semicolon))
-      (a_function
-        (function_definition
-          (function_keyword)
-          (identifier)
-          (punctuation_bracket_open)
-          (punctuation_bracket_close))
-        (variable_assignment
-          (identifier)
-          (array_brackets_index
+          (expression_atom
             (expression_in_brackets
               (punctuation_bracket_open)
-              (expression
-                (number)
-                (mathematical_operators)
-                (number))
-              (punctuation_bracket_close)))
-          (assign_to_value
-            (punctuation_equals_sign)
-            (number))
-          (punctuation_semicolon))
-        (function_end)))
+              (expression_
+                (expression
+                  (expression_
+                    (expression_atom
+                      (number)))
+                  (operators_used_in_statements
+                    (mathematical_operators))
+                  (expression_
+                    (expression_atom
+                      (number)))))
+              (punctuation_bracket_close))))
+        (assign_to_value
+          (punctuation_equals_sign)
+          (expression_
+            (expression_atom
+              (number))))
+        (punctuation_semicolon)))
+    (function_end)))
 
 ===================
 Array Returned Element
@@ -171,27 +205,32 @@ FUNCTION ReturnArrayValue()
 END
 
 ---
-    (source_file
-      (array_declaration
-        (type)
-        (identifier)
-        (array_brackets_index
-          (number))
-        (punctuation_semicolon))
-      (a_function
-        (function_definition
-          (function_keyword)
-          (identifier)
-          (punctuation_bracket_open)
-          (punctuation_bracket_close))
-        (return_statment
-          (return_keyword)
+
+(source_file
+  (array_declaration
+    (type)
+    (identifier)
+    (array_brackets_index
+      (expression_atom
+        (number)))
+    (punctuation_semicolon))
+  (a_function
+    (function_definition
+      (function_keyword)
+      (identifier)
+      (punctuation_bracket_open)
+      (punctuation_bracket_close))
+    (return_statment
+      (return_keyword)
+      (expression_
+        (expression_atom
           (array_variable
             (identifier)
             (array_brackets_index
-              (number)))
-          (punctuation_semicolon))
-        (function_end)))
+              (expression_atom
+                (number))))))
+      (punctuation_semicolon))
+    (function_end)))
 
 ===================
 Array Passed To Function
@@ -202,28 +241,33 @@ FUNCTION TakeArray(INT Arr[5])
 END
 
 ---
-    (source_file
-      (a_function
-        (function_definition
-          (function_keyword)
-          (identifier)
-          (punctuation_bracket_open)
-          (function_parameters
-            (function_parameter
-              (type)
-              (array_variable
-                (identifier)
-                (array_brackets_index
-                  (number)))))
-          (punctuation_bracket_close))
-        (return_statment
-          (return_keyword)
+
+(source_file
+  (a_function
+    (function_definition
+      (function_keyword)
+      (identifier)
+      (punctuation_bracket_open)
+      (function_parameters
+        (function_parameter
+          (type)
           (array_variable
             (identifier)
             (array_brackets_index
-              (number)))
-          (punctuation_semicolon))
-        (function_end)))
+              (expression_atom
+                (number))))))
+      (punctuation_bracket_close))
+    (return_statment
+      (return_keyword)
+      (expression_
+        (expression_atom
+          (array_variable
+            (identifier)
+            (array_brackets_index
+              (expression_atom
+                (number))))))
+      (punctuation_semicolon))
+    (function_end)))
 
 ===================
 Array Used In Expression
@@ -237,38 +281,51 @@ FUNCTION ArrayExpr()
 END
 
 ---
-    (source_file
-      (array_declaration
+
+(source_file
+  (array_declaration
+    (type)
+    (identifier)
+    (array_brackets_index
+      (expression_atom
+        (number)))
+    (punctuation_semicolon))
+  (a_function
+    (function_definition
+      (function_keyword)
+      (identifier)
+      (punctuation_bracket_open)
+      (punctuation_bracket_close))
+    (statement
+      (variable_declaration
         (type)
         (identifier)
-        (array_brackets_index
-          (number))
-        (punctuation_semicolon))
-      (a_function
-        (function_definition
-          (function_keyword)
-          (identifier)
-          (punctuation_bracket_open)
-          (punctuation_bracket_close))
-        (variable_declaration
-          (type)
-          (identifier))
-        (variable_assignment
-          (identifier)
-          (assign_to_value
-            (punctuation_equals_sign)
+        (punctuation_semicolon)))
+    (statement
+      (variable_assignment
+        (identifier)
+        (assign_to_value
+          (punctuation_equals_sign)
+          (expression_
             (expression
-              (array_variable
-                (identifier)
-                (array_brackets_index
-                  (number)))
-              (mathematical_operators)
-              (array_variable
-                (identifier)
-                (array_brackets_index
-                  (number)))))
-          (punctuation_semicolon))
-        (function_end)))
+              (expression_
+                (expression_atom
+                  (array_variable
+                    (identifier)
+                    (array_brackets_index
+                      (expression_atom
+                        (number))))))
+              (operators_used_in_statements
+                (mathematical_operators))
+              (expression_
+                (expression_atom
+                  (array_variable
+                    (identifier)
+                    (array_brackets_index
+                      (expression_atom
+                        (number)))))))))
+        (punctuation_semicolon)))
+    (function_end)))
 
 ===================
 Array Default Assignment
@@ -279,46 +336,58 @@ FUNCTION ArrayAssign()
 END
 
 ---
-   (source_file
-      (array_declaration
-        (type)
-        (identifier)
-        (array_brackets_index
-          (number))
-        (array_initial_values
-          (punctuation_equals_sign)
+
+(source_file
+  (array_declaration
+    (type)
+    (identifier)
+    (array_brackets_index
+      (expression_atom
+        (number)))
+    (array_initial_values
+      (punctuation_equals_sign)
+      (expression_
+        (expression_atom
           (string
             (punctuation_quotation_mark)
             (string_contents)
-            (punctuation_quotation_mark))
-          (punctuation_comma)
+            (punctuation_quotation_mark))))
+      (punctuation_comma)
+      (expression_
+        (expression_atom
           (string
             (punctuation_quotation_mark)
             (string_contents)
-            (punctuation_quotation_mark))
-          (punctuation_comma)
+            (punctuation_quotation_mark))))
+      (punctuation_comma)
+      (expression_
+        (expression_atom
           (string
             (punctuation_quotation_mark)
             (string_contents)
-            (punctuation_quotation_mark))
-          (punctuation_comma)
+            (punctuation_quotation_mark))))
+      (punctuation_comma)
+      (expression_
+        (expression_atom
           (string
             (punctuation_quotation_mark)
             (string_contents)
-            (punctuation_quotation_mark))
-          (punctuation_comma)
+            (punctuation_quotation_mark))))
+      (punctuation_comma)
+      (expression_
+        (expression_atom
           (string
             (punctuation_quotation_mark)
             (string_contents)
-            (punctuation_quotation_mark)))
-        (punctuation_semicolon))
-      (a_function
-        (function_definition
-          (function_keyword)
-          (identifier)
-          (punctuation_bracket_open)
-          (punctuation_bracket_close))
-        (function_end)))
+            (punctuation_quotation_mark)))))
+    (punctuation_semicolon))
+  (a_function
+    (function_definition
+      (function_keyword)
+      (identifier)
+      (punctuation_bracket_open)
+      (punctuation_bracket_close))
+    (function_end)))
 
 ===================
 Array Loop
@@ -334,43 +403,58 @@ FUNCTION TestArrayLoop()
 END
 
 ---
-    (source_file
-      (array_declaration
+
+(source_file
+  (array_declaration
+    (type)
+    (identifier)
+    (array_brackets_index
+      (expression_atom
+        (number)))
+    (punctuation_semicolon))
+  (a_function
+    (function_definition
+      (function_keyword)
+      (identifier)
+      (punctuation_bracket_open)
+      (punctuation_bracket_close))
+    (statement
+      (variable_declaration
         (type)
         (identifier)
-        (array_brackets_index
-          (number))
-        (punctuation_semicolon))
-      (a_function
-        (function_definition
-          (function_keyword)
+        (punctuation_semicolon)))
+    (statement
+      (for_loop
+        (for_loop_for_keyword)
+        (for_loop_iterable
           (identifier)
-          (punctuation_bracket_open)
-          (punctuation_bracket_close))
-        (variable_declaration
-          (type)
-          (identifier))
-        (for_loop
-          (for_loop_for_keyword)
-          (for_loop_iterable
-            (identifier)
-            (assign_to_value
-              (punctuation_equals_sign)
-              (number))
-            (to_statement_to_keyword)
-            (number))
-          (for_loop_do_keyword)
+          (assign_to_value
+            (punctuation_equals_sign)
+            (expression_
+              (expression_atom
+                (number))))
+          (to_statement_to_keyword)
+          (expression_
+            (expression_atom
+              (number))))
+        (for_loop_do_keyword)
+        (statement
           (variable_assignment
             (identifier)
             (array_brackets_index
-              (identifier))
+              (expression_atom
+                (identifier)))
             (assign_to_value
               (punctuation_equals_sign)
-              (number))
-            (punctuation_semicolon))
-          (for_loop_end_keyword))
-        (return_statment
-          (return_keyword)
-          (identifier)
-          (punctuation_semicolon))
-        (function_end)))
+              (expression_
+                (expression_atom
+                  (number))))
+            (punctuation_semicolon)))
+        (for_loop_end_keyword)))
+    (return_statment
+      (return_keyword)
+      (expression_
+        (expression_atom
+          (identifier)))
+      (punctuation_semicolon))
+    (function_end)))

@@ -51,9 +51,9 @@
 ;; (function_parameter parameter_name: (identifier) @variable.parameter)
 ;; (function_parameter parameter_name: (array_variable (identifier)) @variable.parameter)
 
-(function_call function_parameter: (identifier) @variable.parameter)
-(function_call function_parameter: (array_variable) @variable.parameter)
-(function_call function_parameter: (expression  (identifier) @variable.parameter))
+(function_call function_parameter: (expression_) @variable.parameter)
+(function_call function_parameter: (expression_) @variable.parameter)
+;; (function_call function_parameter: (expression  (identifier) @variable.parameter))
 
 (comment) @comment
 

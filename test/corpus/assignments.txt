@@ -7,23 +7,29 @@ FUNCTION AssignLiteral()
 END
 
 ---
-    (source_file
-      (a_function
-        (function_definition
-          (function_keyword)
-          (identifier)
-          (punctuation_bracket_open)
-          (punctuation_bracket_close))
-        (variable_declaration
-          (type)
-          (identifier))
-        (variable_assignment
-          (identifier)
-          (assign_to_value
-            (punctuation_equals_sign)
-            (number))
-          (punctuation_semicolon))
-        (function_end)))
+
+(source_file
+  (a_function
+    (function_definition
+      (function_keyword)
+      (identifier)
+      (punctuation_bracket_open)
+      (punctuation_bracket_close))
+    (statement
+      (variable_declaration
+        (type)
+        (identifier)
+        (punctuation_semicolon)))
+    (statement
+      (variable_assignment
+        (identifier)
+        (assign_to_value
+          (punctuation_equals_sign)
+          (expression_
+            (expression_atom
+              (number))))
+        (punctuation_semicolon)))
+    (function_end)))
 
 ===================
 Assign Negative Literal
@@ -34,25 +40,32 @@ FUNCTION AssignNegative()
 END
 
 ---
-    (source_file
-      (a_function
-        (function_definition
-          (function_keyword)
-          (identifier)
-          (punctuation_bracket_open)
-          (punctuation_bracket_close))
-        (variable_declaration
-          (type)
-          (identifier))
-        (variable_assignment
-          (identifier)
-          (assign_to_value
-            (punctuation_equals_sign)
-            (unary_minus_expression_atom
-              (unary_minus_negation_symbol)
-              (number)))
-          (punctuation_semicolon))
-        (function_end)))
+
+(source_file
+  (a_function
+    (function_definition
+      (function_keyword)
+      (identifier)
+      (punctuation_bracket_open)
+      (punctuation_bracket_close))
+    (statement
+      (variable_declaration
+        (type)
+        (identifier)
+        (punctuation_semicolon)))
+    (statement
+      (variable_assignment
+        (identifier)
+        (assign_to_value
+          (punctuation_equals_sign)
+          (expression_
+            (expression_atom
+              (unary_minus_expression_atom
+                (unary_minus_negation_symbol)
+                (expression_atom
+                  (number))))))
+        (punctuation_semicolon)))
+    (function_end)))
 
 ===================
 Assign Expression
@@ -63,29 +76,43 @@ FUNCTION AssignExpression()
 END
 
 ---
-    (source_file
-      (a_function
-        (function_definition
-          (function_keyword)
-          (identifier)
-          (punctuation_bracket_open)
-          (punctuation_bracket_close))
-        (variable_declaration
-          (type)
-          (identifier))
-        (variable_assignment
-          (identifier)
-          (assign_to_value
-            (punctuation_equals_sign)
+
+(source_file
+  (a_function
+    (function_definition
+      (function_keyword)
+      (identifier)
+      (punctuation_bracket_open)
+      (punctuation_bracket_close))
+    (statement
+      (variable_declaration
+        (type)
+        (identifier)
+        (punctuation_semicolon)))
+    (statement
+      (variable_assignment
+        (identifier)
+        (assign_to_value
+          (punctuation_equals_sign)
+          (expression_
             (expression
-              (expression
-                (number)
-                (mathematical_operators)
-                (number))
-              (mathematical_operators)
-              (number)))
-          (punctuation_semicolon))
-        (function_end)))
+              (expression_
+                (expression
+                  (expression_
+                    (expression_atom
+                      (number)))
+                  (operators_used_in_statements
+                    (mathematical_operators))
+                  (expression_
+                    (expression_atom
+                      (number)))))
+              (operators_used_in_statements
+                (mathematical_operators))
+              (expression_
+                (expression_atom
+                  (number))))))
+        (punctuation_semicolon)))
+    (function_end)))
 
 ===================
 Assign Parenthesised Expression
@@ -96,32 +123,48 @@ FUNCTION AssignParens()
 END
 
 ---
-  (source_file
-      (a_function
-        (function_definition
-          (function_keyword)
-          (identifier)
-          (punctuation_bracket_open)
-          (punctuation_bracket_close))
-        (variable_declaration
-          (type)
-          (identifier))
-        (variable_assignment
-          (identifier)
-          (assign_to_value
-            (punctuation_equals_sign)
+
+(source_file
+  (a_function
+    (function_definition
+      (function_keyword)
+      (identifier)
+      (punctuation_bracket_open)
+      (punctuation_bracket_close))
+    (statement
+      (variable_declaration
+        (type)
+        (identifier)
+        (punctuation_semicolon)))
+    (statement
+      (variable_assignment
+        (identifier)
+        (assign_to_value
+          (punctuation_equals_sign)
+          (expression_
             (expression
-              (expression_in_brackets
-                (punctuation_bracket_open)
-                (expression
-                  (number)
-                  (mathematical_operators)
-                  (number))
-                (punctuation_bracket_close))
-              (mathematical_operators)
-              (number)))
-          (punctuation_semicolon))
-        (function_end)))
+              (expression_
+                (expression_atom
+                  (expression_in_brackets
+                    (punctuation_bracket_open)
+                    (expression_
+                      (expression
+                        (expression_
+                          (expression_atom
+                            (number)))
+                        (operators_used_in_statements
+                          (mathematical_operators))
+                        (expression_
+                          (expression_atom
+                            (number)))))
+                    (punctuation_bracket_close))))
+              (operators_used_in_statements
+                (mathematical_operators))
+              (expression_
+                (expression_atom
+                  (number))))))
+        (punctuation_semicolon)))
+    (function_end)))
 
 ===================
 Assign Value to Negative One
@@ -133,30 +176,42 @@ FUNCTION UnaryAssign()
 END
 
 ---
-   (source_file
-      (a_function
-        (function_definition
-          (function_keyword)
-          (identifier)
-          (punctuation_bracket_open)
-          (punctuation_bracket_close))
-        (variable_declaration
-          (type)
-          (identifier))
-        (variable_declaration
-          (type)
-          (identifier)
-          (assign_to_value
-            (punctuation_equals_sign)
-            (unary_minus_expression_atom
-              (unary_minus_negation_symbol)
-              (number))))
-        (variable_assignment
-          (identifier)
-          (assign_to_value
-            (punctuation_equals_sign)
-            (unary_minus_expression_atom
-              (unary_minus_negation_symbol)
-              (number)))
-          (punctuation_semicolon))
-        (function_end)))
+
+(source_file
+  (a_function
+    (function_definition
+      (function_keyword)
+      (identifier)
+      (punctuation_bracket_open)
+      (punctuation_bracket_close))
+    (statement
+      (variable_declaration
+        (type)
+        (identifier)
+        (punctuation_semicolon)))
+    (statement
+      (variable_declaration
+        (type)
+        (identifier)
+        (assign_to_value
+          (punctuation_equals_sign)
+          (expression_
+            (expression_atom
+              (unary_minus_expression_atom
+                (unary_minus_negation_symbol)
+                (expression_atom
+                  (number))))))
+        (punctuation_semicolon)))
+    (statement
+      (variable_assignment
+        (identifier)
+        (assign_to_value
+          (punctuation_equals_sign)
+          (expression_
+            (expression_atom
+              (unary_minus_expression_atom
+                (unary_minus_negation_symbol)
+                (expression_atom
+                  (number))))))
+        (punctuation_semicolon)))
+    (function_end)))

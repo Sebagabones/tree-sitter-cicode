@@ -13,7 +13,10 @@ INT FUNCTION RemoveBoatFromManifest(INT BoatID)
     /*
     implement the logic later
     */
-    RETURN(-1);
+    INT counter1;
+    counter1 = functionCall();
+    STRING counter2 = functionCall2();
+    RETURN(counter2);
 END
 
 

@@ -6,22 +6,27 @@ INT FUNCTION ReturnsInt()
 END
 
 ---
-    (source_file
-      (a_function
-        (function_definition
-          return_type: (type)
-          (function_keyword)
-          function_name: (identifier)
-          function_definition_bracket_open: (punctuation_bracket_open)
-          function_definition_bracket_close: (punctuation_bracket_close))
-        (return_statment
-          (return_keyword)
+
+(source_file
+  (a_function
+    (function_definition
+      return_type: (type)
+      (function_keyword)
+      function_name: (identifier)
+      function_definition_bracket_open: (punctuation_bracket_open)
+      function_definition_bracket_close: (punctuation_bracket_close))
+    (return_statment
+      (return_keyword)
+      (expression_
+        (expression_atom
           (expression_in_brackets
             expression_open_brackets: (punctuation_bracket_open)
-            (number)
-            expression_close_brackets: (punctuation_bracket_close))
-          (punctuation_semicolon))
-        (function_end)))
+            (expression_
+              (expression_atom
+                (number)))
+            expression_close_brackets: (punctuation_bracket_close))))
+      closing_semicolon: (punctuation_semicolon))
+    (function_end)))
 
 ===================
 Return STRING
@@ -30,25 +35,30 @@ STRING FUNCTION ReturnsString()
     RETURN("TEST");
 END
 ---
-    (source_file
-      (a_function
-        (function_definition
-          return_type: (type)
-          (function_keyword)
-          function_name: (identifier)
-          function_definition_bracket_open: (punctuation_bracket_open)
-          function_definition_bracket_close: (punctuation_bracket_close))
-        (return_statment
-          (return_keyword)
+
+(source_file
+  (a_function
+    (function_definition
+      return_type: (type)
+      (function_keyword)
+      function_name: (identifier)
+      function_definition_bracket_open: (punctuation_bracket_open)
+      function_definition_bracket_close: (punctuation_bracket_close))
+    (return_statment
+      (return_keyword)
+      (expression_
+        (expression_atom
           (expression_in_brackets
             expression_open_brackets: (punctuation_bracket_open)
-          (string
-              (punctuation_quotation_mark)
-              (string_contents)
-              (punctuation_quotation_mark))
-            expression_close_brackets: (punctuation_bracket_close))
-          (punctuation_semicolon))
-        (function_end)))
+            (expression_
+              (expression_atom
+                (string
+                  (punctuation_quotation_mark)
+                  (string_contents)
+                  (punctuation_quotation_mark))))
+            expression_close_brackets: (punctuation_bracket_close))))
+      closing_semicolon: (punctuation_semicolon))
+    (function_end)))
 
 ===================
 Returns Expression
@@ -59,24 +69,32 @@ END
 ---
 
 (source_file
-      (a_function
-        (function_definition
-          (type)
-          (function_keyword)
-          (identifier)
-          (punctuation_bracket_open)
-          (punctuation_bracket_close))
-        (return_statment
-          (return_keyword)
+  (a_function
+    (function_definition
+      (type)
+      (function_keyword)
+      (identifier)
+      (punctuation_bracket_open)
+      (punctuation_bracket_close))
+    (return_statment
+      (return_keyword)
+      (expression_
+        (expression_atom
           (expression_in_brackets
             (punctuation_bracket_open)
-            (expression
-              (number)
-              (mathematical_operators)
-              (number))
-            (punctuation_bracket_close))
-          (punctuation_semicolon))
-        (function_end)))
+            (expression_
+              (expression
+                (expression_
+                  (expression_atom
+                    (number)))
+                (operators_used_in_statements
+                  (mathematical_operators))
+                (expression_
+                  (expression_atom
+                    (number)))))
+            (punctuation_bracket_close))))
+      (punctuation_semicolon))
+    (function_end)))
 
 ===================
 Return Empty Function Call
@@ -86,25 +104,30 @@ INT FUNCTION ReturnsEmptyFunctionCall()
 END
 
 ---
-    (source_file
-      (a_function
-        (function_definition
-          (type)
-          (function_keyword)
-          (identifier)
-          (punctuation_bracket_open)
-          (punctuation_bracket_close))
-        (return_statment
-          (return_keyword)
+
+(source_file
+  (a_function
+    (function_definition
+      (type)
+      (function_keyword)
+      (identifier)
+      (punctuation_bracket_open)
+      (punctuation_bracket_close))
+    (return_statment
+      (return_keyword)
+      (expression_
+        (expression_atom
           (expression_in_brackets
             (punctuation_bracket_open)
-            (function_call
-              (identifier)
-              (punctuation_bracket_open)
-              (punctuation_bracket_close))
-            (punctuation_bracket_close))
-          (punctuation_semicolon))
-        (function_end)))
+            (expression_
+              (expression_atom
+                (function_call
+                  (identifier)
+                  (punctuation_bracket_open)
+                  (punctuation_bracket_close))))
+            (punctuation_bracket_close))))
+      (punctuation_semicolon))
+    (function_end)))
 
 ===================
 Return Function Call With Parameters
@@ -114,31 +137,40 @@ INT FUNCTION ReturnsParamFunctionCall()
 END
 
 ---
-    (source_file
-      (a_function
-        (function_definition
-          (type)
-          (function_keyword)
-          (identifier)
-          (punctuation_bracket_open)
-          (punctuation_bracket_close))
-        (return_statment
-          (return_keyword)
+
+(source_file
+  (a_function
+    (function_definition
+      (type)
+      (function_keyword)
+      (identifier)
+      (punctuation_bracket_open)
+      (punctuation_bracket_close))
+    (return_statment
+      (return_keyword)
+      (expression_
+        (expression_atom
           (expression_in_brackets
             (punctuation_bracket_open)
-            (function_call
-              (identifier)
-              (punctuation_bracket_open)
-              (number)
-              (punctuation_comma)
-              (string
-                (punctuation_quotation_mark)
-                (string_contents)
-                (punctuation_quotation_mark))
-              (punctuation_bracket_close))
-            (punctuation_bracket_close))
-          (punctuation_semicolon))
-        (function_end)))
+            (expression_
+              (expression_atom
+                (function_call
+                  (identifier)
+                  (punctuation_bracket_open)
+                  (expression_
+                    (expression_atom
+                      (number)))
+                  (punctuation_comma)
+                  (expression_
+                    (expression_atom
+                      (string
+                        (punctuation_quotation_mark)
+                        (string_contents)
+                        (punctuation_quotation_mark))))
+                  (punctuation_bracket_close))))
+            (punctuation_bracket_close))))
+      (punctuation_semicolon))
+    (function_end)))
 
 ===================
 Return Function Call With Expression
@@ -149,29 +181,39 @@ END
 
 ---
 
-    (source_file
-      (a_function
-        (function_definition
-          (type)
-          (function_keyword)
-          (identifier)
-          (punctuation_bracket_open)
-          (punctuation_bracket_close))
-        (return_statment
-          (return_keyword)
+(source_file
+  (a_function
+    (function_definition
+      (type)
+      (function_keyword)
+      (identifier)
+      (punctuation_bracket_open)
+      (punctuation_bracket_close))
+    (return_statment
+      (return_keyword)
+      (expression_
+        (expression_atom
           (expression_in_brackets
             (punctuation_bracket_open)
-            (expression
-              (function_call
-                (identifier)
-                (punctuation_bracket_open)
-                (number)
-                (punctuation_bracket_close))
-              (mathematical_operators)
-              (number))
-            (punctuation_bracket_close))
-          (punctuation_semicolon))
-        (function_end)))
+            (expression_
+              (expression
+                (expression_
+                  (expression_atom
+                    (function_call
+                      (identifier)
+                      (punctuation_bracket_open)
+                      (expression_
+                        (expression_atom
+                          (number)))
+                      (punctuation_bracket_close))))
+                (operators_used_in_statements
+                  (mathematical_operators))
+                (expression_
+                  (expression_atom
+                    (number)))))
+            (punctuation_bracket_close))))
+      (punctuation_semicolon))
+    (function_end)))
 
 ===================
 Return Function Call Without Brackets
@@ -181,18 +223,21 @@ FUNCTION ReturnFunctionCall()
 END
 
 ---
-    (source_file
-      (a_function
-        (function_definition
-          (function_keyword)
-          (identifier)
-          (punctuation_bracket_open)
-          (punctuation_bracket_close))
-        (return_statment
-          (return_keyword)
+
+(source_file
+  (a_function
+    (function_definition
+      (function_keyword)
+      (identifier)
+      (punctuation_bracket_open)
+      (punctuation_bracket_close))
+    (return_statment
+      (return_keyword)
+      (expression_
+        (expression_atom
           (function_call
             (identifier)
             (punctuation_bracket_open)
-            (punctuation_bracket_close))
-          (punctuation_semicolon))
-        (function_end)))
+            (punctuation_bracket_close))))
+      (punctuation_semicolon))
+    (function_end)))

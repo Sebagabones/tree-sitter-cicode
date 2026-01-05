@@ -9,37 +9,52 @@ FUNCTION SimpleWhile()
 END
 
 ---
-    (source_file
-      (a_function
-        (function_definition
-          (function_keyword)
-          (identifier)
-          (punctuation_bracket_open)
-          (punctuation_bracket_close))
-        (variable_declaration
-          (type)
-          (identifier))
-        (while_loop
-          (while_loop_while_keyword)
+
+(source_file
+  (a_function
+    (function_definition
+      (function_keyword)
+      (identifier)
+      (punctuation_bracket_open)
+      (punctuation_bracket_close))
+    (statement
+      (variable_declaration
+        (type)
+        (identifier)
+        (punctuation_semicolon)))
+    (statement
+      (while_loop
+        (while_loop_while_keyword)
+        (conditional_expression
           (conditional_expression
-            (conditional_expression
-              (identifier))
-            (relational_operators)
-            (conditional_expression
-              (number)))
-          (while_loop_do_keyword)
+            (conditional_atom
+              (expression_atom
+                (identifier))))
+          (operators_used_in_conditionals
+            (relational_operators))
+          (conditional_expression
+            (conditional_atom
+              (expression_atom
+                (number)))))
+        (while_loop_do_keyword)
+        (statement
           (variable_assignment
             (identifier)
             (assign_to_value
               (punctuation_equals_sign)
-              (expression
-                (identifier)
-                (mathematical_operators)
-                (number)))
-            (punctuation_semicolon))
-          (while_loop_end_keyword))
-        (function_end)))
-
+              (expression_
+                (expression
+                  (expression_
+                    (expression_atom
+                      (identifier)))
+                  (operators_used_in_statements
+                    (mathematical_operators))
+                  (expression_
+                    (expression_atom
+                      (number))))))
+            (punctuation_semicolon)))
+        (while_loop_end_keyword)))
+    (function_end)))
 
 ===================
 While With Function Call Condition
@@ -53,37 +68,50 @@ END
 
 ---
 
-    (source_file
-      (a_function
-        (function_definition
-          (function_keyword)
-          (identifier)
-          (punctuation_bracket_open)
-          (punctuation_bracket_close))
-        (variable_declaration
-          (type)
-          (identifier))
-        (while_loop
-          (while_loop_while_keyword)
-          (conditional_expression
-            (function_call
-              (identifier)
-              (punctuation_bracket_open)
-              (identifier)
-              (punctuation_bracket_close)))
-          (while_loop_do_keyword)
+(source_file
+  (a_function
+    (function_definition
+      (function_keyword)
+      (identifier)
+      (punctuation_bracket_open)
+      (punctuation_bracket_close))
+    (statement
+      (variable_declaration
+        (type)
+        (identifier)
+        (punctuation_semicolon)))
+    (statement
+      (while_loop
+        (while_loop_while_keyword)
+        (conditional_expression
+          (conditional_atom
+            (expression_atom
+              (function_call
+                (identifier)
+                (punctuation_bracket_open)
+                (expression_
+                  (expression_atom
+                    (identifier)))
+                (punctuation_bracket_close)))))
+        (while_loop_do_keyword)
+        (statement
           (variable_assignment
             (identifier)
             (assign_to_value
               (punctuation_equals_sign)
-              (expression
-                (identifier)
-                (mathematical_operators)
-                (number)))
-            (punctuation_semicolon))
-          (while_loop_end_keyword))
-        (function_end)))
-
+              (expression_
+                (expression
+                  (expression_
+                    (expression_atom
+                      (identifier)))
+                  (operators_used_in_statements
+                    (mathematical_operators))
+                  (expression_
+                    (expression_atom
+                      (number))))))
+            (punctuation_semicolon)))
+        (while_loop_end_keyword)))
+    (function_end)))
 
 ===================
 While With Complex Expression
@@ -96,53 +124,76 @@ FUNCTION WhileComplex()
 END
 
 ---
-  (source_file
-      (a_function
-        (function_definition
-          (function_keyword)
-          (identifier)
-          (punctuation_bracket_open)
-          (punctuation_bracket_close))
-        (variable_declaration
-          (type)
-          (identifier))
-        (while_loop
-          (while_loop_while_keyword)
+
+(source_file
+  (a_function
+    (function_definition
+      (function_keyword)
+      (identifier)
+      (punctuation_bracket_open)
+      (punctuation_bracket_close))
+    (statement
+      (variable_declaration
+        (type)
+        (identifier)
+        (punctuation_semicolon)))
+    (statement
+      (while_loop
+        (while_loop_while_keyword)
+        (conditional_expression
           (conditional_expression
-            (conditional_expression
+            (conditional_atom
               (conditional_expression_in_brackets
                 (punctuation_bracket_open)
                 (conditional_expression
                   (conditional_expression
-                    (identifier))
-                  (relational_operators)
+                    (conditional_atom
+                      (expression_atom
+                        (identifier))))
+                  (operators_used_in_conditionals
+                    (relational_operators))
                   (conditional_expression
-                    (number)))
-                (punctuation_bracket_close)))
-            (logical_operators)
-            (conditional_expression
-              (conditional_expression_in_brackets
-                (punctuation_bracket_open)
-                (conditional_expression
-                  (conditional_expression
-                    (identifier))
-                  (relational_operators)
-                  (conditional_expression
-                    (number)))
+                    (conditional_atom
+                      (expression_atom
+                        (number)))))
                 (punctuation_bracket_close))))
-          (while_loop_do_keyword)
+          (operators_used_in_conditionals
+            (logical_operators))
+          (conditional_expression
+            (conditional_atom
+              (conditional_expression_in_brackets
+                (punctuation_bracket_open)
+                (conditional_expression
+                  (conditional_expression
+                    (conditional_atom
+                      (expression_atom
+                        (identifier))))
+                  (operators_used_in_conditionals
+                    (relational_operators))
+                  (conditional_expression
+                    (conditional_atom
+                      (expression_atom
+                        (number)))))
+                (punctuation_bracket_close)))))
+        (while_loop_do_keyword)
+        (statement
           (variable_assignment
             (identifier)
             (assign_to_value
               (punctuation_equals_sign)
-              (expression
-                (identifier)
-                (mathematical_operators)
-                (number)))
-            (punctuation_semicolon))
-          (while_loop_end_keyword))
-        (function_end)))
-
+              (expression_
+                (expression
+                  (expression_
+                    (expression_atom
+                      (identifier)))
+                  (operators_used_in_statements
+                    (mathematical_operators))
+                  (expression_
+                    (expression_atom
+                      (number))))))
+            (punctuation_semicolon)))
+        (while_loop_end_keyword)))
+    (function_end)))
 
 ===================
 While With Parenthesised Condition
@@ -155,41 +206,57 @@ FUNCTION WhileParens()
 END
 
 ---
-   (source_file
-      (a_function
-        (function_definition
-          (function_keyword)
-          (identifier)
-          (punctuation_bracket_open)
-          (punctuation_bracket_close))
-        (variable_declaration
-          (type)
-          (identifier))
-        (while_loop
-          (while_loop_while_keyword)
-          (conditional_expression
+
+(source_file
+  (a_function
+    (function_definition
+      (function_keyword)
+      (identifier)
+      (punctuation_bracket_open)
+      (punctuation_bracket_close))
+    (statement
+      (variable_declaration
+        (type)
+        (identifier)
+        (punctuation_semicolon)))
+    (statement
+      (while_loop
+        (while_loop_while_keyword)
+        (conditional_expression
+          (conditional_atom
             (conditional_expression_in_brackets
               (punctuation_bracket_open)
               (conditional_expression
                 (conditional_expression
-                  (identifier))
-                (relational_operators)
+                  (conditional_atom
+                    (expression_atom
+                      (identifier))))
+                (operators_used_in_conditionals
+                  (relational_operators))
                 (conditional_expression
-                  (number)))
-              (punctuation_bracket_close)))
-          (while_loop_do_keyword)
+                  (conditional_atom
+                    (expression_atom
+                      (number)))))
+              (punctuation_bracket_close))))
+        (while_loop_do_keyword)
+        (statement
           (variable_assignment
             (identifier)
             (assign_to_value
               (punctuation_equals_sign)
-              (expression
-                (identifier)
-                (mathematical_operators)
-                (number)))
-            (punctuation_semicolon))
-          (while_loop_end_keyword))
-        (function_end)))
-
+              (expression_
+                (expression
+                  (expression_
+                    (expression_atom
+                      (identifier)))
+                  (operators_used_in_statements
+                    (mathematical_operators))
+                  (expression_
+                    (expression_atom
+                      (number))))))
+            (punctuation_semicolon)))
+        (while_loop_end_keyword)))
+    (function_end)))
 
 ===================
 Nested While Loops
@@ -207,66 +274,98 @@ FUNCTION NestedWhile()
 END
 
 ---
-   (source_file
-      (a_function
-        (function_definition
-          (function_keyword)
-          (identifier)
-          (punctuation_bracket_open)
-          (punctuation_bracket_close))
-        (variable_declaration
-          (type)
-          (identifier))
-        (variable_declaration
-          (type)
-          (identifier))
-        (while_loop
-          (while_loop_while_keyword)
+
+(source_file
+  (a_function
+    (function_definition
+      (function_keyword)
+      (identifier)
+      (punctuation_bracket_open)
+      (punctuation_bracket_close))
+    (statement
+      (variable_declaration
+        (type)
+        (identifier)
+        (punctuation_semicolon)))
+    (statement
+      (variable_declaration
+        (type)
+        (identifier)
+        (punctuation_semicolon)))
+    (statement
+      (while_loop
+        (while_loop_while_keyword)
+        (conditional_expression
           (conditional_expression
-            (conditional_expression
-              (identifier))
-            (relational_operators)
-            (conditional_expression
-              (number)))
-          (while_loop_do_keyword)
+            (conditional_atom
+              (expression_atom
+                (identifier))))
+          (operators_used_in_conditionals
+            (relational_operators))
+          (conditional_expression
+            (conditional_atom
+              (expression_atom
+                (number)))))
+        (while_loop_do_keyword)
+        (statement
           (variable_assignment
             (identifier)
             (assign_to_value
               (punctuation_equals_sign)
-              (number))
-            (punctuation_semicolon))
+              (expression_
+                (expression_atom
+                  (number))))
+            (punctuation_semicolon)))
+        (statement
           (while_loop
             (while_loop_while_keyword)
             (conditional_expression
               (conditional_expression
-                (identifier))
-              (relational_operators)
+                (conditional_atom
+                  (expression_atom
+                    (identifier))))
+              (operators_used_in_conditionals
+                (relational_operators))
               (conditional_expression
-                (number)))
+                (conditional_atom
+                  (expression_atom
+                    (number)))))
             (while_loop_do_keyword)
-            (variable_assignment
-              (identifier)
-              (assign_to_value
-                (punctuation_equals_sign)
-                (expression
-                  (identifier)
-                  (mathematical_operators)
-                  (number)))
-              (punctuation_semicolon))
-            (while_loop_end_keyword))
+            (statement
+              (variable_assignment
+                (identifier)
+                (assign_to_value
+                  (punctuation_equals_sign)
+                  (expression_
+                    (expression
+                      (expression_
+                        (expression_atom
+                          (identifier)))
+                      (operators_used_in_statements
+                        (mathematical_operators))
+                      (expression_
+                        (expression_atom
+                          (number))))))
+                (punctuation_semicolon)))
+            (while_loop_end_keyword)))
+        (statement
           (variable_assignment
             (identifier)
             (assign_to_value
               (punctuation_equals_sign)
-              (expression
-                (identifier)
-                (mathematical_operators)
-                (number)))
-            (punctuation_semicolon))
-          (while_loop_end_keyword))
-        (function_end)))
-
-
+              (expression_
+                (expression
+                  (expression_
+                    (expression_atom
+                      (identifier)))
+                  (operators_used_in_statements
+                    (mathematical_operators))
+                  (expression_
+                    (expression_atom
+                      (number))))))
+            (punctuation_semicolon)))
+        (while_loop_end_keyword)))
+    (function_end)))
 
 ===================
 Simple For Loop
@@ -279,38 +378,52 @@ FUNCTION SimpleFor()
 END
 
 ---
- (source_file
-      (a_function
-        (function_definition
-          (function_keyword)
+
+(source_file
+  (a_function
+    (function_definition
+      (function_keyword)
+      (identifier)
+      (punctuation_bracket_open)
+      (punctuation_bracket_close))
+    (statement
+      (variable_declaration
+        (type)
+        (identifier)
+        (punctuation_semicolon)))
+    (statement
+      (for_loop
+        (for_loop_for_keyword)
+        (for_loop_iterable
           (identifier)
-          (punctuation_bracket_open)
-          (punctuation_bracket_close))
-        (variable_declaration
-          (type)
-          (identifier))
-        (for_loop
-          (for_loop_for_keyword)
-          (for_loop_iterable
-            (identifier)
-            (assign_to_value
-              (punctuation_equals_sign)
-              (number))
-            (to_statement_to_keyword)
-            (number))
-          (for_loop_do_keyword)
+          (assign_to_value
+            (punctuation_equals_sign)
+            (expression_
+              (expression_atom
+                (number))))
+          (to_statement_to_keyword)
+          (expression_
+            (expression_atom
+              (number))))
+        (for_loop_do_keyword)
+        (statement
           (variable_assignment
             (identifier)
             (assign_to_value
               (punctuation_equals_sign)
-              (expression
-                (identifier)
-                (mathematical_operators)
-                (number)))
-            (punctuation_semicolon))
-          (for_loop_end_keyword))
-        (function_end)))
-
+              (expression_
+                (expression
+                  (expression_
+                    (expression_atom
+                      (identifier)))
+                  (operators_used_in_statements
+                    (mathematical_operators))
+                  (expression_
+                    (expression_atom
+                      (number))))))
+            (punctuation_semicolon)))
+        (for_loop_end_keyword)))
+    (function_end)))
 
 ===================
 For Loop With Expressions
@@ -323,43 +436,66 @@ FUNCTION ForExpressions()
 END
 
 ---
-   (source_file
-      (a_function
-        (function_definition
-          (function_keyword)
+
+(source_file
+  (a_function
+    (function_definition
+      (function_keyword)
+      (identifier)
+      (punctuation_bracket_open)
+      (punctuation_bracket_close))
+    (statement
+      (variable_declaration
+        (type)
+        (identifier)
+        (punctuation_semicolon)))
+    (statement
+      (for_loop
+        (for_loop_for_keyword)
+        (for_loop_iterable
           (identifier)
-          (punctuation_bracket_open)
-          (punctuation_bracket_close))
-        (variable_declaration
-          (type)
-          (identifier))
-        (for_loop
-          (for_loop_for_keyword)
-          (for_loop_iterable
-            (identifier)
-            (assign_to_value
-              (punctuation_equals_sign)
+          (assign_to_value
+            (punctuation_equals_sign)
+            (expression_
               (expression
-                (number)
-                (mathematical_operators)
-                (number)))
-            (to_statement_to_keyword)
+                (expression_
+                  (expression_atom
+                    (number)))
+                (operators_used_in_statements
+                  (mathematical_operators))
+                (expression_
+                  (expression_atom
+                    (number))))))
+          (to_statement_to_keyword)
+          (expression_
             (expression
-              (number)
-              (mathematical_operators)
-              (number)))
-          (for_loop_do_keyword)
+              (expression_
+                (expression_atom
+                  (number)))
+              (operators_used_in_statements
+                (mathematical_operators))
+              (expression_
+                (expression_atom
+                  (number))))))
+        (for_loop_do_keyword)
+        (statement
           (variable_assignment
             (identifier)
             (assign_to_value
               (punctuation_equals_sign)
-              (expression
-                (identifier)
-                (mathematical_operators)
-                (number)))
-            (punctuation_semicolon))
-          (for_loop_end_keyword))
-        (function_end)))
+              (expression_
+                (expression
+                  (expression_
+                    (expression_atom
+                      (identifier)))
+                  (operators_used_in_statements
+                    (mathematical_operators))
+                  (expression_
+                    (expression_atom
+                      (number))))))
+            (punctuation_semicolon)))
+        (for_loop_end_keyword)))
+    (function_end)))
 
 ===================
 For Loop With Array Access
@@ -375,45 +511,56 @@ END
 
 ---
 
-    (source_file
-      (array_declaration
+(source_file
+  (array_declaration
+    (type)
+    (identifier)
+    (array_brackets_index
+      (expression_atom
+        (number)))
+    (punctuation_semicolon))
+  (a_function
+    (function_definition
+      (function_keyword)
+      (identifier)
+      (punctuation_bracket_open)
+      (punctuation_bracket_close))
+    (statement
+      (variable_declaration
         (type)
         (identifier)
-        (array_brackets_index
-          (number))
-        (punctuation_semicolon))
-      (a_function
-        (function_definition
-          (function_keyword)
+        (punctuation_semicolon)))
+    (statement
+      (for_loop
+        (for_loop_for_keyword)
+        (for_loop_iterable
           (identifier)
-          (punctuation_bracket_open)
-          (punctuation_bracket_close))
-        (variable_declaration
-          (type)
-          (identifier))
-        (for_loop
-          (for_loop_for_keyword)
-          (for_loop_iterable
-            (identifier)
-            (assign_to_value
-              (punctuation_equals_sign)
-              (number))
-            (to_statement_to_keyword)
-            (number))
-          (for_loop_do_keyword)
+          (assign_to_value
+            (punctuation_equals_sign)
+            (expression_
+              (expression_atom
+                (number))))
+          (to_statement_to_keyword)
+          (expression_
+            (expression_atom
+              (number))))
+        (for_loop_do_keyword)
+        (statement
           (statement_function_call
             (function_call
               (identifier)
               (punctuation_bracket_open)
-              (array_variable
-                (identifier)
-                (array_brackets_index
-                  (identifier)))
+              (expression_
+                (expression_atom
+                  (array_variable
+                    (identifier)
+                    (array_brackets_index
+                      (expression_atom
+                        (identifier))))))
               (punctuation_bracket_close))
-            (punctuation_semicolon))
-          (for_loop_end_keyword))
-        (function_end)))
-
+            (punctuation_semicolon)))
+        (for_loop_end_keyword)))
+    (function_end)))
 
 ===================
 For Loop With Function Calls
@@ -426,42 +573,52 @@ FUNCTION ForWithCalls()
 END
 
 ---
-   (source_file
-      (a_function
-        (function_definition
-          (function_keyword)
+
+(source_file
+  (a_function
+    (function_definition
+      (function_keyword)
+      (identifier)
+      (punctuation_bracket_open)
+      (punctuation_bracket_close))
+    (statement
+      (variable_declaration
+        (type)
+        (identifier)
+        (punctuation_semicolon)))
+    (statement
+      (for_loop
+        (for_loop_for_keyword)
+        (for_loop_iterable
           (identifier)
-          (punctuation_bracket_open)
-          (punctuation_bracket_close))
-        (variable_declaration
-          (type)
-          (identifier))
-        (for_loop
-          (for_loop_for_keyword)
-          (for_loop_iterable
-            (identifier)
-            (assign_to_value
-              (punctuation_equals_sign)
+          (assign_to_value
+            (punctuation_equals_sign)
+            (expression_
+              (expression_atom
+                (function_call
+                  (identifier)
+                  (punctuation_bracket_open)
+                  (punctuation_bracket_close)))))
+          (to_statement_to_keyword)
+          (expression_
+            (expression_atom
               (function_call
                 (identifier)
                 (punctuation_bracket_open)
-                (punctuation_bracket_close)))
-            (to_statement_to_keyword)
-            (function_call
-              (identifier)
-              (punctuation_bracket_open)
-              (punctuation_bracket_close)))
-          (for_loop_do_keyword)
+                (punctuation_bracket_close)))))
+        (for_loop_do_keyword)
+        (statement
           (statement_function_call
             (function_call
               (identifier)
               (punctuation_bracket_open)
-              (number)
+              (expression_
+                (expression_atom
+                  (number)))
               (punctuation_bracket_close))
-            (punctuation_semicolon))
-          (for_loop_end_keyword))
-        (function_end)))
-
+            (punctuation_semicolon)))
+        (for_loop_end_keyword)))
+    (function_end)))
 
 ===================
 Nested For Loops
@@ -478,54 +635,73 @@ END
 
 ---
 
-
-    (source_file
-      (a_function
-        (function_definition
-          (function_keyword)
+(source_file
+  (a_function
+    (function_definition
+      (function_keyword)
+      (identifier)
+      (punctuation_bracket_open)
+      (punctuation_bracket_close))
+    (statement
+      (variable_declaration
+        (type)
+        (identifier)
+        (punctuation_semicolon)))
+    (statement
+      (variable_declaration
+        (type)
+        (identifier)
+        (punctuation_semicolon)))
+    (statement
+      (for_loop
+        (for_loop_for_keyword)
+        (for_loop_iterable
           (identifier)
-          (punctuation_bracket_open)
-          (punctuation_bracket_close))
-        (variable_declaration
-          (type)
-          (identifier))
-        (variable_declaration
-          (type)
-          (identifier))
-        (for_loop
-          (for_loop_for_keyword)
-          (for_loop_iterable
-            (identifier)
-            (assign_to_value
-              (punctuation_equals_sign)
-              (number))
-            (to_statement_to_keyword)
-            (number))
-          (for_loop_do_keyword)
+          (assign_to_value
+            (punctuation_equals_sign)
+            (expression_
+              (expression_atom
+                (number))))
+          (to_statement_to_keyword)
+          (expression_
+            (expression_atom
+              (number))))
+        (for_loop_do_keyword)
+        (statement
           (for_loop
             (for_loop_for_keyword)
             (for_loop_iterable
               (identifier)
               (assign_to_value
                 (punctuation_equals_sign)
-                (number))
+                (expression_
+                  (expression_atom
+                    (number))))
               (to_statement_to_keyword)
-              (number))
+              (expression_
+                (expression_atom
+                  (number))))
             (for_loop_do_keyword)
-            (statement_function_call
-              (function_call
-                (identifier)
-                (punctuation_bracket_open)
-                (expression
+            (statement
+              (statement_function_call
+                (function_call
                   (identifier)
-                  (mathematical_operators)
-                  (identifier))
-                (punctuation_bracket_close))
-              (punctuation_semicolon))
-            (for_loop_end_keyword))
-          (for_loop_end_keyword))
-        (function_end)))
-
+                  (punctuation_bracket_open)
+                  (expression_
+                    (expression
+                      (expression_
+                        (expression_atom
+                          (identifier)))
+                      (operators_used_in_statements
+                        (mathematical_operators))
+                      (expression_
+                        (expression_atom
+                          (identifier)))))
+                  (punctuation_bracket_close))
+                (punctuation_semicolon)))
+            (for_loop_end_keyword)))
+        (for_loop_end_keyword)))
+    (function_end)))
 
 ===================
 While With If Statement
@@ -541,47 +717,71 @@ FUNCTION WhileIf()
 END
 
 ---
-    (source_file
-      (a_function
-        (function_definition
-          (function_keyword)
-          (identifier)
-          (punctuation_bracket_open)
-          (punctuation_bracket_close))
-        (variable_declaration
-          (type)
-          (identifier))
-        (while_loop
-          (while_loop_while_keyword)
+
+(source_file
+  (a_function
+    (function_definition
+      (function_keyword)
+      (identifier)
+      (punctuation_bracket_open)
+      (punctuation_bracket_close))
+    (statement
+      (variable_declaration
+        (type)
+        (identifier)
+        (punctuation_semicolon)))
+    (statement
+      (while_loop
+        (while_loop_while_keyword)
+        (conditional_expression
           (conditional_expression
-            (conditional_expression
-              (identifier))
-            (relational_operators)
-            (conditional_expression
-              (number)))
-          (while_loop_do_keyword)
+            (conditional_atom
+              (expression_atom
+                (identifier))))
+          (operators_used_in_conditionals
+            (relational_operators))
+          (conditional_expression
+            (conditional_atom
+              (expression_atom
+                (number)))))
+        (while_loop_do_keyword)
+        (statement
           (if_statement
             (if_statement_if_keyword)
             (conditional_expression
               (conditional_expression
-                (identifier))
-              (relational_operators)
+                (conditional_atom
+                  (expression_atom
+                    (identifier))))
+              (operators_used_in_conditionals
+                (relational_operators))
               (conditional_expression
-                (number)))
+                (conditional_atom
+                  (expression_atom
+                    (number)))))
             (if_statement_then_keyword)
             (return_statment
               (return_keyword)
-              (identifier)
+              (expression_
+                (expression_atom
+                  (identifier)))
               (punctuation_semicolon))
-            (if_statement_end_keyword))
+            (if_statement_end_keyword)))
+        (statement
           (variable_assignment
             (identifier)
             (assign_to_value
               (punctuation_equals_sign)
-              (expression
-                (identifier)
-                (mathematical_operators)
-                (number)))
-            (punctuation_semicolon))
-          (while_loop_end_keyword))
-        (function_end)))
+              (expression_
+                (expression
+                  (expression_
+                    (expression_atom
+                      (identifier)))
+                  (operators_used_in_statements
+                    (mathematical_operators))
+                  (expression_
+                    (expression_atom
+                      (number))))))
+            (punctuation_semicolon)))
+        (while_loop_end_keyword)))
+    (function_end)))

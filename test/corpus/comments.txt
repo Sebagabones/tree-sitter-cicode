@@ -7,24 +7,30 @@ FUNCTION LineComment()
 END
 
 ---
-    (source_file
-      (a_function
-        (function_definition
-          (function_keyword)
-          (identifier)
-          (punctuation_bracket_open)
-          (punctuation_bracket_close))
-        (variable_declaration
-          (type)
-          (identifier))
-        (comment)
-        (variable_assignment
-          (identifier)
-          (assign_to_value
-            (punctuation_equals_sign)
-            (number))
-          (punctuation_semicolon))
-        (function_end)))
+
+(source_file
+  (a_function
+    (function_definition
+      (function_keyword)
+      (identifier)
+      (punctuation_bracket_open)
+      (punctuation_bracket_close))
+    (statement
+      (variable_declaration
+        (type)
+        (identifier)
+        (punctuation_semicolon)))
+    (comment)
+    (statement
+      (variable_assignment
+        (identifier)
+        (assign_to_value
+          (punctuation_equals_sign)
+          (expression_
+            (expression_atom
+              (number))))
+        (punctuation_semicolon)))
+    (function_end)))
 
 ===================
 Exclamation Line Comment
@@ -35,24 +41,30 @@ FUNCTION LineComment()
 END
 
 ---
-    (source_file
-      (a_function
-        (function_definition
-          (function_keyword)
-          (identifier)
-          (punctuation_bracket_open)
-          (punctuation_bracket_close))
-        (variable_declaration
-          (type)
-          (identifier))
-        (comment)
-        (variable_assignment
-          (identifier)
-          (assign_to_value
-            (punctuation_equals_sign)
-            (number))
-          (punctuation_semicolon))
-        (function_end)))
+
+(source_file
+  (a_function
+    (function_definition
+      (function_keyword)
+      (identifier)
+      (punctuation_bracket_open)
+      (punctuation_bracket_close))
+    (statement
+      (variable_declaration
+        (type)
+        (identifier)
+        (punctuation_semicolon)))
+    (comment)
+    (statement
+      (variable_assignment
+        (identifier)
+        (assign_to_value
+          (punctuation_equals_sign)
+          (expression_
+            (expression_atom
+              (number))))
+        (punctuation_semicolon)))
+    (function_end)))
 
 ===================
 Block Comment
@@ -66,15 +78,18 @@ FUNCTION BlockComment()
 END
 
 ---
-    (source_file
-      (a_function
-        (function_definition
-          (function_keyword)
-          (identifier)
-          (punctuation_bracket_open)
-          (punctuation_bracket_close))
-        (comment)
-        (variable_declaration
-          (type)
-          (identifier))
-        (function_end)))
+
+(source_file
+  (a_function
+    (function_definition
+      (function_keyword)
+      (identifier)
+      (punctuation_bracket_open)
+      (punctuation_bracket_close))
+    (comment)
+    (statement
+      (variable_declaration
+        (type)
+        (identifier)
+        (punctuation_semicolon)))
+    (function_end)))

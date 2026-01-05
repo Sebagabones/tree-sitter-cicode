@@ -14,6 +14,13 @@
       "type": "PATTERN",
       "value": "\\s"
     },
+    "mathematical_operators_mod_keyword": {
+      "type": "TOKEN",
+      "content": {
+        "type": "STRING",
+        "value": "MOD"
+      }
+    },
     "mathematical_operators": {
       "type": "CHOICE",
       "members": [
@@ -34,8 +41,8 @@
           "value": "/"
         },
         {
-          "type": "STRING",
-          "value": "MOD"
+          "type": "SYMBOL",
+          "name": "mathematical_operators_mod_keyword"
         }
       ]
     },
@@ -459,7 +466,7 @@
       "value": 2,
       "content": {
         "type": "PATTERN",
-        "value": "[0-9]+"
+        "value": "(\\d+(?:\\.\\d+)?)"
       }
     },
     "string_contents": {
@@ -488,25 +495,8 @@
     "punctuation_semicolon": {
       "type": "TOKEN",
       "content": {
-        "type": "SEQ",
-        "members": [
-          {
-            "type": "STRING",
-            "value": ";"
-          },
-          {
-            "type": "CHOICE",
-            "members": [
-              {
-                "type": "STRING",
-                "value": ""
-              },
-              {
-                "type": "BLANK"
-              }
-            ]
-          }
-        ]
+        "type": "STRING",
+        "value": ";"
       }
     },
     "punctuation_comma": {
@@ -552,6 +542,13 @@
             ]
           }
         ]
+      }
+    },
+    "punctuation_colon": {
+      "type": "TOKEN",
+      "content": {
+        "type": "STRING",
+        "value": ":"
       }
     },
     "string": {
@@ -600,6 +597,22 @@
             {
               "type": "SYMBOL",
               "name": "string"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "array_variable"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "identifier"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "format_specifier_variable"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "negative_number"
             }
           ]
         }
@@ -654,6 +667,10 @@
               {
                 "type": "SYMBOL",
                 "name": "identifier"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "format_specifier_variable"
               },
               {
                 "type": "SYMBOL",
@@ -715,7 +732,7 @@
     },
     "identifier": {
       "type": "PATTERN",
-      "value": "[0-9A-Za-z]+"
+      "value": "[0-9A-Za-z_]+"
     },
     "function_keyword": {
       "type": "TOKEN",
@@ -810,16 +827,25 @@
       ]
     },
     "global_variable_scope": {
-      "type": "STRING",
-      "value": "GLOBAL"
+      "type": "TOKEN",
+      "content": {
+        "type": "STRING",
+        "value": "GLOBAL"
+      }
     },
     "module_variable_scope": {
-      "type": "STRING",
-      "value": "MODULE"
+      "type": "TOKEN",
+      "content": {
+        "type": "STRING",
+        "value": "MODULE"
+      }
     },
     "local_variable_scope": {
-      "type": "STRING",
-      "value": "LOCAL"
+      "type": "TOKEN",
+      "content": {
+        "type": "STRING",
+        "value": "LOCAL"
+      }
     },
     "variable_scope": {
       "type": "CHOICE",
@@ -926,8 +952,12 @@
           ]
         },
         {
-          "type": "STRING",
-          "value": ";"
+          "type": "FIELD",
+          "name": "closing_semicolon",
+          "content": {
+            "type": "SYMBOL",
+            "name": "punctuation_semicolon"
+          }
         }
       ]
     },
@@ -956,6 +986,23 @@
           "name": "array_brackets_index"
         }
       ]
+    },
+    "format_specifier_variable": {
+      "type": "PREC",
+      "value": 1,
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "SYMBOL",
+            "name": "identifier"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "format_specifier"
+          }
+        ]
+      }
     },
     "array_initial_values": {
       "type": "SEQ",
@@ -1098,8 +1145,12 @@
           ]
         },
         {
-          "type": "SYMBOL",
-          "name": "punctuation_semicolon"
+          "type": "FIELD",
+          "name": "closing_semicolon",
+          "content": {
+            "type": "SYMBOL",
+            "name": "punctuation_semicolon"
+          }
         }
       ]
     },
@@ -1166,6 +1217,10 @@
         },
         {
           "type": "SYMBOL",
+          "name": "format_specifier_variable"
+        },
+        {
+          "type": "SYMBOL",
           "name": "array_variable"
         },
         {
@@ -1184,7 +1239,7 @@
     },
     "expression": {
       "type": "PREC_LEFT",
-      "value": 1,
+      "value": 2,
       "content": {
         "type": "SEQ",
         "members": [
@@ -1204,25 +1259,25 @@
       }
     },
     "expression_": {
-      "type": "CHOICE",
-      "members": [
-        {
-          "type": "SYMBOL",
-          "name": "expression_atom"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "expression"
-        }
-      ]
+      "type": "PREC_LEFT",
+      "value": 2,
+      "content": {
+        "type": "CHOICE",
+        "members": [
+          {
+            "type": "SYMBOL",
+            "name": "expression_atom"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "expression"
+          }
+        ]
+      }
     },
     "statement": {
       "type": "CHOICE",
       "members": [
-        {
-          "type": "SYMBOL",
-          "name": "statement_function_call"
-        },
         {
           "type": "SYMBOL",
           "name": "for_loop"
@@ -1230,10 +1285,6 @@
         {
           "type": "SYMBOL",
           "name": "while_loop"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "variable_assignment"
         },
         {
           "type": "FIELD",
@@ -1250,6 +1301,18 @@
             "type": "SYMBOL",
             "name": "select_case_statement"
           }
+        },
+        {
+          "type": "SYMBOL",
+          "name": "variable_declaration"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "variable_assignment"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "statement_function_call"
         }
       ]
     },
@@ -1285,18 +1348,18 @@
           "name": "assign_to_value"
         },
         {
-          "type": "SYMBOL",
-          "name": "punctuation_semicolon"
+          "type": "FIELD",
+          "name": "closing_semicolon",
+          "content": {
+            "type": "SYMBOL",
+            "name": "punctuation_semicolon"
+          }
         }
       ]
     },
     "format_specifier_hash": {
       "type": "STRING",
       "value": "#"
-    },
-    "format_specifier_padding": {
-      "type": "STRING",
-      "value": "0"
     },
     "format_specifier_justification": {
       "type": "STRING",
@@ -1315,54 +1378,62 @@
       "value": "S"
     },
     "format_specifier": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "STRING",
-          "value": ":"
-        },
-        {
-          "type": "CHOICE",
-          "members": [
-            {
-              "type": "SYMBOL",
-              "name": "format_specifier_shortform_notation"
-            },
-            {
-              "type": "REPEAT",
-              "content": {
-                "type": "CHOICE",
-                "members": [
-                  {
-                    "type": "SYMBOL",
-                    "name": "format_specifier_hash"
-                  },
-                  {
-                    "type": "SYMBOL",
-                    "name": "format_specifier_padding"
-                  },
-                  {
-                    "type": "SYMBOL",
-                    "name": "format_specifier_justification"
-                  },
-                  {
-                    "type": "SYMBOL",
-                    "name": "format_specifier_decimal_notation"
-                  },
-                  {
-                    "type": "SYMBOL",
-                    "name": "format_specifier_engineering_units"
-                  },
-                  {
-                    "type": "SYMBOL",
-                    "name": "format_specifier_exponential_notation"
-                  }
-                ]
+      "type": "PREC_RIGHT",
+      "value": 0,
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "SYMBOL",
+            "name": "punctuation_colon"
+          },
+          {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "format_specifier_shortform_notation"
+              },
+              {
+                "type": "REPEAT1",
+                "content": {
+                  "type": "CHOICE",
+                  "members": [
+                    {
+                      "type": "SYMBOL",
+                      "name": "format_specifier_hash"
+                    },
+                    {
+                      "type": "FIELD",
+                      "name": "format_specifier_padding",
+                      "content": {
+                        "type": "STRING",
+                        "value": "0"
+                      }
+                    },
+                    {
+                      "type": "SYMBOL",
+                      "name": "format_specifier_justification"
+                    },
+                    {
+                      "type": "SYMBOL",
+                      "name": "format_specifier_decimal_notation"
+                    },
+                    {
+                      "type": "SYMBOL",
+                      "name": "format_specifier_engineering_units"
+                    },
+                    {
+                      "type": "SYMBOL",
+                      "name": "format_specifier_exponential_notation"
+                    }
+                  ]
+                }
               }
-            }
-          ]
-        }
-      ]
+            ]
+          }
+        ]
+      }
     },
     "format_specifier_shortform_number": {
       "type": "PATTERN",
@@ -1438,8 +1509,12 @@
           "name": "function_call"
         },
         {
-          "type": "SYMBOL",
-          "name": "punctuation_semicolon"
+          "type": "FIELD",
+          "name": "closing_semicolon",
+          "content": {
+            "type": "SYMBOL",
+            "name": "punctuation_semicolon"
+          }
         }
       ]
     },
@@ -1550,20 +1625,29 @@
         ]
       }
     },
+    "negative_number": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "unary_minus_negation_symbol"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "number"
+        }
+      ]
+    },
     "conditional_atom": {
       "type": "CHOICE",
       "members": [
         {
           "type": "SYMBOL",
-          "name": "identifier"
+          "name": "expression_atom"
         },
         {
           "type": "SYMBOL",
-          "name": "number"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "array_variable"
+          "name": "expression"
         },
         {
           "type": "SYMBOL",
@@ -1572,10 +1656,6 @@
         {
           "type": "SYMBOL",
           "name": "unary_not_conditional_atom"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "function_call"
         }
       ]
     },
@@ -1653,19 +1733,11 @@
           "name": "if_statement_then_keyword"
         },
         {
-          "type": "CHOICE",
-          "members": [
-            {
-              "type": "REPEAT",
-              "content": {
-                "type": "SYMBOL",
-                "name": "statement"
-              }
-            },
-            {
-              "type": "BLANK"
-            }
-          ]
+          "type": "REPEAT",
+          "content": {
+            "type": "SYMBOL",
+            "name": "statement"
+          }
         },
         {
           "type": "CHOICE",
@@ -1690,16 +1762,11 @@
                   "name": "if_statement_else_keyword"
                 },
                 {
-                  "type": "CHOICE",
-                  "members": [
-                    {
-                      "type": "SYMBOL",
-                      "name": "statement"
-                    },
-                    {
-                      "type": "BLANK"
-                    }
-                  ]
+                  "type": "REPEAT",
+                  "content": {
+                    "type": "SYMBOL",
+                    "name": "statement"
+                  }
                 },
                 {
                   "type": "CHOICE",
@@ -1874,12 +1941,19 @@
             {
               "type": "SYMBOL",
               "name": "expression_"
+            },
+            {
+              "type": "BLANK"
             }
           ]
         },
         {
-          "type": "SYMBOL",
-          "name": "punctuation_semicolon"
+          "type": "FIELD",
+          "name": "closing_semicolon",
+          "content": {
+            "type": "SYMBOL",
+            "name": "punctuation_semicolon"
+          }
         }
       ]
     },
@@ -2407,6 +2481,10 @@
     [
       "xml_function_docstring",
       "xml_non_function_docstring"
+    ],
+    [
+      "a_function",
+      "statement"
     ]
   ],
   "precedences": [],
@@ -2425,14 +2503,7 @@
     }
   ],
   "inline": [],
-  "supertypes": [
-    "statement",
-    "expression_atom",
-    "conditional_atom",
-    "operators_used_in_statements",
-    "operators_used_in_conditionals",
-    "expression_"
-  ],
+  "supertypes": [],
   "reserved": {
     "global": [
       {
@@ -2538,6 +2609,34 @@
       {
         "type": "STRING",
         "value": "WHILE"
+      },
+      {
+        "type": "STRING",
+        "value": "GLOBAL"
+      },
+      {
+        "type": "STRING",
+        "value": "MODULE"
+      },
+      {
+        "type": "STRING",
+        "value": "LOCAL"
+      },
+      {
+        "type": "STRING",
+        "value": "MOD"
+      },
+      {
+        "type": "STRING",
+        "value": "AND"
+      },
+      {
+        "type": "STRING",
+        "value": "OR"
+      },
+      {
+        "type": "STRING",
+        "value": "NOT"
       }
     ]
   }

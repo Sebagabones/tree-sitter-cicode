@@ -7,25 +7,32 @@ FUNCTION UnaryExpr()
 END
 
 ---
-    (source_file
-      (a_function
-        (function_definition
-          (function_keyword)
-          (identifier)
-          (punctuation_bracket_open)
-          (punctuation_bracket_close))
-        (variable_declaration
-          (type)
-          (identifier))
-        (variable_assignment
-          (identifier)
-          (assign_to_value
-            (punctuation_equals_sign)
-            (unary_minus_expression_atom
-              (unary_minus_negation_symbol)
-              (identifier)))
-          (punctuation_semicolon))
-        (function_end)))
+
+(source_file
+  (a_function
+    (function_definition
+      (function_keyword)
+      (identifier)
+      (punctuation_bracket_open)
+      (punctuation_bracket_close))
+    (statement
+      (variable_declaration
+        (type)
+        (identifier)
+        (punctuation_semicolon)))
+    (statement
+      (variable_assignment
+        (identifier)
+        (assign_to_value
+          (punctuation_equals_sign)
+          (expression_
+            (expression_atom
+              (unary_minus_expression_atom
+                (unary_minus_negation_symbol)
+                (expression_atom
+                  (identifier))))))
+        (punctuation_semicolon)))
+    (function_end)))
 
 ===================
 Binary Expression
@@ -36,26 +43,36 @@ FUNCTION BinaryExpr()
 END
 
 ---
-    (source_file
-      (a_function
-        (function_definition
-          (function_keyword)
-          (identifier)
-          (punctuation_bracket_open)
-          (punctuation_bracket_close))
-        (variable_declaration
-          (type)
-          (identifier))
-        (variable_assignment
-          (identifier)
-          (assign_to_value
-            (punctuation_equals_sign)
+
+(source_file
+  (a_function
+    (function_definition
+      (function_keyword)
+      (identifier)
+      (punctuation_bracket_open)
+      (punctuation_bracket_close))
+    (statement
+      (variable_declaration
+        (type)
+        (identifier)
+        (punctuation_semicolon)))
+    (statement
+      (variable_assignment
+        (identifier)
+        (assign_to_value
+          (punctuation_equals_sign)
+          (expression_
             (expression
-              (number)
-              (mathematical_operators)
-              (number)))
-          (punctuation_semicolon))
-        (function_end)))
+              (expression_
+                (expression_atom
+                  (number)))
+              (operators_used_in_statements
+                (mathematical_operators))
+              (expression_
+                (expression_atom
+                  (number))))))
+        (punctuation_semicolon)))
+    (function_end)))
 
 ===================
 Nested Expression
@@ -66,38 +83,60 @@ FUNCTION NestedExpr()
 END
 
 ---
-    (source_file
-      (a_function
-        (function_definition
-          (function_keyword)
-          (identifier)
-          (punctuation_bracket_open)
-          (punctuation_bracket_close))
-        (variable_declaration
-          (type)
-          (identifier))
-        (variable_assignment
-          (identifier)
-          (assign_to_value
-            (punctuation_equals_sign)
+
+(source_file
+  (a_function
+    (function_definition
+      (function_keyword)
+      (identifier)
+      (punctuation_bracket_open)
+      (punctuation_bracket_close))
+    (statement
+      (variable_declaration
+        (type)
+        (identifier)
+        (punctuation_semicolon)))
+    (statement
+      (variable_assignment
+        (identifier)
+        (assign_to_value
+          (punctuation_equals_sign)
+          (expression_
             (expression
-              (expression_in_brackets
-                (punctuation_bracket_open)
-                (expression
-                  (number)
-                  (mathematical_operators)
+              (expression_
+                (expression_atom
                   (expression_in_brackets
                     (punctuation_bracket_open)
-                    (expression
-                      (number)
-                      (mathematical_operators)
-                      (number))
-                    (punctuation_bracket_close)))
-                (punctuation_bracket_close))
-              (mathematical_operators)
-              (number)))
-          (punctuation_semicolon))
-        (function_end)))
+                    (expression_
+                      (expression
+                        (expression_
+                          (expression_atom
+                            (number)))
+                        (operators_used_in_statements
+                          (mathematical_operators))
+                        (expression_
+                          (expression_atom
+                            (expression_in_brackets
+                              (punctuation_bracket_open)
+                              (expression_
+                                (expression
+                                  (expression_
+                                    (expression_atom
+                                      (number)))
+                                  (operators_used_in_statements
+                                    (mathematical_operators))
+                                  (expression_
+                                    (expression_atom
+                                      (number)))))
+                              (punctuation_bracket_close))))))
+                    (punctuation_bracket_close))))
+              (operators_used_in_statements
+                (mathematical_operators))
+              (expression_
+                (expression_atom
+                  (number))))))
+        (punctuation_semicolon)))
+    (function_end)))
 
 ===================
 Math Expressions
@@ -109,44 +148,73 @@ FUNCTION MathExpression()
 END
 
 ---
-    (source_file
-      (a_function
-        (function_definition
-          (function_keyword)
-          (identifier)
-          (punctuation_bracket_open)
-          (punctuation_bracket_close))
-        (variable_declaration
-          (type)
-          (identifier))
-        (variable_assignment
-          (identifier)
-          (assign_to_value
-            (punctuation_equals_sign)
+
+(source_file
+  (a_function
+    (function_definition
+      (function_keyword)
+      (identifier)
+      (punctuation_bracket_open)
+      (punctuation_bracket_close))
+    (statement
+      (variable_declaration
+        (type)
+        (identifier)
+        (punctuation_semicolon)))
+    (statement
+      (variable_assignment
+        (identifier)
+        (assign_to_value
+          (punctuation_equals_sign)
+          (expression_
             (expression
-              (number)
-              (mathematical_operators)
-              (expression_in_brackets
-                (punctuation_bracket_open)
-                (expression
+              (expression_
+                (expression_atom
+                  (number)))
+              (operators_used_in_statements
+                (mathematical_operators))
+              (expression_
+                (expression_atom
                   (expression_in_brackets
                     (punctuation_bracket_open)
-                    (expression
-                      (number)
-                      (mathematical_operators)
-                      (number))
-                    (punctuation_bracket_close))
-                  (mathematical_operators)
-                  (number))
-                (punctuation_bracket_close))))
-          (punctuation_semicolon))
-        (variable_assignment
-          (identifier)
-          (assign_to_value
-            (punctuation_equals_sign)
+                    (expression_
+                      (expression
+                        (expression_
+                          (expression_atom
+                            (expression_in_brackets
+                              (punctuation_bracket_open)
+                              (expression_
+                                (expression
+                                  (expression_
+                                    (expression_atom
+                                      (number)))
+                                  (operators_used_in_statements
+                                    (mathematical_operators))
+                                  (expression_
+                                    (expression_atom
+                                      (number)))))
+                              (punctuation_bracket_close))))
+                        (operators_used_in_statements
+                          (mathematical_operators))
+                        (expression_
+                          (expression_atom
+                            (number)))))
+                    (punctuation_bracket_close)))))))
+        (punctuation_semicolon)))
+    (statement
+      (variable_assignment
+        (identifier)
+        (assign_to_value
+          (punctuation_equals_sign)
+          (expression_
             (expression
-              (identifier)
-              (mathematical_operators)
-              (number)))
-          (punctuation_semicolon))
-        (function_end)))
+              (expression_
+                (expression_atom
+                  (identifier)))
+              (operators_used_in_statements
+                (mathematical_operators))
+              (expression_
+                (expression_atom
+                  (number))))))
+        (punctuation_semicolon)))
+    (function_end)))
