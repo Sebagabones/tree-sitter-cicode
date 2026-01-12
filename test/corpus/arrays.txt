@@ -19,8 +19,10 @@ END
     (type)
     (identifier)
     (array_brackets_index
+      (punctuation_square_bracket_open)
       (expression_atom
-        (number)))
+        (number))
+      (punctuation_square_bracket_close))
     (punctuation_semicolon))
   (a_function
     (function_definition
@@ -51,8 +53,10 @@ END
                 (array_variable
                   (identifier)
                   (array_brackets_index
+                    (punctuation_square_bracket_open)
                     (expression_atom
-                      (number))))))
+                      (number))
+                    (punctuation_square_bracket_close)))))
             (punctuation_semicolon)))
         (case_else_statement
           (case_statement_case_else_keyword)
@@ -86,8 +90,10 @@ END
     (type)
     (identifier)
     (array_brackets_index
+      (punctuation_square_bracket_open)
       (expression_atom
-        (number)))
+        (number))
+      (punctuation_square_bracket_close))
     (punctuation_semicolon))
   (a_function
     (function_definition
@@ -102,8 +108,10 @@ END
           (array_variable
             (identifier)
             (array_brackets_index
+              (punctuation_square_bracket_open)
               (expression_atom
-                (number))))))
+                (number))
+              (punctuation_square_bracket_close)))))
       (punctuation_semicolon))
     (function_end)))
 
@@ -123,8 +131,10 @@ END
     (type)
     (identifier)
     (array_brackets_index
+      (punctuation_square_bracket_open)
       (expression_atom
-        (number)))
+        (number))
+      (punctuation_square_bracket_close))
     (punctuation_semicolon))
   (a_function
     (function_definition
@@ -139,8 +149,10 @@ END
           (array_variable
             (identifier)
             (array_brackets_index
+              (punctuation_square_bracket_open)
               (expression_atom
-                (number))))))
+                (number))
+              (punctuation_square_bracket_close)))))
       (punctuation_semicolon))
     (function_end)))
 
@@ -160,8 +172,10 @@ END
     (type)
     (identifier)
     (array_brackets_index
+      (punctuation_square_bracket_open)
       (expression_atom
-        (number)))
+        (number))
+      (punctuation_square_bracket_close))
     (punctuation_semicolon))
   (a_function
     (function_definition
@@ -173,6 +187,7 @@ END
       (variable_assignment
         (identifier)
         (array_brackets_index
+          (punctuation_square_bracket_open)
           (expression_atom
             (expression_in_brackets
               (punctuation_bracket_open)
@@ -186,7 +201,8 @@ END
                   (expression_
                     (expression_atom
                       (number)))))
-              (punctuation_bracket_close))))
+              (punctuation_bracket_close)))
+          (punctuation_square_bracket_close))
         (assign_to_value
           (punctuation_equals_sign)
           (expression_
@@ -211,8 +227,10 @@ END
     (type)
     (identifier)
     (array_brackets_index
+      (punctuation_square_bracket_open)
       (expression_atom
-        (number)))
+        (number))
+      (punctuation_square_bracket_close))
     (punctuation_semicolon))
   (a_function
     (function_definition
@@ -227,8 +245,10 @@ END
           (array_variable
             (identifier)
             (array_brackets_index
+              (punctuation_square_bracket_open)
               (expression_atom
-                (number))))))
+                (number))
+              (punctuation_square_bracket_close)))))
       (punctuation_semicolon))
     (function_end)))
 
@@ -254,8 +274,10 @@ END
           (array_variable
             (identifier)
             (array_brackets_index
+              (punctuation_square_bracket_open)
               (expression_atom
-                (number))))))
+                (number))
+              (punctuation_square_bracket_close)))))
       (punctuation_bracket_close))
     (return_statment
       (return_keyword)
@@ -264,8 +286,10 @@ END
           (array_variable
             (identifier)
             (array_brackets_index
+              (punctuation_square_bracket_open)
               (expression_atom
-                (number))))))
+                (number))
+              (punctuation_square_bracket_close)))))
       (punctuation_semicolon))
     (function_end)))
 
@@ -287,8 +311,10 @@ END
     (type)
     (identifier)
     (array_brackets_index
+      (punctuation_square_bracket_open)
       (expression_atom
-        (number)))
+        (number))
+      (punctuation_square_bracket_close))
     (punctuation_semicolon))
   (a_function
     (function_definition
@@ -313,8 +339,10 @@ END
                   (array_variable
                     (identifier)
                     (array_brackets_index
+                      (punctuation_square_bracket_open)
                       (expression_atom
-                        (number))))))
+                        (number))
+                      (punctuation_square_bracket_close)))))
               (operators_used_in_statements
                 (mathematical_operators))
               (expression_
@@ -322,8 +350,10 @@ END
                   (array_variable
                     (identifier)
                     (array_brackets_index
+                      (punctuation_square_bracket_open)
                       (expression_atom
-                        (number)))))))))
+                        (number))
+                      (punctuation_square_bracket_close))))))))
         (punctuation_semicolon)))
     (function_end)))
 
@@ -342,8 +372,10 @@ END
     (type)
     (identifier)
     (array_brackets_index
+      (punctuation_square_bracket_open)
       (expression_atom
-        (number)))
+        (number))
+      (punctuation_square_bracket_close))
     (array_initial_values
       (punctuation_equals_sign)
       (expression_
@@ -409,8 +441,10 @@ END
     (type)
     (identifier)
     (array_brackets_index
+      (punctuation_square_bracket_open)
       (expression_atom
-        (number)))
+        (number))
+      (punctuation_square_bracket_close))
     (punctuation_semicolon))
   (a_function
     (function_definition
@@ -442,8 +476,10 @@ END
           (variable_assignment
             (identifier)
             (array_brackets_index
+              (punctuation_square_bracket_open)
               (expression_atom
-                (identifier)))
+                (identifier))
+              (punctuation_square_bracket_close))
             (assign_to_value
               (punctuation_equals_sign)
               (expression_

@@ -2,7 +2,8 @@
 ;; See https://tree-sitter.github.io/tree-sitter/3-syntax-highlighting#query-paths
 ;; TODO: Highlighting for the :*** format style
 ;; Probably need to do bitand keywords too - honestly a bunch of keywords need doing
-;; keywords
+
+;; Keywords
 (function_keyword) @keyword
 (function_end) @keyword
 (return_keyword) @keyword
@@ -22,15 +23,20 @@
 (while_loop_end_keyword) @keyword
 (while_loop_while_keyword) @keyword
 (while_loop_do_keyword) @keyword
+(logical_operators_and_keyword) @keyword
+(logical_operators_or_keyword) @keyword
+(logical_operators_not_keyword) @keyword
 
-
-
-;; punctuation
+;; Punctuation
 (punctuation_quotation_mark) @punctuation.special
 (punctuation_comma) @punctuation.delimiter
 (punctuation_bracket_open) @punctuation.bracket
 (punctuation_bracket_close) @punctuation.bracket
+(punctuation_square_bracket_open) @punctuation.bracket
+(punctuation_square_bracket_close) @punctuation.bracket
+
 (punctuation_semicolon) @punctuation.delimiter
+(punctuation_colon) @punctuation.delimiter
 
 (punctuation_equals_sign) @operator
 (operators_used_in_statements) @operator
@@ -41,26 +47,19 @@
 (number) @number
 (string) @string
 
+;; Functions
 (function_definition function_name: (identifier) @function)
-(function_call function_name: (identifier) @function)
-
 (function_definition return_type: (type) @type)
-
 (function_definition (function_parameters (function_parameter parameter_type: (type) @type)))
 
-;; (function_parameter parameter_name: (identifier) @variable.parameter)
-;; (function_parameter parameter_name: (array_variable (identifier)) @variable.parameter)
-
+(function_call function_name: (identifier) @function)
 (function_call function_parameter: (expression_) @variable.parameter)
 (function_call function_parameter: (expression_) @variable.parameter)
-;; (function_call function_parameter: (expression  (identifier) @variable.parameter))
 
+;; Comments/Docstrings
 (comment) @comment
-
 (xml_function_docstring) @comment.block.documentation
 (xml_non_function_docstring) @comment.block.documentation
-
-(variable_declaration variable_type: (type) @type)
 
 (doxygen_xml_name_attribute parameter_name: (identifier) @attribute)
 (doxygen_xml_name_attribute_name_keyword) @constructor
@@ -75,6 +74,20 @@
 (doxygen_returns_xml_open_tag) @property
 (doxygen_returns_xml_close_tag) @property
 
+;; Variables
+(variable_declaration variable_type: (type) @type)
+(expression_atom variable: (identifier)) @variable
+(format_specifier_variable variable: (identifier)) @variable
+(variable_assignment variable: (identifier)) @variable
+(variable_declaration variable: (identifier)) @variable
+(array_variable variable: (identifier)) @variable
+(function_parameter) @variable
+
+
 
 (variable_scope) @module
 (function_scope) @module
+
+
+;; Format Specifier - for now just make them all the module colour
+(format_specifier_specifier) @module

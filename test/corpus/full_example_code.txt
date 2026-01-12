@@ -451,15 +451,25 @@ END
                           (identifier)
                           (format_specifier
                             (punctuation_colon)
-                            (format_specifier_hash)
-                            (format_specifier_justification)
-                            (format_specifier_hash)
-                            (format_specifier_hash)
-                            (format_specifier_hash)
-                            (format_specifier_decimal_notation)
-                            (format_specifier_hash)
-                            (format_specifier_hash)
-                            (format_specifier_engineering_units))))))
+                            (format_specifier_specifier
+                              (format_specifier_hash))
+                            (format_specifier_specifier)
+                            (format_specifier_specifier
+                              (format_specifier_justification))
+                            (format_specifier_specifier
+                              (format_specifier_hash))
+                            (format_specifier_specifier
+                              (format_specifier_hash))
+                            (format_specifier_specifier
+                              (format_specifier_hash))
+                            (format_specifier_specifier
+                              (format_specifier_decimal_notation))
+                            (format_specifier_specifier
+                              (format_specifier_hash))
+                            (format_specifier_specifier
+                              (format_specifier_hash))
+                            (format_specifier_specifier
+                              (format_specifier_engineering_units)))))))
                   (punctuation_semicolon)))
               (return_statment
                 (return_keyword)
@@ -597,8 +607,10 @@ END
                   (array_variable
                     (identifier)
                     (array_brackets_index
+                      (punctuation_square_bracket_open)
                       (expression_atom
-                        (identifier))))))
+                        (identifier))
+                      (punctuation_square_bracket_close)))))
               (punctuation_bracket_close))
             (punctuation_semicolon)))
         (statement
@@ -647,8 +659,10 @@ END
                   (array_variable
                     (identifier)
                     (array_brackets_index
+                      (punctuation_square_bracket_open)
                       (expression_atom
-                        (identifier))))))
+                        (identifier))
+                      (punctuation_square_bracket_close)))))
               (punctuation_bracket_close))
             (punctuation_semicolon)))
         (while_loop_end_keyword)))

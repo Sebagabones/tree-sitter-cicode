@@ -113,21 +113,21 @@
         }
       ]
     },
-    "_logical_operators_and_keyword": {
+    "logical_operators_and_keyword": {
       "type": "TOKEN",
       "content": {
         "type": "STRING",
         "value": "AND"
       }
     },
-    "_logical_operators_or_keyword": {
+    "logical_operators_or_keyword": {
       "type": "TOKEN",
       "content": {
         "type": "STRING",
         "value": "OR"
       }
     },
-    "_logical_operators_not_keyword": {
+    "logical_operators_not_keyword": {
       "type": "TOKEN",
       "content": {
         "type": "STRING",
@@ -139,15 +139,15 @@
       "members": [
         {
           "type": "SYMBOL",
-          "name": "_logical_operators_or_keyword"
+          "name": "logical_operators_or_keyword"
         },
         {
           "type": "SYMBOL",
-          "name": "_logical_operators_not_keyword"
+          "name": "logical_operators_not_keyword"
         },
         {
           "type": "SYMBOL",
-          "name": "_logical_operators_and_keyword"
+          "name": "logical_operators_and_keyword"
         }
       ]
     },
@@ -518,6 +518,20 @@
       "content": {
         "type": "STRING",
         "value": ")"
+      }
+    },
+    "punctuation_square_bracket_open": {
+      "type": "TOKEN",
+      "content": {
+        "type": "STRING",
+        "value": "["
+      }
+    },
+    "punctuation_square_bracket_close": {
+      "type": "TOKEN",
+      "content": {
+        "type": "STRING",
+        "value": "]"
       }
     },
     "punctuation_equals_sign": {
@@ -978,8 +992,12 @@
       "type": "SEQ",
       "members": [
         {
-          "type": "SYMBOL",
-          "name": "identifier"
+          "type": "FIELD",
+          "name": "variable",
+          "content": {
+            "type": "SYMBOL",
+            "name": "identifier"
+          }
         },
         {
           "type": "SYMBOL",
@@ -994,8 +1012,12 @@
         "type": "SEQ",
         "members": [
           {
-            "type": "SYMBOL",
-            "name": "identifier"
+            "type": "FIELD",
+            "name": "variable",
+            "content": {
+              "type": "SYMBOL",
+              "name": "identifier"
+            }
           },
           {
             "type": "SYMBOL",
@@ -1067,8 +1089,8 @@
         "type": "SEQ",
         "members": [
           {
-            "type": "STRING",
-            "value": "["
+            "type": "SYMBOL",
+            "name": "punctuation_square_bracket_open"
           },
           {
             "type": "FIELD",
@@ -1079,8 +1101,8 @@
             }
           },
           {
-            "type": "STRING",
-            "value": "]"
+            "type": "SYMBOL",
+            "name": "punctuation_square_bracket_close"
           }
         ]
       }
@@ -1204,8 +1226,12 @@
       "type": "CHOICE",
       "members": [
         {
-          "type": "SYMBOL",
-          "name": "identifier"
+          "type": "FIELD",
+          "name": "variable",
+          "content": {
+            "type": "SYMBOL",
+            "name": "identifier"
+          }
         },
         {
           "type": "SYMBOL",
@@ -1377,6 +1403,39 @@
       "type": "STRING",
       "value": "S"
     },
+    "format_specifier_specifier": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "format_specifier_hash"
+        },
+        {
+          "type": "FIELD",
+          "name": "format_specifier_padding",
+          "content": {
+            "type": "STRING",
+            "value": "0"
+          }
+        },
+        {
+          "type": "SYMBOL",
+          "name": "format_specifier_justification"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "format_specifier_decimal_notation"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "format_specifier_engineering_units"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "format_specifier_exponential_notation"
+        }
+      ]
+    },
     "format_specifier": {
       "type": "PREC_RIGHT",
       "value": 0,
@@ -1397,37 +1456,8 @@
               {
                 "type": "REPEAT1",
                 "content": {
-                  "type": "CHOICE",
-                  "members": [
-                    {
-                      "type": "SYMBOL",
-                      "name": "format_specifier_hash"
-                    },
-                    {
-                      "type": "FIELD",
-                      "name": "format_specifier_padding",
-                      "content": {
-                        "type": "STRING",
-                        "value": "0"
-                      }
-                    },
-                    {
-                      "type": "SYMBOL",
-                      "name": "format_specifier_justification"
-                    },
-                    {
-                      "type": "SYMBOL",
-                      "name": "format_specifier_decimal_notation"
-                    },
-                    {
-                      "type": "SYMBOL",
-                      "name": "format_specifier_engineering_units"
-                    },
-                    {
-                      "type": "SYMBOL",
-                      "name": "format_specifier_exponential_notation"
-                    }
-                  ]
+                  "type": "SYMBOL",
+                  "name": "format_specifier_specifier"
                 }
               }
             ]
@@ -1616,7 +1646,7 @@
         "members": [
           {
             "type": "SYMBOL",
-            "name": "_logical_operators_not_keyword"
+            "name": "logical_operators_not_keyword"
           },
           {
             "type": "SYMBOL",
@@ -2471,8 +2501,8 @@
   ],
   "conflicts": [
     [
-      "format_specifier_shortform_notation",
-      "format_specifier"
+      "format_specifier_specifier",
+      "format_specifier_shortform_notation"
     ],
     [
       "array_scope",

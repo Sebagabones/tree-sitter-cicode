@@ -158,7 +158,8 @@ END
                         (number)))))
                 (punctuation_bracket_close))))
           (operators_used_in_conditionals
-            (logical_operators))
+            (logical_operators
+              (logical_operators_and_keyword)))
           (conditional_expression
             (conditional_atom
               (conditional_expression_in_brackets
@@ -516,8 +517,10 @@ END
     (type)
     (identifier)
     (array_brackets_index
+      (punctuation_square_bracket_open)
       (expression_atom
-        (number)))
+        (number))
+      (punctuation_square_bracket_close))
     (punctuation_semicolon))
   (a_function
     (function_definition
@@ -555,8 +558,10 @@ END
                   (array_variable
                     (identifier)
                     (array_brackets_index
+                      (punctuation_square_bracket_open)
                       (expression_atom
-                        (identifier))))))
+                        (identifier))
+                      (punctuation_square_bracket_close)))))
               (punctuation_bracket_close))
             (punctuation_semicolon)))
         (for_loop_end_keyword)))

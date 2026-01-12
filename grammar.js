@@ -19,7 +19,7 @@ module.exports = grammar({
     word: ($) => $.identifier,
     extras: ($) => ["\r", "\n", $._whitespace, $.comment],
     conflicts: ($) => [
-        [$.format_specifier_shortform_notation, $.format_specifier],
+        [$.format_specifier_specifier, $.format_specifier_shortform_notation],
         [$.array_scope, $.variable_scope],
         [$.xml_function_docstring, $.xml_non_function_docstring],
         [$.a_function, $.statement],
@@ -75,7 +75,8 @@ module.exports = grammar({
 
         _whitespace: ($) => /\s/,
         mathematical_operators_mod_keyword: ($) => token("MOD"),
-        mathematical_operators: ($) => choice("+", "-", "*", "/", $.mathematical_operators_mod_keyword),
+        mathematical_operators: ($) =>
+            choice("+", "-", "*", "/", $.mathematical_operators_mod_keyword),
         bit_operators_bitand_keyword: (_) => token("BITAND"),
         bit_operators_bitor_keyword: (_) => token("BITOR"),
         bit_operators_bitxor_keyword: (_) => token("BITXOR"),
@@ -86,15 +87,15 @@ module.exports = grammar({
                 $.bit_operators_bitxor_keyword,
             ),
         relational_operators: ($) => choice("=", "<>", "<", ">", "<=", ">="),
-        _logical_operators_and_keyword: (_) => token("AND"),
-        _logical_operators_or_keyword: (_) => token("OR"),
-        _logical_operators_not_keyword: (_) => token("NOT"),
+        logical_operators_and_keyword: (_) => token("AND"),
+        logical_operators_or_keyword: (_) => token("OR"),
+        logical_operators_not_keyword: (_) => token("NOT"),
 
         logical_operators: ($) =>
             choice(
-                $._logical_operators_or_keyword,
-                $._logical_operators_not_keyword,
-                $._logical_operators_and_keyword,
+                $.logical_operators_or_keyword,
+                $.logical_operators_not_keyword,
+                $.logical_operators_and_keyword,
             ),
 
         operators_used_in_statements: ($) =>
@@ -167,10 +168,13 @@ module.exports = grammar({
         string_contents: ($) => repeat1(choice(/[^\^"]/, /\^./)),
 
         punctuation_quotation_mark: ($) => token('"'),
-        punctuation_semicolon: ($) => token(';'), // somehow having the optional whitespace speeds up the parser?
+        punctuation_semicolon: ($) => token(";"), // somehow having the optional whitespace speeds up the parser?
         punctuation_comma: ($) => token(","),
         punctuation_bracket_open: ($) => token("("),
         punctuation_bracket_close: ($) => token(")"),
+        punctuation_square_bracket_open: ($) => token("["),
+        punctuation_square_bracket_close: ($) => token("]"),
+
         punctuation_equals_sign: ($) => token(seq("=", optional(""))),
         punctuation_colon: ($) => token(":"),
 
@@ -184,7 +188,14 @@ module.exports = grammar({
         default_value: ($) =>
             seq(
                 field("default_value_equals_sign", $.punctuation_equals_sign),
-                choice($.number, $.string, $.array_variable,$.identifier, $.format_specifier_variable, $.negative_number),
+                choice(
+                    $.number,
+                    $.string,
+                    $.array_variable,
+                    $.identifier,
+                    $.format_specifier_variable,
+                    $.negative_number,
+                ),
             ),
 
         assign_to_value: ($) =>
@@ -199,7 +210,11 @@ module.exports = grammar({
                 field("parameter_type", $.type),
                 field(
                     "parameter_name",
-                    choice($.identifier, $.format_specifier_variable, $.array_variable),
+                    choice(
+                        $.identifier,
+                        $.format_specifier_variable,
+                        $.array_variable,
+                    ),
                 ) /*
           I don’t think cicode has any rules about what a variable name can be, except for, and I quote:
           "The first 32 characters of a variable name needs to be unique." - https://docs.aveva.com/bundle/plant-scada/page/1130531.html
@@ -262,15 +277,17 @@ module.exports = grammar({
                         ),
                     ),
                 ),
-                field("closing_semicolon",$.punctuation_semicolon),
+                field("closing_semicolon", $.punctuation_semicolon),
             ),
         array_scope: (
             $, // can’t have local scope arrays
         ) => choice($.global_variable_scope, $.module_variable_scope),
 
-        array_variable: ($) => seq($.identifier, $.array_brackets_index),
+        array_variable: ($) =>
+            seq(field("variable", $.identifier), $.array_brackets_index),
 
-        format_specifier_variable: ($) => prec(1,seq($.identifier, $.format_specifier)),
+        format_specifier_variable: ($) =>
+            prec(1, seq(field("variable", $.identifier), $.format_specifier)),
 
         array_initial_values: ($) =>
             seq(
@@ -290,7 +307,11 @@ module.exports = grammar({
             ),
         array_brackets_index: ($) =>
             repeat1(
-                seq("[", field("array_dimension_size", $.expression_atom), "]"),
+                seq(
+                    $.punctuation_square_bracket_open,
+                    field("array_dimension_size", $.expression_atom),
+                    $.punctuation_square_bracket_close,
+                ),
             ),
 
         array_declaration: ($) =>
@@ -300,7 +321,7 @@ module.exports = grammar({
                 field("array", $.identifier),
                 field("array_dimensions", $.array_brackets_index),
                 optional(field("array_initial_values", $.array_initial_values)),
-                field("closing_semicolon",$.punctuation_semicolon),
+                field("closing_semicolon", $.punctuation_semicolon),
             ),
 
         expression_in_brackets: ($) =>
@@ -318,7 +339,7 @@ module.exports = grammar({
 
         expression_atom: ($) =>
             choice(
-                $.identifier,
+                field("variable", $.identifier),
                 $.string,
                 $.number,
                 $.format_specifier_variable,
@@ -338,20 +359,19 @@ module.exports = grammar({
                 ),
             ),
 
-        expression_: ($) => prec.left(2,choice($.expression_atom, $.expression)),
+        expression_: ($) =>
+            prec.left(2, choice($.expression_atom, $.expression)),
 
         statement: ($) =>
-        choice(
-
+            choice(
                 $.for_loop,
-            $.while_loop,
+                $.while_loop,
 
                 field("if_statement", $.if_statement),
-            field("select_case", $.select_case_statement),
-            $.variable_declaration, // remove this from here if variable declerations must happen before statements
-            $.variable_assignment,
+                field("select_case", $.select_case_statement),
+                $.variable_declaration, // remove this from here if variable declerations must happen before statements
+                $.variable_assignment,
                 $.statement_function_call,
-
             ),
 
         variable_assignment: ($) =>
@@ -359,33 +379,35 @@ module.exports = grammar({
                 field("variable", $.identifier),
                 optional(field("array_dimensions", $.array_brackets_index)),
                 $.assign_to_value,
-                field("closing_semicolon",$.punctuation_semicolon),
+                field("closing_semicolon", $.punctuation_semicolon),
             ),
 
         format_specifier_hash: ($) => "#",
-
         format_specifier_justification: ($) => "-",
         format_specifier_decimal_notation: ($) => ".",
         format_specifier_engineering_units: ($) => /[A-Za-z]+/,
         format_specifier_exponential_notation: ($) => "S",
 
+        format_specifier_specifier: ($) =>
+            choice(
+                $.format_specifier_hash,
+                field("format_specifier_padding", "0"),
+                $.format_specifier_justification,
+                $.format_specifier_decimal_notation,
+                $.format_specifier_engineering_units,
+                $.format_specifier_exponential_notation,
+            ),
+
         format_specifier: ($) =>
-        prec.right(seq(
-            $.punctuation_colon,
-                choice(
-                    $.format_specifier_shortform_notation,
-                    repeat1(
-                        choice(
-                            $.format_specifier_hash,
-                            field("format_specifier_padding", "0"),
-                            $.format_specifier_justification,
-                            $.format_specifier_decimal_notation,
-                            $.format_specifier_engineering_units,
-                            $.format_specifier_exponential_notation,
-                        ),
+            prec.right(
+                seq(
+                    $.punctuation_colon,
+                    choice(
+                        $.format_specifier_shortform_notation,
+                        repeat1($.format_specifier_specifier),
                     ),
                 ),
-        )),
+            ),
         format_specifier_shortform_number: ($) => /[0-9]+/,
 
         format_specifier_shortform_notation: ($) =>
@@ -411,7 +433,10 @@ module.exports = grammar({
                 ),
             ),
         statement_function_call: ($) =>
-        seq($.function_call, field("closing_semicolon",$.punctuation_semicolon)),
+            seq(
+                $.function_call,
+                field("closing_semicolon", $.punctuation_semicolon),
+            ),
         function_call: ($) =>
             seq(
                 field("function_name", $.identifier),
@@ -444,18 +469,18 @@ module.exports = grammar({
         unary_not_conditional_atom: ($) =>
             prec.right(
                 2,
-                seq($._logical_operators_not_keyword, $.conditional_atom),
+                seq($.logical_operators_not_keyword, $.conditional_atom),
             ), // unary NOT
         negative_number: ($) => seq($.unary_minus_negation_symbol, $.number),
         conditional_atom: ($) =>
-        choice(
-            $.expression_atom,
-            $.expression,
-            // $.identifier,
-            //     $.number,
-            //     $.negative_number,
-            //     $.string,
-            //     $.array_variable,
+            choice(
+                $.expression_atom,
+                $.expression,
+                // $.identifier,
+                //     $.number,
+                //     $.negative_number,
+                //     $.string,
+                //     $.array_variable,
                 $.conditional_expression_in_brackets,
                 $.unary_not_conditional_atom,
                 // $.function_call,
@@ -533,7 +558,7 @@ module.exports = grammar({
             seq(
                 $.return_keyword,
                 optional($.expression_),
-                field("closing_semicolon",$.punctuation_semicolon),
+                field("closing_semicolon", $.punctuation_semicolon),
             ),
         case_statement_case_keyword: ($) => token("CASE"),
         case_statement: ($) =>
